@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@layer base {
+  body {
+    @apply m-0 p-0;
+  }
+  .input-style {
+    @apply text-sm px-2 bg-gray-100 h-9 w-full rounded-md shadow-sm;
+  }
+
+  .img-style {
+    @apply inset-0 w-full h-full object-cover object-center scale-110 blur-xl;
+  }
+  .innerImg-container
+  {
+   @apply ml-2 mx-3 rounded-xl h-[97%] w-[90%] overflow-hidden
+  }
+  .input-div{
+    @apply  flex flex-col mt-5 w-[60%] items-start ;
+  }
+}

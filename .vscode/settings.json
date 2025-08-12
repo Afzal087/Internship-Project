@@ -1,0 +1,14 @@
+{
+    
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "typescript": "html"   // For Angular templates in .ts
+  },
+  "files.associations": {
+    "*.component.html": "html"
+  }
+}
+
