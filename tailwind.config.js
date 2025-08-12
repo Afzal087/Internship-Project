@@ -4,7 +4,13 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        fontFamily: {
+        playfair: ['"Playfair Display"', 'serif'],
+        Roboto: ['"Roboto"', 'sans-serif'],
+      },
+
+    },
   },
   plugins: [],
 }
