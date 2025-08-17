@@ -1,13 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 @layer base {
   body {
     
-    @apply m-0 p-0;
+    @apply m-0 p-0 font-Roboto;
 
   }
   .input-style {
@@ -30,4 +31,14 @@
   .hover-btn {
     @apply  text-[15px] text-white bg-gray-900 hover:bg-gray-200 hover:text-black hover:border-2 hover:border-gray-950 h-9 w-full rounded-md;
   }
+  .dashboard-btn{
+    @apply  cursor-pointer h-8 w-[90%] text-sm font-medium border-[1px] flex border-gray-300 shadow-md mb-3 text-gray-700 rounded-md gap-2 justify-start items-center hover:bg-green-200 hover:text-green-950;
+  }
+  .nav-btn{
+        @apply  cursor-pointer h-10 w-10 text-sm font-medium border-[1px] flex  border-gray-300 shadow-md  rounded-full gap-2 justify-center items-center hover:bg-green-200 hover:text-green-950;
+
+  }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

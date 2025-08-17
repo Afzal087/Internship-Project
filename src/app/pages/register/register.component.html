@@ -26,34 +26,39 @@
 
         <div class=" ml-2 mx-3 rounded-xl h-[97%]  w-[90%] flex flex-col items-center ">
 
-            <!-- Login content -->
+            <!-- Login -->
             <h1 class="my-6 text-gray-800  text-2xl font-bold">Create a new account</h1>
             <h1 class=" text-gray-800 underline   font-semibold text-1xl  ">Enter your details below</h1>
-
+            <!-- name content -->
             <div class="input-div mt-3 ">
                 <p class=" input-heading mt-5">Name</p>
-                <input type="text" placeholder="Your Fullname" class="input-style">
+                <input type="text" name="username" [(ngModel)]='userValue.username' placeholder="Your Fullname"
+                    class="input-style">
             </div>
-
+            <!-- email  -->
             <div class="input-div mt-3 ">
                 <p class=" input-heading">Email</p>
-                <input type="email" placeholder="Enter your email" class="input-style">
+                <input name="email" [(ngModel)]='userValue.email' name="email"  type="email" placeholder="Enter your email"
+                    class="input-style">
             </div>
-
+            <!-- password  -->
             <div class="input-div ">
                 <p class="input-heading">Password</p>
-                <input type="password" placeholder="Create a new password" class="input-style">
+                <input name="password" [(ngModel)]='userValue.password'  type="password"
+                    placeholder="Create a new password" class="input-style">
             </div>
-
+            <!-- signin  -->
             <div class="input-div">
-                <button class="hover-btn">Sign In</button>
+                <button (click)="onSign()" class="hover-btn">Sign In</button>
             </div>
+            <!-- Google Signin  -->
             <div class="input-div"><button
                     class="input-style font-lg text-[15px] font-medium border-2 flex justify-center items-center hover:bg-white"><img
                         class="h-4 w-4 mr-2"
                         src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw"
                         alt="google_logo">Sign in with Google</button>
             </div>
+            <!-- Already have an account -->
             <div class="input-div"><button class=" input-style text-[13px] h-8 w-full bg-white shadow-none mt-4">Already
                     have an account? <span class="text-[14px] font-semibold underline hover:text-blue-400"><a
                             routerLink="/">Login to your Account</a></span></button>
