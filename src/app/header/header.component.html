@@ -1,8 +1,46 @@
-<div class="bg-white h-[50px] justify-end w-screen flex font-medium border-[1px] border-gray-500 text-green-700">
-    <ul class="flex gap-10 justify-center items-center mr-10">
-    <button class="nav-btn"   cursor="pointer"><li class="flex items-center justify-center" >Contact</li></button>
-    <button class="nav-btn"  cursor="pointer"> <li class="flex items-center justify-center" >Explore</li></button>
-    <button class="nav-btn"  cursor="pointer"> <li class="flex items-center justify-center"  ><mat-icon>settings</mat-icon></li></button>
-    <button class="nav-btn"  cursor="pointer"> <li class="flex items-center justify-center" >img</li></button>
-</ul> 
+<!-- navbar.component.html -->
+<div class="w-full flex items-center justify-between bg-green-100 shadow-md px-4 py-2 rounded-xl">
+  
+
+  <!-- Middle: Search Bar -->
+  <div class="flex-1 mx-6">
+    <div class="relative w-full max-w-lg">
+      <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+        <mat-icon>search</mat-icon>
+      </span>
+      <input
+        type="text"
+        placeholder="Search anything Here..."
+        class="w-full rounded-full border border-gray-300 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+      />
+    </div>
+  </div>
+
+  <!-- Right: Icons + Profile -->
+  <div class="flex items-center space-x-4">
+    <!-- Notification -->
+    <button class="p-2 rounded-full hover:bg-gray-100">
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <!-- Users -->
+    <button class="p-2 rounded-full hover:bg-gray-100">
+      <mat-icon>person</mat-icon>
+    </button>
+
+    <!-- Profile -->
+    <div class="flex items-center space-x-3 bg-gray-50 px-3 py-1 rounded-full cursor-pointer">
+      <img
+    
+        src="../../../public/New_Photo.jpg"
+        alt="User"
+        class="h-10 w-10 bg-cover rounded-full border-2 border-green-500"
+      />
+      <div class="flex flex-col">
+        <span class="font-semibold text-sm">Mohd Afzal</span>
+        <span class="text-xs text-gray-500">user-type</span>
+      </div>
+      <mat-icon>expand_more</mat-icon>
+    </div>
+  </div>
 </div>
