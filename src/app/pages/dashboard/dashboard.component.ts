@@ -4,10 +4,16 @@ import { HeaderComponent } from "../../header/header.component";
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { EmployeeComponent } from '../../employee/employee.component';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink,MatIconModule, HeaderComponent],
+  
+  imports: [CommonModule , MatIconModule, EmployeeComponent, HeaderComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

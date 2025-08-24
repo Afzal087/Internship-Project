@@ -1,0 +1,50 @@
+<div class="flex flex-col h-[100px] bg-white">
+
+    <div class="flex w-full gap-6 px-6 my-4">
+    <div class="showcards bg-red-50 text-red-500">
+        <p>Total Employees- </p>
+        <p class=" text-3xl italic underline font-bold">32</p>
+    </div>
+    <div class="showcards bg-blue-100 text-blue-700 ">
+        <p>Available Employees-</p>
+        <p class=" text-3xl italic underline font-bold">22</p>
+    </div>
+    <div class="showcards bg-green-100 text-green-700 ">
+        <p>Active Projects-</p>
+        <p class=" text-3xl italic underline font-bold">09</p>
+    </div>
+</div>
+
+    <div class="h-1/2 w-full flex justify-between pl-5 pr-5 rounded-lg items-center bg-gray-500 text-white">
+
+        <div class="employee-cards ">Employee Name</div>
+        <div class="employee-cards ">Employee ID</div>
+        <div class="employee-cards ">Department</div>
+        <div class="employee-cards ">Role</div>
+        <div class="employee-cards ">Email</div>
+    </div>
+
+
+    @for(users of users; track users){
+
+    <div class="h-1/2 bg-gray-100 w-full my-[2px] text-gray-700 flex justify-between pl-5 pr-5 rounded-lg items-center">
+        <div class="employee-cards">
+            <p>{{users.name}}</p>
+        </div>
+        <div class="employee-cards">
+            <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">ID:{{users.id}}</p>
+        </div>
+        <div class="employee-cards">
+            <p>{{users.department}}</p>
+        </div>
+        <div class="employee-cards">
+            <p>{{users.role}}</p>
+        </div>
+        <div class="employee-cards">
+            <p>{{users.email}}</p>
+        </div>
+    </div>
+
+    }
+
+</div>

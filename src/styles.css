@@ -7,9 +7,15 @@
 
 @layer base {
   body {
-    
-    @apply m-0 p-0 font-Roboto;
+    @apply m-0 p-0 font-Roboto ;
 
+  }
+  .showcards{
+   @apply rounded-2xl  text-xl gap-4 font-medium  p-4 w-56 h-36 flex flex-col justify-center items-center shadow-md cursor-pointer;
+  }
+ 
+  .themecolor{
+    @apply text-white bg-red-500;
   }
   .input-style {
     @apply text-sm px-2 bg-gray-100 h-9 w-full rounded-md shadow-sm;
@@ -38,7 +44,8 @@
         @apply  cursor-pointer h-10 w-10 text-sm font-medium border-[1px] flex  border-gray-300 shadow-md  rounded-full gap-2 justify-center items-center hover:bg-green-200 hover:text-green-950;
 
   }
+  .employee-cards{
+    @apply  w-1/6 flex font-medium items-center justify-between;
+  }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

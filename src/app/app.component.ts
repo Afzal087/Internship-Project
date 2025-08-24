@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 
+
 @Component({
   
   selector: 'app-root',
-  imports: [RouterOutlet,MatIconModule, FormsModule],
+  imports: [RouterOutlet,MatIconModule,FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
