@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { Users } from '../models/employee.model';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
@@ -17,6 +18,7 @@ import { Users } from '../models/employee.model';
 
 export class EmployeeComponent implements OnInit {
   users: Users[] = [];
+
   newUser: Users = {
     id: 0,
     name: '',
@@ -35,8 +37,10 @@ export class EmployeeComponent implements OnInit {
 
 
   addEmployee() {
+    
     this.employeeService.createEmployee(this.newUser).subscribe(user => {
       this.users.push(user);
+      console.log(this.newUser);
 
       // reset form after submission
       this.newUser = { id: 0, name: '', email: '', department: '', role: '' };

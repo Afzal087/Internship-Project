@@ -1,19 +1,75 @@
 <div class="flex flex-col h-[100px] bg-white">
 
+    <!-- Display Cards -->
+
     <div class="flex w-full gap-6 px-6 my-4">
-    <div class="showcards bg-red-50 text-red-500">
-        <p>Total Employees- </p>
-        <p class=" text-3xl italic underline font-bold">32</p>
+        <div class="showcards bg-red-50 text-red-500">
+            <p>Total Employees- </p>
+            <p class=" text-3xl italic underline font-bold">32</p>
+        </div>
+        <div class="showcards bg-blue-100 text-blue-700 ">
+            <p>Available Employees-</p>
+            <p class=" text-3xl italic underline font-bold">22</p>
+        </div>
+        <div class="showcards bg-green-100 text-green-700 ">
+            <p>Active Projects-</p>
+            <p class=" text-3xl italic underline font-bold">09</p>
+        </div>
     </div>
-    <div class="showcards bg-blue-100 text-blue-700 ">
-        <p>Available Employees-</p>
-        <p class=" text-3xl italic underline font-bold">22</p>
+
+    <div>
+        <form action=></form>
     </div>
-    <div class="showcards bg-green-100 text-green-700 ">
-        <p>Active Projects-</p>
-        <p class=" text-3xl italic underline font-bold">09</p>
-    </div>
-</div>
+
+    <!-- addEmployee -->
+    <form #employeeForm="ngForm" (ngSubmit)="addEmployee()"
+        class="h-1/2 bg-gray-100 w-full my-[2px] text-gray-700 flex justify-between pl-5 pr-5 rounded-lg items-center">
+
+        <!-- Name -->
+        <div class="employee-cards">
+            <input type="text" name="name" [(ngModel)]="newUser.name" placeholder="Enter Name"
+                class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                required />
+        </div>
+
+        <!-- ID -->
+        <div class="employee-cards">
+            <input type="number" name="id" [(ngModel)]="newUser.id" placeholder="ID"
+                class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg border border-green-300" required />
+        </div>
+
+        <!-- Department -->
+        <div class="employee-cards">
+            <input type="text" name="department" [(ngModel)]="newUser.department" placeholder="Department"
+                class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400" />
+        </div>
+
+        <!-- Role -->
+        <div class="employee-cards">
+            <input type="text" name="role" [(ngModel)]="newUser.role" placeholder="Role"
+                class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400" />
+        </div>
+
+        <!-- Email -->
+        <div class="employee-cards">
+            <input type="email" name="email" [(ngModel)]="newUser.email" placeholder="Email"
+                class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                required />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="employee-cards">
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
+                [disabled]="!employeeForm.valid">
+                Add Employee
+            </button>
+        </div>
+    </form>
+
+
+
+
+    <!-- Employee List -->
 
     <div class="h-1/2 w-full flex justify-between pl-5 pr-5 rounded-lg items-center bg-gray-500 text-white">
 
