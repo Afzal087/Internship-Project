@@ -6,12 +6,15 @@
 
 
 @layer base {
+  html {
+   
+  } 
   body {
-    @apply m-0 p-0 font-Roboto ;
+    @apply m-0 p-0 font-Roboto   ;
 
   }
   .showcards{
-   @apply rounded-2xl  text-xl gap-4 font-medium  p-4 w-56 h-36 flex flex-col justify-center items-center shadow-md cursor-pointer;
+   @apply rounded-md  border-l-[6px] border-blue-700 gap-4  text-xl bg-blue-50 text-blue-900  font-bold p-4 w-56 h-28 flex flex-col justify-center items-start shadow-md cursor-pointer;
   }
  
   .themecolor{
@@ -24,6 +27,14 @@
   .img-style {
     @apply inset-0 w-full h-full object-cover object-center scale-110 blur-xl;
   }
+
+  .form-div label{
+    @apply  text-sm font-medium mx-2;
+  }
+  .form-div input{
+    @apply  text-sm px-2 bg-gray-100 h-6 w-full rounded-sm shadow-sm;
+  }
+
   .innerImg-container
   {
    @apply  ml-2 mx-3 rounded-xl h-[97%] w-[90%] flex flex-col font-Roboto justify-end items-start overflow-hidden;
@@ -38,14 +49,13 @@
     @apply  text-[15px] text-white bg-gray-900 hover:bg-gray-200 hover:text-black hover:border-2 hover:border-gray-950 h-9 w-full rounded-md;
   }
   .dashboard-btn{
-    @apply  cursor-pointer h-8 w-[90%] text-sm font-medium border-[1px] flex border-gray-300 shadow-md mb-3 text-gray-700 rounded-md gap-2 justify-start items-center hover:bg-green-200 hover:text-green-950;
+    @apply  cursor-pointer h-8 w-[90%] text-sm font-normal  flex mb-3 text-white rounded-md gap-2 justify-start items-center hover:bg-white hover:bg-opacity-30 hover:text-white;
   }
   .nav-btn{
         @apply  cursor-pointer h-10 w-10 text-sm font-medium border-[1px] flex  border-gray-300 shadow-md  rounded-full gap-2 justify-center items-center hover:bg-green-200 hover:text-green-950;
-
   }
   .employee-cards{
-    @apply  w-1/6 flex font-medium items-center justify-between;
+    @apply  w-1/6 flex font-normal items-center justify-between;
   }
 }
 

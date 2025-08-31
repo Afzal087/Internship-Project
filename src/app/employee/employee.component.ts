@@ -1,15 +1,18 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { Users } from '../models/employee.model';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { f } from "../../../node_modules/@angular/material/icon-module.d-COXCrhrh";
+import { MatIcon } from '@angular/material/icon';
+import { error } from 'console';
 
 
 @Component({
-  selector: 'app-employee',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  selector: 'app-employee',
+  imports: [CommonModule, FormsModule, MatIcon],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
@@ -19,8 +22,8 @@ import { NgForm } from '@angular/forms';
 export class EmployeeComponent implements OnInit {
   users: Users[] = [];
 
+
   newUser: Users = {
-    id: 0,
     name: '',
     email: '',
     department: '',
@@ -33,18 +36,35 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.getEmployee().subscribe(data => {
       this.users = data;
     });
+
   }
 
 
   addEmployee() {
-    
-    this.employeeService.createEmployee(this.newUser).subscribe(user => {
-      this.users.push(user);
-      console.log(this.newUser);
-
-      // reset form after submission
-      this.newUser = { id: 0, name: '', email: '', department: '', role: '' };
+    console.log("Sending data:", this.newUser);
+    this.employeeService.createEmployee(this.newUser).subscribe({
+      next: (saved) => {
+        this.users.push(saved);
+        this.newUser = { name: '', email: '', department: '', role: '' }; // reset model
+      },
+      error: (err) => console.error('Error adding employee:', err)
     });
+
   }
+
+  removeEmployee(id:any) {
+  this.employeeService.deleteEmployee(id).subscribe({
+    next: () => {
+      console.log(`Employee with ID ${id} deleted successfully.`);
+      
+      // ✅ Remove deleted employee from UI without reloading
+      this.users = this.users.filter(emp => emp.id !== id);
+
+      // OR reload the whole list properly
+      // this.loadEmployees();
+    },
+    error: (err) => console.error('Error deleting employee:', err)
+  });
+}
 
 }

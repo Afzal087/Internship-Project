@@ -3,6 +3,7 @@ import { f } from "../../../node_modules/@angular/material/icon-module.d-COXCrhr
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
+  standalone: true,
   selector: 'app-header',
   imports: [MatIconModule],
   templateUrl: './header.component.html',

@@ -21,4 +21,10 @@ export class EmployeeService {
     return this.https.post<Users>(this.apiUrl, user)
   }
 
+  deleteEmployee(id: number) : Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    console.log("Deleting user with URL:", url);
+    return this.https.delete<void>(url);
+  }
+
 }

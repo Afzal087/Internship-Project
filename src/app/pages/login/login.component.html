@@ -32,12 +32,12 @@
             <p class="mt-1 font-normal text-[14px] ">Enter email and password to access your account</p>
             <div class="input-div mt-3 ">
                 <p class="input-heading mt-5">Email</p>
-                <input type="email" [(ngModel)]='email' name="email"  placeholder="Enter your email" class="input-style">
+                <input  type="email" [(ngModel)]='email' name="email"  placeholder="Enter your email" class="input-style" required>
             </div>
 
             <div class="input-div ">
                 <p class="input-heading">Password</p>
-                <input type="password" [(ngModel)]='password' name="password" placeholder="Enter your password" class="input-style">
+                <input type="password" [(ngModel)]='password' name="password" placeholder="Enter your password" class="input-style" required>
                 <h1 class="flex font-medium text-[13px] underline mt-1 justify-end items-end">Forget Password?</h1>
             </div>
 
@@ -46,7 +46,7 @@
             </div>
             <div class="input-div"><button
                     class="input-style font-lg text-[15px] font-medium border-2 flex justify-center items-center hover:bg-white"><img
-                        class="h-4 w-4 mr-2"
+                        class="h-4 w-4 mr-2" (click)="clicked()"
                         src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw"
                         alt="google_logo">Sign in with Google</button>
             </div>

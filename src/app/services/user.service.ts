@@ -1,47 +1,28 @@
-
 import { Injectable } from '@angular/core';
-
-
-@Injectable({
-  providedIn: 'root'
-})
+import { HttpClient } from '@angular/common/http';
+@Injectable({ providedIn: 'root' })
 export class UserService {
+  private apiUrl = 'http://localhost:8080';
 
-  private users = [
-    { username: 'afzal', password: '1234', email: 'afzal@gmail.com' }]
+  constructor(private http: HttpClient) {}
 
-  private loggedIn = false;
-
-  constructor() { }
-
-  addUser(username: string, password: string, email: string) {
-    const user = { username, password, email };
-    this.users.push(user)
-    alert('User added successfully, you can now login');
+  register(name: string, email: string, password: string) {
+    return this.http.post(`${this.apiUrl}/register`, { name, email, password });
   }
 
-  getUsers() {
-    return this.users;
+  login(email: string, password: string) {
+    return this.http.post<boolean>(`${this.apiUrl}/login`, { email, password });
   }
 
-  validateUser(email: string, password: string): boolean {
-    const user = this.users.find(checkUser => checkUser.email === email && checkUser.password === password);
-    if (user) {
-      this.loggedIn = true;
-      return true;
-    }
-    return false;
+  isLoggedIn(): boolean {
+    return sessionStorage.getItem('loggedIn') === 'true';
   }
 
-isLoggedIn(): boolean {
-    return this.loggedIn;
+  setLoginStatus(status: boolean) {
+    sessionStorage.setItem('loggedIn', status ? 'true' : 'false');
   }
 
   logout() {
-    this.loggedIn = false;
-  }
-  }
-
-
-
-
+    this.setLoginStatus(false);
+  } 
+}
