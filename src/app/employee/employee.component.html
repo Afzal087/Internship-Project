@@ -71,7 +71,7 @@
             <p>{{user.name}}</p>
         </div>
         <div class="employee-cards">
-            <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">ID:{{user.id}}</p>
+            <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">{{user.id}}</p>
         </div>
         <div class="employee-cards">
             <p>{{user.department}}</p>
@@ -82,9 +82,12 @@
         <div class="employee-cards">
             <p>{{user.email}}</p>
         </div>
-        <div class="employee-cards">
+        <div class="employee-cards flex gap-2">
            <button > <p><mat-icon (click)="removeEmployee(user.id)" >delete</mat-icon></p></button>
+        <button > <p><mat-icon (click)="updateEmployee(user.id)" >edit</mat-icon></p></button>
         </div>
+        
+      
     </div>
     
 

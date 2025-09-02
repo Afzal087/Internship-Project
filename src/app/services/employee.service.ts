@@ -27,4 +27,9 @@ export class EmployeeService {
     return this.https.delete<void>(url);
   }
 
+  updateEmployee(id:number): Observable<Users> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.https.patch<Users>(url, this);
+  }
+
 }

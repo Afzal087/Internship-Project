@@ -52,7 +52,7 @@ export class EmployeeComponent implements OnInit {
 
   }
 
-  removeEmployee(id:any) {
+  removeEmployee(id: any ) {
   this.employeeService.deleteEmployee(id).subscribe({
     next: () => {
       console.log(`Employee with ID ${id} deleted successfully.`);
@@ -66,5 +66,15 @@ export class EmployeeComponent implements OnInit {
     error: (err) => console.error('Error deleting employee:', err)
   });
 }
+
+  updateEmployee(id: any){
+    this.employeeService.updateEmployee(id).subscribe({
+      next: (updated)=>{
+        console.log(`Employee with ID ${id} updated successfully.`);
+        this.users = this.users.map(emp => emp.id ===id ? updated: emp)
+      },
+      error: (err) => console.error('Error updating employee:', err)
+    })
+  }
 
 }

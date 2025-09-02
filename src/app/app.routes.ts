@@ -8,6 +8,6 @@ import { TestComponent } from './test/test.component';
 export const routes: Routes = [
     {path: '', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard]},
     {path: 'test', component : TestComponent}
 ];

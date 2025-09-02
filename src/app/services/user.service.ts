@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
+import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { response } from 'express';
+import { Observable } from 'rxjs';
+
+
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
-  register(name: string, email: string, password: string) {
-    return this.http.post(`${this.apiUrl}/register`, { name, email, password });
+
+  register(userDetails : User) {
+    return this.http.post<User>(`${this.apiUrl}/register`, userDetails);
   }
 
-  login(email: string, password: string) {
-    return this.http.post<boolean>(`${this.apiUrl}/login`, { email, password });
+  login(email: string, password: string): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/login`, { email , password });
   }
 
   isLoggedIn(): boolean {

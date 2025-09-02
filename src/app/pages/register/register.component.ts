@@ -1,38 +1,34 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import {User} from '../../models/user.model'
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [RouterLink,FormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
 
   constructor(private userService: UserService, private router: Router) { }
-
-  userValue: any = {
+  
+  userValue: User = {
     name: '',
     email: '',
     password: ''
   }
 
+
   onSign() {
-    this.userService.register(this.userValue.name, this.userValue.email, this.userValue.password)
-      .subscribe({
-        next: (res: any) => {
-          if (res && res.success) {
-            alert('Registration successful!');
-            this.router.navigate(['/login']);
-          } else {
-            alert(res.message || 'Registration failed');
-          }
-        },
-        error: () => {
-          alert('Registration failed. Please try again.');
-        }
-      });
+    this.userService.register(this.userValue).subscribe({
+      next: (registered) => {
+        alert('User Registration successful Please Login', );
+        this.router.navigate(['/login']);
+      },
+      error: (err) => console.error('Error during registration:', err)
+    })
+    
   }
 }
