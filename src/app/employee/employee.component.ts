@@ -35,6 +35,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.employeeService.getEmployee().subscribe(data => {
       this.users = data;
+      console.log(data);
     });
 
   }

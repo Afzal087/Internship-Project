@@ -25,7 +25,7 @@ export class RegisterComponent {
     this.userService.register(this.userValue).subscribe({
       next: (registered) => {
         alert('User Registration successful Please Login', );
-        this.router.navigate(['/login']);
+        this.router.navigate(['']);
       },
       error: (err) => console.error('Error during registration:', err)
     })
