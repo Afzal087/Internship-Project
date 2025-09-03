@@ -24,7 +24,7 @@
         </div>
         <!-- InnerContainer #2 -->
 
-        <div class=" ml-2 mx-3 rounded-xl h-[97%]  w-[90%] flex flex-col items-center ">
+        <form #myForm="ngForm"  (ngSubmit)="onSign(myForm)" class=" ml-2 mx-3 rounded-xl h-[97%]  w-[90%] flex flex-col items-center ">
 
             <!-- Login -->
             <h1 class="my-6 text-gray-800  text-2xl font-bold">Create a new account</h1>
@@ -33,23 +33,24 @@
             <div class="input-div mt-3 ">
                 <p class=" input-heading mt-5">Name</p>
                 <input type="text" name="username" [(ngModel)]='userValue.name' placeholder="Your Fullname"
-                    class="input-style">
+                     class="input-style">
             </div>
             <!-- email  -->
             <div class="input-div mt-3 ">
                 <p class=" input-heading">Email</p>
-                <input name="email" [(ngModel)]='userValue.email' name="email" required="email"  type="email" placeholder="Enter your email"
-                    class="input-style">
+                <input name="email" [(ngModel)]='userValue.email' name="email" required email type="email"
+                    placeholder="Enter your email" class="input-style" #emailCtrl="ngModel">
             </div>
+            
             <!-- password  -->
             <div class="input-div ">
                 <p class="input-heading">Password</p>
-                <input name="password" [(ngModel)]='userValue.password'  type="password"
-                    placeholder="Create a new password" class="input-style">
+                <input name="password" [(ngModel)]='userValue.password' type="password"
+                    minlength="8" placeholder="Create a new password" class="input-style">
             </div>
             <!-- signin  -->
             <div class="input-div">
-                <button (click)="onSign()" class="hover-btn">Sign In</button>
+                <button type="submit"  class="hover-btn">Sign In</button>
             </div>
             <!-- Google Signin  -->
             <div class="input-div"><button
@@ -63,6 +64,6 @@
                     have an account? <span class="text-[14px] font-semibold underline hover:text-blue-400"><a
                             routerLink="/">Login to your Account</a></span></button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
