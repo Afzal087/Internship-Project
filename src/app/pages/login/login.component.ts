@@ -44,7 +44,11 @@ export class LoginComponent {
           }
         },
         error: (err) => {
-          console.error('Error during registration:', err)
+          if (err.status === 401) {
+            alert('🚫 ' + err.error.message);
+          } else {
+            alert('❌ Something went wrong. Try again later.');
+          }
         },
       });
     }

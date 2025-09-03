@@ -1,59 +1,115 @@
 <!--BackgroundImage Container -->
 
-<div class=" h-screen w-screen flex justify-center items-center">
-    <img class="img-style"
-        src="https://images.unsplash.com/photo-1663620779258-0d48644b5193?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="background-img">
-    <!-- OuterContainer -->
+<div class="h-screen w-screen flex justify-center items-center">
+  <img
+    class="img-style"
+    src="https://images.unsplash.com/photo-1663620779258-0d48644b5193?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="background-img"
+  />
+  <!-- OuterContainer -->
 
-    <div class="absolute bg-white rounded-xl flex justify-center  items-center h-[85%] w-[65%]">
+  <div
+    class="absolute bg-white rounded-xl flex justify-center items-center h-[85%] w-[65%]"
+  >
+    <!-- InnerContainer #1 -->
 
-        <!-- InnerContainer #1 -->
+    <div class="innerImg-container">
+      <div class="relative flex flex-col gap-2 h-full w-full">
 
-        <div class="innerImg-container ">
-            <div class="relative flex flex-col justify-end h-full w-full">
-                <img class=" absolute h-full w-full object-cover  object-center"
-                    src="https://images.unsplash.com/photo-1688372469090-ba5303aa4303?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Background Image" />
-                <h1 class="relative text-4xl mx-5 text-gray-300">Lorem ipsum dolor sit <br> amet consectetur </h1>
-                <p class="relative my-6 mx-5 text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    d Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat</p>
+        <img class="absolute h-full w-full object-cover object-center"src="https://images.unsplash.com/photo-1688372469090-ba5303aa4303?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Background Image"/>
 
-            </div>
-        </div>
-        <!-- InnerContainer #2 -->
+        <h1 class="relative mt-[5%] outline-2 outline-blue-500 mb-5  text-4xl mx-5 text-gray-300 border-b-2 border-gray-300 pb-3">
+          <span class="font-bold text-3xl">Welcome to,</span><br/><span class="italic text2xl font-thin">Employee Management Application</span>
+        </h1>
 
-        <form #myform="ngForm" (ngSubmit)="onLogin(myform)" class=" ml-2 mx-3 rounded-xl h-[97%]  w-[90%] flex flex-col items-center ">
 
-            <!-- Login content -->
-            <h1 class="my-6 text-gray-800  text-2xl font-bold">Login to your account</h1>
-            <h1 class=" text-gray-800 mt-3 font-playfair  font-semibold text-3xl  ">Welcome Back</h1>
-            <p class="mt-1 font-normal text-[14px] ">Enter email and password to access your account</p>
-            <div class="input-div mt-3 ">
-                <p class="input-heading mt-5">Email</p>
-                <input  type="email" [(ngModel)]='email' required email name="email"  placeholder="Enter your email" class="input-style" required>
-            </div>
+        <p class="relative my-6 mx-5 text-gray-300">This is a full-stack employee management system built with Angular and Spring Boot.</p>
+        
+        <ul class="text-white mx-5 relative font-thin italic">
+          <h4 class="font-normal mb-3">Featuring:</h4>
+          <li>User Authentication</li>
+          <li>Route Protection</li>
+          <li>Employee Management</li>
+          <li>Backend Integration</li>
+        </ul>
 
-            <div class="input-div ">
-                <p class="input-heading">Password</p>
-                <input type="password" [(ngModel)]='password' required minlength="8" name="password" placeholder="Enter your password" class="input-style" required>
-                <h1 class="flex font-medium text-[13px] underline mt-1 justify-end items-end">Forget Password?</h1>
-            </div>
-
-            <div class="input-div">
-                <button type="submit" class="hover-btn" >Log In</button>
-            </div>
-            <div class="input-div"><button
-                    class="input-style font-lg text-[15px] font-medium border-2 flex justify-center items-center hover:bg-white"><img
-                        class="h-4 w-4 mr-2" (click)="clicked()"
-                        src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw"
-                        alt="google_logo">Sign in with Google</button>
-            </div>
-            <div class="input-div"><button class=" input-style text-[14px] h-8 w-full bg-white shadow-none mt-4">Don't
-                    have an account? <span class="text-[15px] underline font-semibold hover:text-blue-400"><a
-                            routerLink="/register">Create a new account</a></span></button>
-            </div>
-        </form>
+      </div>
     </div>
+    <!-- InnerContainer #2 -->
+
+    <form
+      #myform="ngForm"
+      (ngSubmit)="onLogin(myform)"
+      class="ml-2 mx-3 rounded-xl h-[97%] w-[90%] flex flex-col items-center"
+    >
+      <!-- Login content -->
+      <h1 class="my-6 text-gray-800 text-2xl font-bold">
+        Login to your account
+      </h1>
+      <h1 class="text-gray-800 mt-3 font-playfair font-semibold text-3xl">
+        Welcome Back
+      </h1>
+      <p class="mt-1 font-normal text-[14px]">
+        Enter email and password to access your account
+      </p>
+      <div class="input-div mt-3">
+        <p class="input-heading mt-5">Email</p>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          required
+          email
+          name="email"
+          placeholder="Enter your email"
+          class="input-style"
+          required
+        />
+      </div>
+
+      <div class="input-div">
+        <p class="input-heading">Password</p>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          required
+          minlength="8"
+          name="password"
+          placeholder="Enter your password"
+          class="input-style"
+          required
+        />
+        <h1
+          class="flex font-medium text-[13px] underline mt-1 justify-end items-end"
+        >
+          Forget Password?
+        </h1>
+      </div>
+
+      <div class="input-div">
+        <button type="submit" class="hover-btn">Log In</button>
+      </div>
+      <div class="input-div">
+        <button
+          class="input-style font-lg text-[15px] font-medium border-2 flex justify-center items-center hover:bg-white"
+        >
+          <img
+            class="h-4 w-4 mr-2"
+            (click)="clicked()"
+            src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw"
+            alt="google_logo"
+          />Sign in with Google
+        </button>
+      </div>
+      <div class="input-div">
+        <button
+          class="input-style text-[14px] h-8 w-full bg-white shadow-none mt-4"
+        >
+          Don't have an account?
+          <span class="text-[15px] underline font-semibold hover:text-blue-400"
+            ><a routerLink="/register">Create a new account</a></span
+          >
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
