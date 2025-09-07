@@ -20,6 +20,7 @@ export class EmployeeService {
   createEmployee(user: Users): Observable<Users> {
     return this.https.post<Users>(this.apiUrl, user)
   }
+  
 
   deleteEmployee(id: number) : Observable<void> {
     const url = `${this.apiUrl}/${id}`;

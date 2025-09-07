@@ -3,6 +3,6 @@ export interface Users{
     name: string;
     email: string;
     department: string;
-    employeeId?: string; 
+    employee_id?: string; 
     role: string;
 }

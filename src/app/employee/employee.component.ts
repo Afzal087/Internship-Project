@@ -48,7 +48,11 @@ export class EmployeeComponent implements OnInit {
         this.users.push(saved);
         this.newUser = { name: '', email: '', department: '', role: '' }; // reset model
       },
-      error: (err) => console.error('Error adding employee:', err)
+      error: (err) => {
+        if(err.status === 409) {
+          alert('Employee with this email already exists.');
+      }
+      else alert('Error adding employee. Please try again.')}
     });
 
   }
