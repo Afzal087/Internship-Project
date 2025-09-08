@@ -5,37 +5,69 @@ import { Customer } from '../models/customer.model';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
-
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   standalone: true,
   selector: 'app-customers',
-  imports: [FormsModule,],
+  imports: [FormsModule, MatIcon],
   templateUrl: './customers.component.html',
-  styleUrl: './customers.component.css'
+  styleUrl: './customers.component.css',
 })
 export class CustomersComponent {
+  constructor(private customerService: CustomerService) {}
 
-   constructor(private customerService : CustomerService ){}
+  customer: Customer[] = [];
 
-  customers : String[]=[];
-
-  newCustomer : Customer = {
-      id : '',
-      name: '',
-      email: '',
-      location : '',
-      customer_id: ''
+  newCustomer: Customer = {
+    id: '',
+    name: '',
+    email: '',
+    location: '',
+    customer_id: '',
   };
 
-  addCustomer(){
-    this.customerService.add(this.newCustomer).subscribe({
-      next:
+  ngOnInit(): void {
+    this.customerService.get().subscribe((data) => {
+      this.customer = data;
     });
   }
 
-  removeCustomer(){}
-  updateCustomer(){}
+  addCustomer() {
+    this.customerService.add(this.newCustomer).subscribe({
+      next: (saved) => {
+        this.customer.push(saved);
+        this.newCustomer = {
+          name: '',
+          location: '',
+          email: '',
+          id: '',
+          customer_id: '',
+        };
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          alert(err.message);
+          console.log(err.message);
+        } else {
+          alert('Error Adding Customer, Please Try Again');
+        }
+      },
+    });
+  }
 
-
+  removeCustomer(id: any) {
+    this.customerService.delete(id).subscribe({
+      next: () => {
+        console.log(`Customer with id ${id} deleted`);
+        this.customer = this.customer.filter(
+          (customer) => customer.id !== id
+        );
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  updateCustomer(id: any) {}
 }

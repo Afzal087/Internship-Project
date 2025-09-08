@@ -10,13 +10,14 @@ import { HttpClient } from '@angular/common/http';
 import { HomeComponent } from '../../home/home.component';
 import { CustomersComponent } from '../../customers/customers.component';
 import { ProductComponent } from '../../product/product.component';
+import { ItemComponent } from '../../item/item.component';
 
 
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule , MatIconModule,HomeComponent, EmployeeComponent, HeaderComponent],
+  imports: [CommonModule , MatIconModule, HeaderComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -28,6 +29,7 @@ export class DashboardComponent {
   componentMap : Record<string,any> ={
       home: HomeComponent,
       employees: EmployeeComponent,
+      item:ItemComponent,
       customers: CustomersComponent,
       product: ProductComponent
   };

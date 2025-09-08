@@ -1,5 +1,5 @@
 <h1 class="text-blue-900 font-medium text-md mb-1 ml-8 underline">
-  Add Employee:
+ Add New Customer-
 </h1>
 
 <form class="mb-2">
@@ -9,14 +9,14 @@
     <label>Name:</label>
     <input class [(ngModel)]="newCustomer.name" name="name" />
 
+    <!-- <label>CustomerId:</label>
+    <input [(ngModel)]="newCustomer.id" name="role" /> -->
+
+    <label>Location:</label>
+    <input [(ngModel)]="newCustomer.location" name="location" />
+
     <label>Email:</label>
     <input [(ngModel)]="newCustomer.email" name="email" />
-
-    <label>Role:</label>
-    <input [(ngModel)]="newCustomer.id" name="role" />
-
-    <label>Department:</label>
-    <input [(ngModel)]="newCustomer.location" name="department" />
 
     <button
       class="rounded-md bg-blue-300 w-1/2 mx-4 h-6 text-blue-900 hover:bg-blue-900 hover:text-white"
@@ -31,34 +31,33 @@
 <!-- Employee List -->
 
 <div
-  class="h-1/2 w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white"
+  class="h-[30px] w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white"
 >
-  <div class="employee-cards">Employee Name</div>
-  <div class="employee-cards">Employee ID</div>
-  <div class="employee-cards">Department</div>
-  <div class="employee-cards">Role</div>
+  <div class="employee-cards">Customer Name</div>
+  <div class="employee-cards">Customer ID</div>
+  <div class="employee-cards">Location</div>
   <div class="employee-cards">Email</div>
   <div class="employee-cards">Action</div>
 </div>
 
-@for(customer of customers; track customers){
+@for(customers of customer ; track customers.id){
 
 <div
-  class="ml-8 w-[95%] h-1/2 bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center"
+  class="ml-8 w-[95%] h-[35px] bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center"
 >
   <div class="employee-cards">
     <p>{{ customers.name }}</p>
   </div>
   <div class="employee-cards">
     <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">
-      {{ customers.customer_id }}
+      {{ customers.customer_id}}
     </p>
   </div>
   <div class="employee-cards">
-    <p>{{ customers.location}}</p>
+    <p>{{ customers.location }}</p>
   </div>
   <div class="employee-cards">
-    <p>{{ user.email }}</p>
+    <p>{{ customers.email }}</p>
   </div>
 
   <div class="employee-cards flex gap-2">

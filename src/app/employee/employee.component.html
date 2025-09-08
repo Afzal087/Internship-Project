@@ -1,96 +1,103 @@
-    
 <div class="flex flex-col h-[100px] bg-white">
-    
+  <!-- Display Cards -->
 
-    <!-- Display Cards -->
-
-    <div class="flex w-full gap-6 px-6 my-4">
-        <div class="showcards ">
-            <p>Total <br> Employees- <span>00</span> </p>
-           
-        </div>
-        <div class="showcards">
-            <p>Available <br> Employees-  <span>00</span></p>
-           
-        </div>
-        <div class="showcards">
-            <p>Active <br> Projects-  <span>00</span></p>
-            
-        </div>
+  <div class="flex w-full gap-6 px-6 my-4">
+    <div class="showcards">
+      <p>
+        Total <br />
+        Employees- <span>00</span>
+      </p>
     </div>
-
-
-    <!-- addEmployee -->
-     
-    
-        <h1 class=" text-blue-900  font-medium text-md mb-1 ml-8 underline">Add Employee:</h1>
-
-    <form class = "mb-2">
-        
-        
-            <div class=" form-div flex ml-8 items-center justify-start bg-gray-200 h-10 rounded-sm  w-[95%]">
-
-            <label>Name:</label>
-            <input class [(ngModel)]="newUser.name" name="name" />
-    
-        
-            <label>Email:</label>
-            <input [(ngModel)]="newUser.email" name="email" />
-       
-        
-            <label>Role:</label>
-            <input [(ngModel)]="newUser.role" name="role" />
-        
-        
-            <label>Department:</label>
-            <input [(ngModel)]="newUser.department" name="department" />
-     
-
-        <button class="rounded-md   bg-blue-300 w-1/2 mx-4  h-6 text-blue-900 hover:bg-blue-900 hover:text-white" type="button" (click)="addEmployee()">Add </button>
-            </div> 
-       
-    </form >
-    
-
-    <!-- Employee List -->
-
-    <div class="h-1/2 w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white">
-        
-        <div class="employee-cards ">Employee Name</div>
-        <div class="employee-cards ">Employee ID</div>
-        <div class="employee-cards ">Department</div>
-        <div class="employee-cards ">Role</div>
-        <div class="employee-cards ">Email</div>
-        <div class="employee-cards ">Action</div>
+    <div class="showcards">
+      <p>
+        Available <br />
+        Employees- <span>00</span>
+      </p>
     </div>
-
-    @for(user of users; track user.id){
-
-    <div class=" ml-8 w-[95%] h-1/2 bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm  items-center">
-        <div class="employee-cards">
-            <p>{{user.name}}</p>
-        </div>
-        <div class="employee-cards">
-            <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">{{user.employee_id}}</p>
-        </div>
-        <div class="employee-cards">
-            <p>{{user.department}}</p>
-        </div>
-        <div class="employee-cards">
-            <p>{{user.role}}</p>
-        </div>
-        <div class="employee-cards">
-            <p>{{user.email}}</p>
-        </div>
-        <div class="employee-cards flex gap-2">
-           <button > <p><mat-icon (click)="removeEmployee(user.id)" >delete</mat-icon></p></button>
-        <button > <p><mat-icon (click)="updateEmployee(user.id)" >edit</mat-icon></p></button>
-        </div>
-        
-      
+    <div class="showcards">
+      <p>
+        Active <br />
+        Projects- <span>00</span>
+      </p>
     </div>
-    
+  </div>
 
-    }
+  <!-- addEmployee -->
 
+  <h1 class="text-blue-900 font-medium text-md mb-1 ml-8 underline">
+    Add Employee:
+  </h1>
+
+  <form class="mb-2">
+    <div
+      class="form-div flex ml-8 items-center justify-start bg-gray-200 h-10 rounded-sm w-[95%]"
+    >
+      <label>Name:</label>
+      <input class [(ngModel)]="newUser.name" name="name" />
+
+      <label>Email:</label>
+      <input [(ngModel)]="newUser.email" name="email" />
+
+      <label>Role:</label>
+      <input [(ngModel)]="newUser.role" name="role" />
+
+      <label>Department:</label>
+      <input [(ngModel)]="newUser.department" name="department" />
+
+      <button
+        class="rounded-md bg-blue-300 w-1/2 mx-4 h-6 text-blue-900 hover:bg-blue-900 hover:text-white"
+        type="button"
+        (click)="addEmployee()"
+      >
+        Add
+      </button>
+    </div>
+  </form>
+
+  <!-- Employee List -->
+
+  <div
+    class="h-1/2 w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white"
+  >
+    <div class="employee-cards">Employee Name</div>
+    <div class="employee-cards">Employee ID</div>
+    <div class="employee-cards">Department</div>
+    <div class="employee-cards">Role</div>
+    <div class="employee-cards">Email</div>
+    <div class="employee-cards">Action</div>
+  </div>
+
+  @for(user of users; track user.id){
+
+  <div
+    class="ml-8 w-[95%] h-1/2 bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center"
+  >
+    <div class="employee-cards">
+      <p>{{ user.name }}</p>
+    </div>
+    <div class="employee-cards">
+      <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">
+        {{ user.employee_id }}
+      </p>
+    </div>
+    <div class="employee-cards">
+      <p>{{ user.department }}</p>
+    </div>
+    <div class="employee-cards">
+      <p>{{ user.role }}</p>
+    </div>
+    <div class="employee-cards">
+      <p>{{ user.email }}</p>
+    </div>
+    <div class="employee-cards flex gap-2">
+      <button>
+        <p><mat-icon (click)="removeEmployee(user.id)">delete</mat-icon></p>
+      </button>
+      <button>
+        <p><mat-icon (click)="updateEmployee(user.id)">edit</mat-icon></p>
+      </button>
+    </div>
+  </div>
+
+  }
 </div>
