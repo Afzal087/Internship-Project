@@ -1,27 +1,7 @@
 <div class="flex flex-col h-[100px] bg-white">
   <!-- Display Cards -->
 
-  <div class="flex w-full gap-6 px-6 my-4">
-    <div class="showcards">
-      <p>
-        Total <br />
-        Employees- <span>00</span>
-      </p>
-    </div>
-    <div class="showcards">
-      <p>
-        Available <br />
-        Employees- <span>00</span>
-      </p>
-    </div>
-    <div class="showcards">
-      <p>
-        Active <br />
-        Projects- <span>00</span>
-      </p>
-    </div>
-  </div>
-
+  
   <!-- addEmployee -->
 
   <h1 class="text-blue-900 font-medium text-md mb-1 ml-8 underline">
@@ -57,7 +37,7 @@
   <!-- Employee List -->
 
   <div
-    class="h-1/2 w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white"
+    class="h-[30px] w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white"
   >
     <div class="employee-cards">Employee Name</div>
     <div class="employee-cards">Employee ID</div>
@@ -67,7 +47,7 @@
     <div class="employee-cards">Action</div>
   </div>
 
-  @for(user of users; track user.id){
+  @for(user of users; track user.employeeId){
 
   <div
     class="ml-8 w-[95%] h-1/2 bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center"
@@ -77,7 +57,7 @@
     </div>
     <div class="employee-cards">
       <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">
-        {{ user.employee_id }}
+        {{ user.employeeId }}
       </p>
     </div>
     <div class="employee-cards">
@@ -91,10 +71,10 @@
     </div>
     <div class="employee-cards flex gap-2">
       <button>
-        <p><mat-icon (click)="removeEmployee(user.id)">delete</mat-icon></p>
+        <p><mat-icon (click)="removeEmployee(user.employeeId)">delete</mat-icon></p>
       </button>
       <button>
-        <p><mat-icon (click)="updateEmployee(user.id)">edit</mat-icon></p>
+        <p><mat-icon (click)="updateEmployee(user.employeeId)">edit</mat-icon></p>
       </button>
     </div>
   </div>

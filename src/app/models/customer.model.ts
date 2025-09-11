@@ -1,6 +1,6 @@
 export interface Customer {
-    id? : String,
-    customer_id? : String,
+    customerId? : Number,
+    customerCode? : String,
     name: String,
     email: String,
     location: String

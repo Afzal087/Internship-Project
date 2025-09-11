@@ -1,6 +1,7 @@
 export interface Item {
-    id? : String,
-    item_code? : String,
+    itemId? : Number,
+    itemCode? : String,
     name: String,
     price: String
+
 }

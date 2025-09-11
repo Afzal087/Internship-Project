@@ -1,8 +1,8 @@
-export interface Users{
-    id?: number;
+export interface Employee{
+    employeeId?: Number;
     name: string;
     email: string;
     department: string;
-    employee_id?: string; 
+    employeeCode?: string; 
     role: string;
 }

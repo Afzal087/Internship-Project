@@ -20,11 +20,10 @@ export class CustomersComponent {
   customer: Customer[] = [];
 
   newCustomer: Customer = {
-    id: '',
     name: '',
     email: '',
     location: '',
-    customer_id: '',
+    customerCode: '',
   };
 
   ngOnInit(): void {
@@ -39,10 +38,10 @@ export class CustomersComponent {
         this.customer.push(saved);
         this.newCustomer = {
           name: '',
+          customerId:0,
           location: '',
           email: '',
-          id: '',
-          customer_id: '',
+          customerCode: '',
         };
       },
       error: (err) => {
@@ -61,7 +60,7 @@ export class CustomersComponent {
       next: () => {
         console.log(`Customer with id ${id} deleted`);
         this.customer = this.customer.filter(
-          (customer) => customer.id !== id
+          (customer) => customer.customerId !== id
         );
       },
       error: (err) => {

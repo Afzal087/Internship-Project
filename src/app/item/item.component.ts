@@ -16,9 +16,8 @@ export class ItemComponent implements OnInit {
 
   newItem: Item = {
     price:'',
-    id: '',
     name: '',
-    item_code:'',
+    itemCode:'',
   };
 
   ngOnInit(): void {
@@ -30,17 +29,16 @@ export class ItemComponent implements OnInit {
   addItem() {
     this.itemService.add(this.newItem).subscribe({
       next: (saved) => {
-        this.Item.push(saved);
+
         this.newItem = {
           name: '',
           price:'',
-          id: '',
-          item_code: '',
+          itemCode: '',
         };
+         this.Item.push(saved);
       },
       error: (err) => {
         if (err.status === 409) {
-          alert(err.message);
           console.log(err.message);
         } else {
           alert('Error Adding Item, Please Try Again');
@@ -54,7 +52,7 @@ export class ItemComponent implements OnInit {
       next: () => {
         console.log(`Item with id ${id} deleted`);
         this.Item = this.Item.filter(
-          (customer) => customer.id !== id
+          (customer) => customer.itemId !== id
         );
       },
       error: (err) => {

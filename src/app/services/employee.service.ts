@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Users } from '../models/employee.model';
+import { Employee } from '../models/employee.model';
 import { HttpClient } from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 
@@ -13,12 +13,12 @@ export class EmployeeService {
 
   constructor(private https: HttpClient) { }
   
-  getEmployee(): Observable<Users[]> {
-    return this.https.get<Users[]>(this.apiUrl);
+  getEmployee(): Observable<Employee[]> {
+    return this.https.get<Employee[]>(this.apiUrl);
   }
 
-  createEmployee(user: Users): Observable<Users> {
-    return this.https.post<Users>(this.apiUrl, user)
+  createEmployee(user: Employee): Observable<Employee> {
+    return this.https.post<Employee>(this.apiUrl, user)
   }
   
 
@@ -28,9 +28,9 @@ export class EmployeeService {
     return this.https.delete<void>(url);
   }
 
-  updateEmployee(id:number): Observable<Users> {
+  updateEmployee(id:number): Observable<Employee> {
     const url = `${this.apiUrl}/${id}`;
-    return this.https.patch<Users>(url, this);
+    return this.https.patch<Employee>(url, this);
   }
 
 }

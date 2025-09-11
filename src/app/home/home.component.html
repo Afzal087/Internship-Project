@@ -1,1 +1,90 @@
-<p>home works!</p>
+<div class="flex flex-col h-screen w-full">
+  <div class="flex w-full gap-6 px-6 my-4">
+    <div class="showcards">
+      <p>
+        Total <br />
+        Employees- <span>00</span>
+      </p>
+    </div>
+    <div class="showcards">
+      <p>
+        Available <br />
+        Employees- <span>00</span>
+      </p>
+    </div>
+    <div class="showcards">
+      <p>
+        Active <br />
+        Projects- <span>00</span>
+      </p>
+    </div>
+  </div>
+
+  <form
+    class="flex gap-[10px] mx-6 font-Roboto font-semibold"
+    (ngSubmit)="onAssign()"
+  >
+    <select
+      class="field-select"
+      id="customer"
+      [(ngModel)]="selectedCustomerId"
+      name="customer"
+    >
+      <option *ngFor="let c of customers" [value]="c.id">{{ c.name }}</option>
+    </select>
+
+    <select
+      class="field-select"
+      id="employee"
+      [(ngModel)]="selectedEmployeeId"
+      name="employee"
+    >
+      <option *ngFor="let e of employees" [value]="e.id">{{ e.name }}</option>
+    </select>
+
+    <select
+      class="field-select"
+      id="item"
+      [(ngModel)]="selectedItemId"
+      name="item"
+    >
+      <option *ngFor="let i of items" [value]="i.id">{{ i.name }}</option>
+    </select>
+
+    <button
+      class="w-1/6 h-[50px] bg-blue-950 text-blue-200 rounded-sm"
+      type="submit"
+    >
+      Assign
+    </button>
+  </form>
+
+  <div
+    class="h-[30px] w-[95%] ml-8 mx-10 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white">
+    <div class="employee-cards">Assignment_ID</div>
+    <div class="employee-cards">Customer_Name</div>
+    <div class="employee-cards">CustomerID</div>
+    <div class="employee-cards">Employee_Name</div>
+    <div class="employee-cards">EmployeeID</div>
+    <div class="employee-cards">Item_Name</div>
+    <div class="employee-cards">ItemID</div>
+    <div class="employee-cards">Action</div>
+  </div>
+
+  <!-- @for(assigned of AssignedData; track assigned.id)
+    {
+  <div
+    class="ml-8 w-[95%] h-1/2 bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center">
+    @for (customer of assigned.customer; track customer.id) {
+    <div class="employee-cards"><p>{{}}</p></div>
+    <div class="employee-cards"><p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">{{}}</p></div>
+    }
+   
+    <div class="employee-cards"><p>{{ AssignedData }}</p></div>
+    <div class="employee-cards"><p>{{ user.role }}</p></div>
+    <div class="employee-cards"><p>{{ user.email }}</p></div>
+    <div class="employee-cards flex gap-2"></div>
+  </div>
+    } -->
+
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
-import { Users } from '../models/employee.model';
+import { Employee } from '../models/employee.model';
 import { Router } from '@angular/router';
 import { f } from '../../../node_modules/@angular/material/icon-module.d-COXCrhrh';
 import { MatIcon } from '@angular/material/icon';
@@ -16,11 +16,12 @@ import { error } from 'console';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
-  users: Users[] = [];
+  users: Employee[] = [];
 
-  newUser: Users = {
+  newUser: Employee = {
     name: '',
     email: '',
+    employeeId: 0,
     department: '',
     role: '',
   };
@@ -55,7 +56,7 @@ export class EmployeeComponent implements OnInit {
         console.log(`Employee with ID ${id} deleted successfully.`);
 
         // ✅ Remove deleted employee from UI without reloading
-        this.users = this.users.filter((emp) => emp.id !== id);
+        this.users = this.users.filter((emp) => emp.employeeId !== id);
 
         // OR reload the whole list properly
         // this.loadEmployees();
@@ -68,7 +69,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.updateEmployee(id).subscribe({
       next: (updated) => {
         console.log(`Employee with ID ${id} updated successfully.`);
-        this.users = this.users.map((emp) => (emp.id === id ? updated : emp));
+        this.users = this.users.map((emp) => (emp.employeeId === id ? updated : emp));
       },
       error: (err) => console.error('Error updating employee:', err),
     });
