@@ -11,6 +11,8 @@ import { CustomerService } from '../services/customer.service';
 import { ItemService } from '../services/item.service';
 import { MasterService } from '../services/master.service';
 import { Assign } from '../models/assignment.model';
+import { AssignmentRequest } from '../models/AssignRequest.model';
+import { error } from 'console';
 
 @Component({
   standalone: true,
@@ -38,7 +40,10 @@ export class HomeComponent implements OnInit {
 
     this.masterService
       .getAssignment()
-      .subscribe((data: Assign) => this.assignment.push(data));
+      .subscribe((data: Assign[]) => {
+        this.assignment= data
+      }
+      );
 
     // getting-selection-lists
     this.custService.get().subscribe((data) => (this.customers = data));
@@ -61,9 +66,15 @@ export class HomeComponent implements OnInit {
       itemId: this.selectedItemId,
     };
 
-    this.masterService.assignService(masterId).subscribe((data: any) => {
-      this.AssignedData.push(data)
-      console.log('Full profile:', data);
+    this.masterService.assignService(masterId).subscribe({
+      next: (data: any) => {
+        console.log('Assignment successful');
+        // 3. Re-fetch the assignment list after a successful API call
+        
+      },
+      error: (err) => {
+        console.error('Assignment failed', err);
+      }
     });
   }
 }

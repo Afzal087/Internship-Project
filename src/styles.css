@@ -55,7 +55,7 @@
         @apply  cursor-pointer h-10 w-10 text-sm font-medium border-[1px] flex  border-gray-300 shadow-md  rounded-full gap-2 justify-center items-center hover:bg-green-200 hover:text-green-950;
   }
   .employee-cards{
-    @apply  w-[12.5%] flex font-normal items-center justify-between;
+    @apply  w-[12.5%] flex font-normal items-center justify-between ;
   }
 
   .field-select{

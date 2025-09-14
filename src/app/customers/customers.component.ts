@@ -38,7 +38,6 @@ export class CustomersComponent {
         this.customer.push(saved);
         this.newCustomer = {
           name: '',
-          customerId:0,
           location: '',
           email: '',
           customerCode: '',

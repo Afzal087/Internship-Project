@@ -39,7 +39,7 @@
   <div class="employee-cards">Action</div>
 </div>
 
-@for(item of Item ; track item.id){
+@for(item of Item ; track item.itemId){
 
 <div
   class="ml-8 w-[95%] h-[35px] bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center"
@@ -59,10 +59,10 @@
 
   <div class="employee-cards flex gap-2">
     <button>
-      <p><mat-icon (click)="removeItem(item.id)">delete</mat-icon></p>
+      <p><mat-icon (click)="removeItem(item.itemId)">delete</mat-icon></p>
     </button>
     <button>
-      <p><mat-icon (click)="updateItem(item.id)">edit</mat-icon></p>
+      <p><mat-icon (click)="updateItem(item.itemId)">edit</mat-icon></p>
     </button>
   </div>
 </div>

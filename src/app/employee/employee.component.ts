@@ -21,7 +21,6 @@ export class EmployeeComponent implements OnInit {
   newUser: Employee = {
     name: '',
     email: '',
-    employeeId: 0,
     department: '',
     role: '',
   };

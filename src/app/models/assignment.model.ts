@@ -1,11 +1,25 @@
-import {Item} from "../models/item.model";
-import {Customer} from "../models/customer.model";
-import { Employee } from "./employee.model";
-
-
 export interface Assign {
-    id?: Number,
-   item:Item;
-   customer:Customer;
-   employee: Employee;
+  id: number;
+  assignId: string;
+  customer: {
+    customerId: number;
+    customerCode: string;
+    name: string;
+    email: string;
+    location: string;
+  };
+  employee: {
+    employeeId: number;
+    employeeCode: string;
+    name: string;
+    email: string;
+    department: string;
+    role: string;
+  };
+  item: {
+    itemId: number;
+    itemCode: string;
+    name: string;
+    price: string;
+  };
 }
