@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Assign } from '../models/assignment.model';
 import { Observable } from 'rxjs';
 import { AssignmentRequest } from '../models/AssignRequest.model';
+import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root',
@@ -23,4 +24,17 @@ export class MasterService {
   getAssignment():Observable<Assign[]> {
    return this.https.get<Assign[]>(this.apiUrl);
   }
+
+  deleteAssignment(id: number) {
+  const url = this.apiUrl;
+
+  this.https.delete<void>(`${url}/${id}`).subscribe({
+    next: () => {
+      console.log('Assignment deleted successfully.');
+    },
+    error: (err) => {
+      console.error('Failed to delete assignment:', err);
+    }
+  });
+}
 }

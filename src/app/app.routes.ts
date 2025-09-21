@@ -11,3 +11,4 @@ export const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
     {path: 'test', component : TestComponent}
 ];
+// ,canActivate:[AuthGuard]

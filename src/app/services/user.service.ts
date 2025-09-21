@@ -21,9 +21,13 @@ export class UserService {
     return this.http.post<boolean>(`${this.apiUrl}/login`, { email , password });
   }
 
-  isLoggedIn(): boolean {
+ isLoggedIn(): boolean {
+  if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
     return sessionStorage.getItem('loggedIn') === 'true';
   }
+  return false;
+}
+
 
   setLoginStatus(status: boolean) {
     sessionStorage.setItem('loggedIn', status ? 'true' : 'false');

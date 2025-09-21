@@ -1,73 +1,99 @@
-<h1 class="text-blue-900 font-medium text-md mb-1 ml-8 underline">
- Add New Customer-
-</h1>
-
-<form class="mb-2">
+<div class="flex w-[90%] flex-col h-full">
+  <!-- informationlabel -->
   <div
-    class="form-div flex ml-8 items-center justify-start bg-gray-200 h-10 rounded-sm w-[95%]"
+    class="flex h-[60px] w-full mt-[1%] pt-1 my-[10px] mx-[50px] border-t-2 border-b-2"
   >
-    <label>Name:</label>
-    <input class [(ngModel)]="newCustomer.name" name="name" />
-
-    <!-- <label>CustomerId:</label>
-    <input [(ngModel)]="newCustomer.id" name="role" /> -->
-
-    <label>Location:</label>
-    <input [(ngModel)]="newCustomer.location" name="location" />
-
-    <label>Email:</label>
-    <input [(ngModel)]="newCustomer.email" name="email" />
-
-    <button
-      class="rounded-md bg-blue-300 w-1/2 mx-4 h-6 text-blue-900 hover:bg-blue-900 hover:text-white"
-      type="button"
-      (click)="addCustomer()"
-    >
-      Add
-    </button>
+    <img class="w-[50px] h-[50px]" src="formIcon.png" alt="form" />
+    <div class="flex flex-col ml-3">
+      <p class="text-blue-900 font-medium">Customer Information</p>
+      <p class="text-gray-500 text-[12px]">
+        Enter Personal Information Required for Identification
+      </p>
+    </div>
   </div>
+
+<form (ngSubmit)="addCustomer()">
+    <div class="flex flex-col h-[100%] mt-[3%] w-full rounded-md bg-gray-100 my-[10px] mx-[50px]">
+        <p class="text-blue-900 mt-5 ml-5 underline text-l font-medium">
+            Personal Information
+        </p>
+        <div class="flex flex-wrap">
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="firstName">First-Name</label>
+                <input class="input" [(ngModel)]="info.firstName" name="firstName" type="text" />
+            </div>
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="lastName">Last-Name</label>
+                <input class="input" [(ngModel)]="info.lastName" name="lastName" type="text" />
+            </div>
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="gender">Gender</label>
+                <input class="input" [(ngModel)]="info.gender" name="gender" type="text" />
+            </div>
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="dob">Date-of-Birth</label>
+                <input class="input" [(ngModel)]="info.dob" name="dob" type="text" placeholder="dd/mm/yy" />
+            </div>
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="nationality">Nationality</label>
+                <input class="input" [(ngModel)]="info.nationality" name="nationality" type="text" />
+            </div>
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="phoneno">Phone Number</label>
+                <input class="input" [(ngModel)]="info.phone_no" name="phoneno" required type="number" />
+            </div>
+            <div class="customerInputDiv">
+                <label class="inputLabel" for="email">Email-Address</label>
+                <input class="input" [(ngModel)]="info.email" name="email" type="email" required />
+            </div>
+            <div class="w-[200px]"></div>
+
+            <p class="text-blue-900 mt-5 ml-5 underline text-l font-medium">
+                Address Information
+            </p>
+            <div class="flex flex-wrap">
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="buildingNo">Building-No.</label>
+                    <input class="input" [(ngModel)]="info.buildingNo" name="buildingNo" type="text" />
+                </div>
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="street">Street-Name</label>
+                    <input class="input" [(ngModel)]="info.street" name="street" type="text" />
+                </div>
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="city">City</label>
+                    <input class="input" [(ngModel)]="info.city" name="city" type="text" />
+                </div>
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="state">State</label>
+                    <input [(ngModel)]="info.state" name="state" class="input" type="text" />
+                </div>
+
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="country">Country</label>
+                    <select class="input" name="countryName" id="country" [(ngModel)]="info.country" (ngModelChange)="getCountryCode()">
+                        @for (country of countries; track country.code) {
+                        <option [value]="country.country">{{ country.country }}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="countryCode">Country-Code</label>
+                    <select class="input" disabled name="countryCode" id="countryCode" [ngModel]="info.countryCode">
+                        <option value=""></option>
+                        @for (country of countries; track country.code) {
+                        <option [value]="country.code">{{ country.code }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="customerInputDiv w-[10%] justify-center mb-2">
+                    <button type="submit"  class="hover-btn bg-blue-950 rounded-sm w-full">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-
-<!-- Employee List -->
-
-<div
-  class="h-[30px] w-[95%] ml-8 flex justify-between px-5 pr-5 my-[5px] rounded-sm items-center bg-blue-900 text-white"
->
-  <div class="employee-cards">Customer Name</div>
-  <div class="employee-cards">Customer ID</div>
-  <div class="employee-cards">Location</div>
-  <div class="employee-cards">Email</div>
-  <div class="employee-cards">Action</div>
 </div>
-
-@for(customers of customer ; track customers.customerId){
-
-<div
-  class="ml-8 w-[95%] h-[35px] bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center"
->
-  <div class="employee-cards">
-    <p>{{ customers.name }}</p>
-  </div>
-  <div class="employee-cards">
-    <p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">
-      {{ customers.customerCode}}
-    </p>
-  </div>
-  <div class="employee-cards">
-    <p>{{ customers.location }}</p>
-  </div>
-  <div class="employee-cards">
-    <p>{{ customers.email }}</p>
-  </div>
-
-  <div class="employee-cards flex gap-2">
-    <button>
-      <p><mat-icon (click)="removeCustomer(customers.customerId)">delete</mat-icon></p>
-    </button>
-    <button>
-      <p><mat-icon (click)="updateCustomer(customers.customerId)">edit</mat-icon></p>
-    </button>
-  </div>
-</div>
-
-}

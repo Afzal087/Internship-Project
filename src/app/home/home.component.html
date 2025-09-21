@@ -83,6 +83,14 @@
     <div class="employee-cards"><p>{{ data.item.name }}</p></div>
     <div class="employee-cards"><p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">{{ data.item.itemCode }}</p></div>
     <div class="employee-cards flex gap-2"></div>
+    <div class="employee-cards flex gap-2">
+      <button>
+        <p><mat-icon (click)="removeAssignment(data.id)">delete</mat-icon></p>
+      </button>
+      <button>
+        <p><mat-icon (click)="updateAssignment(data.id)">edit</mat-icon></p>
+      </button>
+    </div>
   </div>
     }
 </div>

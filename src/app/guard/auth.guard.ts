@@ -13,8 +13,8 @@ export class AuthGuard implements CanActivate {
     if (this.userService.isLoggedIn()) {
       return true;
     } else {
-      alert('Access denied. Please login first.');
       this.router.navigate(['']);
+      alert('Access denied. Please login first.');
       return false;
     }
   }

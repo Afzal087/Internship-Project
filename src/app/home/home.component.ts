@@ -13,10 +13,11 @@ import { MasterService } from '../services/master.service';
 import { Assign } from '../models/assignment.model';
 import { AssignmentRequest } from '../models/AssignRequest.model';
 import { error } from 'console';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule,MatIcon, ReactiveFormsModule, CommonModule],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -70,11 +71,19 @@ export class HomeComponent implements OnInit {
       next: (data: any) => {
         console.log('Assignment successful');
         // 3. Re-fetch the assignment list after a successful API call
-        
+        this.masterService.getAssignment();
       },
       error: (err) => {
         console.error('Assignment failed', err);
       }
     });
   }
+
+
+  removeAssignment(id: number){
+    this.masterService.deleteAssignment(id);
+    this.masterService.getAssignment();
+    
+  }
+  updateAssignment(id:number){}
 }

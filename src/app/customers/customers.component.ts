@@ -6,11 +6,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { Country } from '../models/country.model';
+import { countReset, log } from 'console';
 
 @Component({
   standalone: true,
   selector: 'app-customers',
-  imports: [FormsModule, MatIcon],
+  imports: [FormsModule],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.css',
 })
@@ -18,30 +20,82 @@ export class CustomersComponent {
   constructor(private customerService: CustomerService) {}
 
   customer: Customer[] = [];
+  countries: any[] = [];
 
-  newCustomer: Customer = {
-    name: '',
+  // assume its india now assign selectedCountryCode to its Code ;
+
+  info: Customer = {
+    firstName: '',
+    lastName: '',
     email: '',
-    location: '',
-    customerCode: '',
+    country: '',
+    countryCode: '',
+    street: '',
+    phone_no: '',
+    buildingNo: '',
+    gender: '',
+    dob: '',
+    city: '',
+    state: '',
+    nationality: '',
   };
 
-  ngOnInit(): void {
-    this.customerService.get().subscribe((data) => {
-      this.customer = data;
-    });
+ 
+
+  getCountryCode() {
+    const foundCountry = this.countries.find(
+      (country: any) => country.country === this.info.country
+    );
+    console.log(foundCountry)
+    if (foundCountry) {
+      this.info.countryCode = foundCountry.code;
+      console.log(this.info.countryCode);
+
+    } else {
+      this.info.countryCode = '';
+      console.log('Cannot Find any Country Code');
+    }
   }
 
+  ngOnInit(): void {
+    this.AssignmentInit();
+    this.CustomerInit();
+}
+  
+  
+  
+
+  CustomerInit(){
+  return this.customerService.getCountry().subscribe((country) => {
+      this.countries = country;
+      
+    });}
+
+   AssignmentInit(){
+     return this.customerService.get().subscribe((data) => {
+      this.customer = data;
+    });}
+
   addCustomer() {
-    this.customerService.add(this.newCustomer).subscribe({
+    this.customerService.add(this.info).subscribe({
       next: (saved) => {
         this.customer.push(saved);
-        this.newCustomer = {
-          name: '',
-          location: '',
+        this.info = {
+          firstName: '',
+          lastName: '',
           email: '',
-          customerCode: '',
+          country: '',
+          countryCode: '',
+          street: '',
+          phone_no: '',
+          buildingNo: '',
+          gender: '',
+          dob: '',
+          city: '',
+          state: '',
+          nationality: '',
         };
+       alert("Customer Added Successfully");
       },
       error: (err) => {
         if (err.status === 409) {

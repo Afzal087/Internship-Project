@@ -1,8 +1,8 @@
 <!-- homePage -->
-<div class="h-screen w-screen flex justify-start">
+<div class="h-screen   w-screen flex justify-start">
   <!-- dashboard -->
   <div
-    class="flex flex-col justify-start items-center h-full w-[15%] border-r-[1px] bg-blue-900 text-white border-red-700-"
+    class="flex fixed flex-col justify-start items-center h-full w-[15%] border-r-[1px] bg-blue-900 text-white border-red-700-"
   >
 <p class="text-white text-[20px] mt-7 mb-1.5  font-medium flex items-center gap-2">
   <mat-icon class="mb-1">dashboard</mat-icon>
@@ -24,7 +24,7 @@
   </div>
 
   <!-- contentArea -->
-  <div class="bg-white h-screen w-screen m-2">
+  <div class=" bg-white ml-[15%] h-screen w-screen m-2">
     <app-header></app-header>
       <ng-container *ngComponentOutlet="componentMap[activeComponents]"></ng-container>
     

@@ -61,5 +61,17 @@
   .field-select{
     @apply w-1/4 h-[50px] border-[2px] border-blue-900  text-blue-950 rounded-[3px] hover:border-blue-500
   }
+  .customerForm{
+    @apply flex flex-col
+  }
+  .inputLabel{
+    @apply text-[14px] text-gray-800 font-Roboto ;
+  }
+  .input{
+    @apply h-8 rounded-sm border text-sm px-[5px] text-gray-800 w-[220px] border-gray-300 hover:border-blue-800;
+  }
+  .customerInputDiv{
+   @apply flex flex-col my-[20px] mx-[20px];
+  }
 }
 
