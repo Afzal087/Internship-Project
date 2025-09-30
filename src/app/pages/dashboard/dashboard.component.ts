@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';  
 import { HomeComponent } from '../../home/home.component';
 import { CustomersComponent } from '../../customers/customers.component';
-import { ProductComponent } from '../../product/product.component';
+
 import { ItemComponent } from '../../item/item.component';
 
 
@@ -31,7 +31,7 @@ export class DashboardComponent {
       employees: EmployeeComponent,
       item:ItemComponent,
       customers: CustomersComponent,
-      product: ProductComponent
+     
   };
 
   loadComponent(name: string){ 

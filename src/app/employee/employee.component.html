@@ -24,6 +24,9 @@
       <label>Department:</label>
       <input [(ngModel)]="newUser.department" name="department" />
 
+      <label>Organization:</label>
+      <input [(ngModel)]="newUser.organization" name="department" />
+
       <button
         class="rounded-md bg-blue-300 w-1/2 mx-4 h-6 text-blue-900 hover:bg-blue-900 hover:text-white"
         type="button"
@@ -42,8 +45,10 @@
     <div class="employee-cards">Employee Name</div>
     <div class="employee-cards">Employee ID</div>
     <div class="employee-cards">Department</div>
+    <div class="employee-cards">Organization</div>
     <div class="employee-cards">Role</div>
     <div class="employee-cards">Email</div>
+
     <div class="employee-cards">Action</div>
   </div>
 
@@ -69,6 +74,10 @@
     <div class="employee-cards">
       <p>{{ user.email }}</p>
     </div>
+    <div class="employee-cards">
+      <p>{{ user.organization}}</p>
+    </div>
+
     <div class="employee-cards flex gap-2">
       <button>
         <p><mat-icon (click)="removeEmployee(user.employeeId)">delete</mat-icon></p>

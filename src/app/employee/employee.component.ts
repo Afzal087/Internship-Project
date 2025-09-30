@@ -22,6 +22,7 @@ export class EmployeeComponent implements OnInit {
     name: '',
     email: '',
     department: '',
+    organization:'',
     role: '',
   };
 
@@ -39,7 +40,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.createEmployee(this.newUser).subscribe({
       next: (saved) => {
         this.users.push(saved);
-        this.newUser = { name: '', email: '', department: '', role: '' }; // reset model
+        this.newUser = { name: '', email: '', department: '', role: '', organization: ''}; // reset model
       },
       error: (err) => {
         if (err.status === 409) {

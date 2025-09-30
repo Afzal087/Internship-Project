@@ -5,4 +5,5 @@ export interface Employee{
     department: string;
     employeeCode?: string; 
     role: string;
+    organization: string;
 }

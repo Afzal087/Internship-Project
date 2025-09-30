@@ -3,12 +3,13 @@ import { Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../models/customer.model';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { Country } from '../models/country.model';
 import { countReset, log } from 'console';
-
+import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 @Component({
   standalone: true,
   selector: 'app-customers',
@@ -76,7 +77,7 @@ export class CustomersComponent {
       this.customer = data;
     });}
 
-  addCustomer() {
+  addCustomer(form: NgForm) {
     this.customerService.add(this.info).subscribe({
       next: (saved) => {
         this.customer.push(saved);

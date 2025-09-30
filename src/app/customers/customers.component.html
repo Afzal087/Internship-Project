@@ -1,99 +1,131 @@
 <div class="flex w-[90%] flex-col h-full">
-  <!-- informationlabel -->
-  <div
-    class="flex h-[60px] w-full mt-[1%] pt-1 my-[10px] mx-[50px] border-t-2 border-b-2"
-  >
-    <img class="w-[50px] h-[50px]" src="formIcon.png" alt="form" />
-    <div class="flex flex-col ml-3">
-      <p class="text-blue-900 font-medium">Customer Information</p>
-      <p class="text-gray-500 text-[12px]">
-        Enter Personal Information Required for Identification
-      </p>
-    </div>
-  </div>
-
-<form (ngSubmit)="addCustomer()">
-    <div class="flex flex-col h-[100%] mt-[3%] w-full rounded-md bg-gray-100 my-[10px] mx-[50px]">
-        <p class="text-blue-900 mt-5 ml-5 underline text-l font-medium">
-            Personal Information
-        </p>
-        <div class="flex flex-wrap">
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="firstName">First-Name</label>
-                <input class="input" [(ngModel)]="info.firstName" name="firstName" type="text" />
-            </div>
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="lastName">Last-Name</label>
-                <input class="input" [(ngModel)]="info.lastName" name="lastName" type="text" />
-            </div>
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="gender">Gender</label>
-                <input class="input" [(ngModel)]="info.gender" name="gender" type="text" />
-            </div>
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="dob">Date-of-Birth</label>
-                <input class="input" [(ngModel)]="info.dob" name="dob" type="text" placeholder="dd/mm/yy" />
-            </div>
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="nationality">Nationality</label>
-                <input class="input" [(ngModel)]="info.nationality" name="nationality" type="text" />
-            </div>
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="phoneno">Phone Number</label>
-                <input class="input" [(ngModel)]="info.phone_no" name="phoneno" required type="number" />
-            </div>
-            <div class="customerInputDiv">
-                <label class="inputLabel" for="email">Email-Address</label>
-                <input class="input" [(ngModel)]="info.email" name="email" type="email" required />
-            </div>
-            <div class="w-[200px]"></div>
-
-            <p class="text-blue-900 mt-5 ml-5 underline text-l font-medium">
-                Address Information
+    <!-- informationlabel -->
+    <div class="flex h-[60px] w-full mt-[1%] pt-1 my-[10px] mx-[50px] border-t-2 border-b-2">
+        <img class="w-[50px] h-[50px]" src="formIcon.png" alt="form" />
+        <div class="flex flex-col ml-3">
+            <p class="text-blue-900 font-medium">Customer Information</p>
+            <p class="text-gray-500 text-[12px]">
+                Enter Personal Information Required for Identification
             </p>
+        </div>
+    </div>
+
+    <form #userForm="ngForm" (ngSubmit)="addCustomer(userForm)" novalidate>
+        <div
+            class="flex flex-col h-[90%] w-full rounded-md shadow-lg border-gray-200 border-2 bg-gray-100 my-[10px] mx-[50px]">
             <div class="flex flex-wrap">
+                <!-- firstName -->
                 <div class="customerInputDiv">
-                    <label class="inputLabel" for="buildingNo">Building-No.</label>
-                    <input class="input" [(ngModel)]="info.buildingNo" name="buildingNo" type="text" />
-                </div>
-                <div class="customerInputDiv">
-                    <label class="inputLabel" for="street">Street-Name</label>
-                    <input class="input" [(ngModel)]="info.street" name="street" type="text" />
-                </div>
-                <div class="customerInputDiv">
-                    <label class="inputLabel" for="city">City</label>
-                    <input class="input" [(ngModel)]="info.city" name="city" type="text" />
-                </div>
-                <div class="customerInputDiv">
-                    <label class="inputLabel" for="state">State</label>
-                    <input [(ngModel)]="info.state" name="state" class="input" type="text" />
+                    <label class="inputLabel" for="firstName">First-Name</label>
+                    <input class="input" [(ngModel)]="info.firstName" name="firstName" type="text" required
+                        minlength="3" maxlength="24" #firstName="ngModel"
+                        [class.invalid]="firstName.invalid && firstName.touched"/>
+                   
                 </div>
 
+                <!-- lastname -->
                 <div class="customerInputDiv">
-                    <label class="inputLabel" for="country">Country</label>
-                    <select class="input" name="countryName" id="country" [(ngModel)]="info.country" (ngModelChange)="getCountryCode()">
-                        @for (country of countries; track country.code) {
-                        <option [value]="country.country">{{ country.country }}</option>
-                        }
-                    </select>
+                    <label class="inputLabel" for="lastName">Last-Name</label>
+                    <input class="input" [(ngModel)]="info.lastName" name="lastName" type="text" required minlength="3"
+                        maxlength="24" #lastName="ngModel" [class.invalid]="lastName.invalid && lastName.touched" />
                 </div>
 
+                <!-- gender -->
                 <div class="customerInputDiv">
-                    <label class="inputLabel" for="countryCode">Country-Code</label>
-                    <select class="input" disabled name="countryCode" id="countryCode" [ngModel]="info.countryCode">
-                        <option value=""></option>
-                        @for (country of countries; track country.code) {
-                        <option [value]="country.code">{{ country.code }}</option>
-                        }
-                    </select>
+                    <label class="inputLabel" for="gender">Gender</label>
+                    <select class="input" [(ngModel)]="info.gender" name="gender" type="text" required min="4"
+                        maxlength="16" #gender="ngModel" [class.invalid]="gender.invalid && gender.touched" >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 </div>
-                <div class="customerInputDiv w-[10%] justify-center mb-2">
-                    <button type="submit"  class="hover-btn bg-blue-950 rounded-sm w-full">
-                        Submit
-                    </button>
+
+                <!-- dob -->
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="dob">Date-of-Birth</label>
+                    <input class="input" [(ngModel)]="info.dob" name="dob" type="text" placeholder="dd/mm/yy" required
+                        maxlength="16" #dob="ngModel" [class.invalid]="dob.invalid && dob.touched" />
+                </div>
+
+                <!-- phone_no -->
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="phoneno">Phone Number</label>
+                    <input class="input" [(ngModel)]="info.phone_no" name="phoneno"  required type="text" required
+                        minlength="3" maxlength="24" #phoneNo="ngModel"
+                        [class.invalid]="phoneNo.invalid && phoneNo.touched" />
+                </div>
+
+                <!-- email -->
+                <div class="customerInputDiv">
+                    <label class="inputLabel" for="email">Email-Address</label>
+                    <input class="input" [(ngModel)]="info.email" name="email" type="email" required required
+                        minlength="8" maxlength="50" #email="ngModel"
+                        [class.invalid]="email.invalid && email.touched" />
+                </div>
+                <!-- building -->
+
+                <div class="flex flex-wrap">
+                    <div class="customerInputDiv">
+                        <label class="inputLabel" for="buildingNo">Building-No.</label>
+                        <input class="input" [(ngModel)]="info.buildingNo" name="buildingNo" type="text" required
+                            minlength="3" maxlength="24" #building="ngModel"
+                            [class.invalid]="building.invalid && building.touched" />
+                    </div>
+
+                    <!-- streetname -->
+                    <div class="customerInputDiv">
+                        <label class="inputLabel" for="street">Street-Name</label>
+                        <input class="input" [(ngModel)]="info.street" name="street" type="text" required minlength="3"
+                            maxlength="24" #street="ngModel" [class.invalid]="street.invalid && street.touched" />
+                    </div>
+
+                    <!-- city -->
+                    <div class="customerInputDiv">
+                        <label class="inputLabel" for="city">City</label>
+                        <input class="input" [(ngModel)]="info.city" name="city" type="text" required minlength="3"
+                            maxlength="24" #city="ngModel" [class.invalid]="city.invalid && city.touched" />
+                    </div>
+
+                    <!-- state -->
+                    <div class="customerInputDiv">
+                        <label class="inputLabel" for="state">State</label>
+                        <input [(ngModel)]="info.state" name="state" class="input" type="text" required minlength="3"
+                            maxlength="24" #state="ngModel" [class.invalid]="state.invalid && state.touched" />
+                    </div>
+
+                    <!-- country -->
+                    <div class="customerInputDiv">
+                        <label class="inputLabel" for="country">Country</label>
+                        <select class="input" name="countryName" id="country" [(ngModel)]="info.country" required
+                            #country="ngModel" [class.invalid]="country.invalid && country.touched"
+                            (ngModelChange)="getCountryCode()">
+                            @for (country of countries; track country.code) {
+                            <option [value]="country.country">{{ country.country }}</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <!-- country_code -->
+                    <div class="customerInputDiv">
+                        <label class="inputLabel" for="countryCode">Country-Code</label>
+                        <select class="input" disabled name="countryCode" id="countryCode" [ngModel]="info.countryCode"
+                            required #countryCode="ngModel"
+                            [class.invalid]="countryCode.invalid && countryCode.touched">
+                            <option value=""></option>
+                            @for (country of countries; track country.code) {
+                            <option [value]="country.code">{{ country.code }}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="customerInputDiv mt-1 w-[10%] justify-center mb-2">
+                        <button [disabled]="userForm.invalid" [class.blocked]="userForm.invalid" type="submit"
+                            class="hover-btn mb-2 bg-blue-950 rounded-sm w-full">
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 </div>

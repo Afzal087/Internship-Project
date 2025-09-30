@@ -65,13 +65,17 @@
     @apply flex flex-col
   }
   .inputLabel{
-    @apply text-[14px] text-gray-800 font-Roboto ;
+    @apply text-[12px] text-gray-800 font-semibold font-Roboto ;
   }
   .input{
-    @apply h-8 rounded-sm border text-sm px-[5px] text-gray-800 w-[220px] border-gray-300 hover:border-blue-800;
+    @apply h-6 rounded-sm border text-sm px-[5px] text-gray-800 w-[150px] border-gray-300 hover:border-blue-800;
   }
   .customerInputDiv{
-   @apply flex flex-col my-[20px] mx-[20px];
+   @apply flex flex-col my-[20px] mx-[15px];
   }
+  .invalid{
+    @apply border-red-600 border-[1px] bg-red-50
+  }
+
 }
 

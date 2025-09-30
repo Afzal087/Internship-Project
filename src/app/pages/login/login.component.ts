@@ -37,7 +37,7 @@ export class LoginComponent {
             console.log('✅ Login successful');
             this.userService.setLoginStatus(true);
             this.router.navigate(['dashboard']);
-            // redirect to dashboard
+            
           } else {
             console.log('❌ Invalid credentials');
             this.userService.setLoginStatus(false);
