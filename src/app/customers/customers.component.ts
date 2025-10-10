@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../models/customer.model';
-import { NgModule } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgFor } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
-import { Country } from '../models/country.model';
-import { countReset, log } from 'console';
-import { CommonModule } from '@angular/common';
-import { NgIf } from '@angular/common';
+import { environment } from '../../environment/environment';
+
 @Component({
   standalone: true,
   selector: 'app-customers',
@@ -22,8 +17,12 @@ export class CustomersComponent {
 
   customer: Customer[] = [];
   countries: any[] = [];
+  states : any[]= [];
+  cities : any[]= [];
 
-  // assume its india now assign selectedCountryCode to its Code ;
+  selectedCountryCode: string = '';
+  selectedStateCode: string = '';
+  selectedCity: string = '';
 
   info: Customer = {
     firstName: '',
@@ -41,41 +40,46 @@ export class CustomersComponent {
     nationality: '',
   };
 
- 
-
-  getCountryCode() {
-    const foundCountry = this.countries.find(
-      (country: any) => country.country === this.info.country
-    );
-    console.log(foundCountry)
-    if (foundCountry) {
-      this.info.countryCode = foundCountry.code;
-      console.log(this.info.countryCode);
-
-    } else {
-      this.info.countryCode = '';
-      console.log('Cannot Find any Country Code');
-    }
+  ngOnInit(): void {
+    this.getCountries();
   }
 
-  ngOnInit(): void {
-    this.AssignmentInit();
-    this.CustomerInit();
-}
-  
-  
-  
+ getCountries() {
+      this.customerService.getCountryData().subscribe((data:any)=>{
+        this.countries = data;
+        
+      })
+ }
+ getStateData(code:string) {
+    this.customerService.getStateData(this.selectedCountryCode).subscribe((data: any)=>{
+      this.states= data;
+     
+    })
+ }  
+getCityData(code:string) {
+   this.customerService.getCityData(this.selectedCountryCode, this.selectedStateCode).subscribe((data: any)=>{
+     this.cities= data;
+    
+   })
+ }
+ 
+  selectedCountry(code:any) {
+    this.info.phone_no = '+'.concat(code.phonecode)+this.info.phone_no;
+    this.info.country = code.name;
+    this.info.countryCode = code.iso2;
+    this.selectedCountryCode = code.iso2;
+    this.getStateData(code);
+  }
 
-  CustomerInit(){
-  return this.customerService.getCountry().subscribe((country) => {
-      this.countries = country;
-      
-    });}
+  selectedState(state: string) {
+    this.selectedStateCode = state;
+  
+    this.getCityData(this.selectedStateCode);
+  }
 
-   AssignmentInit(){
-     return this.customerService.get().subscribe((data) => {
-      this.customer = data;
-    });}
+
+
+  // customer
 
   addCustomer(form: NgForm) {
     this.customerService.add(this.info).subscribe({
@@ -96,7 +100,7 @@ export class CustomersComponent {
           state: '',
           nationality: '',
         };
-       alert("Customer Added Successfully");
+        alert('Customer Added Successfully');
       },
       error: (err) => {
         if (err.status === 409) {

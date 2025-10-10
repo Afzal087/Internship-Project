@@ -17,7 +17,7 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   standalone: true,
-  imports: [FormsModule,MatIcon, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, MatIcon, ReactiveFormsModule, CommonModule],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -39,15 +39,14 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // getting assignment-lists
 
-    this.masterService
-      .getAssignment()
-      .subscribe((data: Assign[]) => {
-        this.assignment= data
-      }
-      );
+    this.masterService.getAssignment().subscribe((data: Assign[]) => {
+      this.assignment = data;
+    });
 
-    // getting-selection-lists
-    this.custService.get().subscribe((data) => (this.customers = data));
+    this.custService.get().subscribe((data) => {
+      this.customers = data;
+      console.log('Data received from customer service:', data);
+    });
 
     this.empService.getEmployee().subscribe((data) => (this.employees = data));
 
@@ -58,7 +57,7 @@ export class HomeComponent implements OnInit {
   selectedEmployeeId!: number;
   selectedItemId!: number;
 
-  AssignedData:  Assign[]=[];
+  AssignedData: Assign[] = [];
 
   onAssign() {
     const masterId = {
@@ -75,15 +74,13 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Assignment failed', err);
-      }
+      },
     });
   }
 
-
-  removeAssignment(id: number){
+  removeAssignment(id: number) {
     this.masterService.deleteAssignment(id);
     this.masterService.getAssignment();
-    
   }
-  updateAssignment(id:number){}
+  updateAssignment(id: number) {}
 }

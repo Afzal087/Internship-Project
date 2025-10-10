@@ -30,7 +30,7 @@
       [(ngModel)]="selectedCustomerId"
       name="customer"
     >
-      <option *ngFor="let c of customers" [value]="c.customerId">{{ c.name }}</option>
+      <option *ngFor="let c of customers" [value]="c.customerId">{{ c.firstName +" "+ c.lastName }}</option>
     </select>
 
     <select
@@ -76,7 +76,7 @@
     {
   <div class="ml-8 w-[95%] h-[30px] bg-blue-50 my-[5px] text-blue-950 border-blue-100 border-[1px] flex justify-between pl-5 pr-5 rounded-sm items-center">
     <div class="employee-cards"><p>{{data.assignId}}</p></div>
-    <div class="employee-cards"><p>{{data.customer.name}}</p></div>
+    <div class="employee-cards"><p>{{data.customer.firstName }}{{" "}}{{data.customer.lastName}}</p></div>
     <div class="employee-cards"><p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">{{data.customer.customerCode}}</p></div>
     <div class="employee-cards"><p>{{ data.employee.name}}</p></div>
     <div class="employee-cards"><p class="bg-green-200 shadow-sm px-5 text-green-900 rounded-lg">{{ data.employee.employeeCode }}</p></div>

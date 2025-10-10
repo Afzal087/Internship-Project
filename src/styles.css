@@ -21,7 +21,7 @@
     @apply text-white bg-red-500;
   }
   .input-style {
-    @apply text-sm px-2 bg-gray-100 h-9 w-full rounded-md shadow-sm;
+    @apply text-sm px-2 bg-gray-100 h-9 w-full rounded-md shadow-sm ;
   }
 
   .img-style {
@@ -75,6 +75,9 @@
   }
   .invalid{
     @apply border-red-600 border-[1px] bg-red-50
+  }
+  .customerDetails{
+    @apply h-[45%] w-[28%] rounded-md mx-5 ml-8 shadow-xl bg-gray-100 border-gray-500 border-2;
   }
 
 }
