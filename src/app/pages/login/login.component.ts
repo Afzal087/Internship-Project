@@ -54,8 +54,7 @@ export class LoginComponent {
     }
   }
 
-  clicked() {
-    alert('Google sign-in clicked');
-    console.log('Google sign-in clicked');
+  forgotPassword() {
+   this.router.navigate(['/forgot']);
   }
 }
