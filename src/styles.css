@@ -65,13 +65,16 @@
     @apply flex flex-col
   }
   .inputLabel{
-    @apply text-[12px] text-gray-800 font-semibold font-Roboto ;
+    @apply text-[12px] text-gray-500 font-normal  ;
   }
   .input{
-    @apply h-6 rounded-sm border text-sm px-[5px] text-gray-800 w-[150px] border-gray-300 hover:border-blue-800;
+    @apply h-8 rounded-md border text-sm px-[5px]  text-gray-800 w-[220px] border-gray-300 hover:border-blue-800;
+  }
+  .view{
+    @apply  text-gray-700 text-sm font-semibold h-8 px-[5px] w-[220px] bg-none select-none bg-white border-none focus:outline-none focus:ring-0 focus:shadow-none;
   }
   .customerInputDiv{
-   @apply flex flex-col my-[20px] mx-[15px];
+   @apply flex flex-col my-[10px] mx-[15px];
   }
   .invalid{
     @apply border-red-600 border-[1px] bg-red-50

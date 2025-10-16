@@ -11,6 +11,7 @@ import { HomeComponent } from '../../home/home.component';
 import { CustomersComponent } from '../../customers/customers.component';
 
 import { ItemComponent } from '../../item/item.component';
+import { EmployeeListComponent } from '../../employee/employee-list/employee-list.component';
 
 
 
@@ -28,10 +29,10 @@ export class DashboardComponent {
 
   componentMap : Record<string,any> ={
       home: HomeComponent,
-      employees: EmployeeComponent,
+      employees: EmployeeListComponent,
       item:ItemComponent,
       customers: CustomersComponent,
-     
+    
   };
 
   loadComponent(name: string){ 
