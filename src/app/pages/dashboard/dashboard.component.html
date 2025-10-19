@@ -1,33 +1,47 @@
 <!-- homePage -->
-<div class="h-screen   w-screen flex justify-start">
-  <!-- dashboard -->
+<div class="h-screen w-screen flex justify-start">
+  <!-- Sidebar -->
   <div
-    class="flex fixed flex-col justify-start items-center h-full w-[15%] border-r-[1px] bg-blue-900 text-white border-red-700-"
+    class="flex fixed flex-col justify-start items-center h-full w-[15%] border-r-[1px] bg-blue-900 text-white"
   >
-<p class="text-white text-[20px] mt-7 mb-1.5  font-medium flex items-center gap-2">
-  <mat-icon class="mb-1">dashboard</mat-icon>
-  Dashboard
-</p>
+    <p class="text-white text-[20px] mt-7 mb-1.5 font-medium flex items-center gap-2">
+      <mat-icon class="mb-1">dashboard</mat-icon>
+      Dashboard
+    </p>
 
     <hr class="w-[80%] mt-2 text-white mb-5" />
 
-    <span class="dashboard-btn" (click)="loadComponent('home')"><mat-icon class="ml-6 flex items-center justify-center text-[20px]">home</mat-icon>Home</span>
-    <span class="dashboard-btn" (click)="loadComponent('employees')"><mat-icon class="ml-6 flex items-center justify-center text-[20px]">work</mat-icon>Employees</span>
-    <span class="dashboard-btn" (click)="loadComponent('customers')"><mat-icon class="ml-6 flex items-center justify-center text-[20px]">peoples</mat-icon>Customers</span>
-    <span class="dashboard-btn" (click)="loadComponent('item')"><mat-icon class="ml-6 flex items-center justify-center text-[20px]">add</mat-icon>Add Product</span>
+    <!-- Navigation buttons -->
+    <a routerLink="home" routerLinkActive="bg-blue-700"
+      class="dashboard-btn flex items-center gap-2">
+      <mat-icon class="ml-6 text-[20px]">home</mat-icon>Home
+    </a>
 
-    <p (click)="logout()" class="dashboard-btn">
-      <mat-icon class="ml-6 flex items-center justify-center text-[20px]"
-        >logout</mat-icon
-      >Logout
+    <a routerLink="employees" routerLinkActive="bg-blue-700"
+      class="dashboard-btn flex items-center gap-2">
+      <mat-icon class="ml-6 text-[20px]">work</mat-icon>Employees
+    </a>
+
+    <a routerLink="customers" routerLinkActive="bg-blue-700"
+      class="dashboard-btn flex items-center gap-2">
+      <mat-icon class="ml-6 text-[20px]">people</mat-icon>Customers
+    </a>
+
+    <a routerLink="item" routerLinkActive="bg-blue-700"
+      class="dashboard-btn flex items-center gap-2">
+      <mat-icon class="ml-6 text-[20px]">add</mat-icon>Add Product
+    </a>
+
+    <p (click)="logout()" class="dashboard-btn flex items-center gap-2 cursor-pointer">
+      <mat-icon class="ml-6 text-[20px]">logout</mat-icon>Logout
     </p>
   </div>
 
-  <!-- contentArea -->
-  <div class=" bg-white ml-[15%] h-screen w-screen m-2">
+  <!-- Content Area -->
+  <div class="bg-white ml-[15%] h-screen w-screen m-2">
     <app-header></app-header>
-      <ng-container *ngComponentOutlet="componentMap[activeComponents]"></ng-container>
-    
-    <!-- <app-employee></app-employee> -->
+
+    <!-- Router outlet (renders the active route component) -->
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
-import { EmployeeService } from '../services/employee.service';
-import { Employee } from '../models/employee.model';
-import { CustomerService } from '../services/customer.service';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { EmployeeService } from '../../services/employee.service';
+import { ActivatedRoute } from '@angular/router';
+import { Employee } from '../../models/employee.model';  
+import { CustomerService } from '../../services/customer.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
   selector: 'app-employee',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css'],
+  imports: [ CommonModule, FormsModule],
+  templateUrl: './employee-view.component.html',
+  styleUrls: ['./employee-view.component.css'],
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeViewComponent implements OnInit {
+
+  
   users: Employee[] = [];
-  isEditing: boolean = true;
+  isEditing: boolean = false;
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
@@ -28,9 +32,9 @@ export class EmployeeComponent implements OnInit {
   info: Employee = {
     // 🔹 Personal Info
     firstName: '',
-    employeeCode:'',
     lastName: '',
     dob: '',
+    employeeCode:'',
     phone_no: '',
     email: '',
 
@@ -65,16 +69,38 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getCountries();
-    this.employeeService.getEmployee().subscribe((data) => {
-      this.users = data;
-    });
+    this.getEmployee();
   }
 
+  getEmployee(){
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      const idString = params.get('employeeId');
+      const employeeId = idString? Number(idString) : 0;
+
+      console.log('Fetched employee ID from route:', idString);
+      if(employeeId>0){
+        this.employeeService.getEmployeeById(employeeId).subscribe({
+          next:(emp)=>{
+            this.info = emp;
+          },
+          error: (err)=>{
+            console.error('Error fetching employee data:', err);
+          }
+        })
+      }
+    })
+    
+
+  }
+
+  
   getCountries() {
     this.customerService.getCountryData().subscribe((data: any) => {
       this.countries = data;
@@ -127,8 +153,7 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
-  toggleMode() {
-    this.isEditing = !this.isEditing }
+  toggleMode() { this.isEditing = !this.isEditing }
 
  addEmployee(userForm: NgForm) {
   if (!userForm.valid) return;
@@ -184,6 +209,7 @@ export class EmployeeComponent implements OnInit {
       department: '',
       manager: '',
       joiningDate: '',
+      employeeCode:'',
       salary: '',
       accountHolderName: '',
       employementType:'',
@@ -193,7 +219,6 @@ export class EmployeeComponent implements OnInit {
       ifscCode: '',
       country: '',
       countryCode: '',
-      employeeCode:'',
       state: '',
       city: '',
       street: '',

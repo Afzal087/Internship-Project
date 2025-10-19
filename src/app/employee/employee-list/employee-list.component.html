@@ -3,42 +3,42 @@
     class="flex h-[60px] w-full mt-[1%] pt-1 my-[10px] mx-[50px] border-t-2 border-b-2"
   >
     <img class="w-[50px] h-[50px]" src="formIcon.png" alt="form" />
-    <div class="flex flex-col ml-3">
+    <div class="flex flex-col  ml-3">
       <p class="text-blue-900 font-medium">Employees List</p>
-      <p class="text-gray-500 text-[12px]">
-       Details of all employees Listed Below
+      <p class="text-gray-500 text-[12px]  ">
+       Details of all employees Listed Below <span class="ml-[620px]  "><button (click)="addEmployee()" class="bg-blue-200  border-blue-950 border-[2px] text-blue-950 px-3 py-1 rounded hover:bg-blue-950 hover:text-white">Add Emploee</button></span>
       </p>
     </div>
   </div>
-<div class="flex flex-col h-[95%] w-full rounded-md shadow-lg border-gray-200 border-2 bg-gray-100 my-[10px] mx-[50px] ">
+<div class="flex flex-col h-[95%] w-full rounded-md shadow-lg border-gray-300 border-2 bg-gray-100 my-[10px] mx-[50px] ">
  
 
-  <table class="w-full border-collapse border border-gray-600 text-black">
+  <table class="w-full border-collapse border border-gray-600">
     <thead class="bg-blue-950">
-      <tr>
-        <th class="p-2 border">Employee ID</th>
-        <th class="p-2 border">Name</th>
-        <th class="p-2 border">Role</th>
-        <th class="p-2 border">Department</th>
-        <th class="p-2 border">Status</th>
-        <th class="p-2 border">Actions</th>
+      <tr class=" text-white">
+        <th class="p-2  w-[110px] border">Employee ID</th>
+        <th class="p-2  border">Name</th>
+        <th class="p-2  w-[200px] border">Role</th>
+        <th class="p-2  w-[300px] border">Department</th>
+        <th class="p-2  w-[80px] border">Status</th>
+        <th class="p-2  w-[220px] border">Actions</th>
       </tr>
     </thead>
 
     <tbody>
       <tr
-        *ngFor="let emp of employees"
+        *ngFor="let emp of allEmployee"
         class="hover:bg-gray-800 hover:text-white"
       >
-        <td class="p-2 border">{{ emp.employeeCode }}</td>
-        <td class="p-2 border">{{ emp.name}}</td>
+        <td class="p-2 border">{{ emp.employeeCode}}</td>
+        <td class="p-2 border">{{ emp.firstName}}{{" "}}{{emp.lastName}}</td>
         <td class="p-2 border">{{ emp.position }}</td>
         <td class="p-2 border">{{ emp.department }}</td>
         <td class="p-2 border text-green-400">Active</td>
         <td class="p-2 border text-center space-x-2">
-          <button  class="bg-green-600 px-3 py-1 rounded"  (click)="onView(emp.id)">View</button>
-          <button class="bg-yellow-500 px-3 py-1 rounded" (click)="onEdit()">Edit</button>
-          <button class="bg-red-600 px-3 py-1 rounded" (click)="onDelete()">Delete</button>
+          <button  class="bg-green-600 px-3 py-1 rounded"  (click)="onView(emp.employeeId!)">View</button>
+          <button class="bg-yellow-500 px-3 py-1 rounded" (click)="onEdit(emp.employeeId!)">Edit</button>
+          <button class="bg-red-600 px-3 py-1 rounded" (click)="onDelete(emp.employeeId!)">Delete</button>
         </td>
       </tr>
     </tbody>

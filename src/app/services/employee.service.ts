@@ -34,6 +34,9 @@ export class EmployeeService {
 
   return this.https.post<Employee>(this.apiUrl, formData);
 }
+  getEmployeeById(id:number): Observable <Employee> {
+    return this.https.get<Employee>(`${this.apiUrl}/${id}`);
+  }
   
 
   deleteEmployee(id: number) : Observable<void> {

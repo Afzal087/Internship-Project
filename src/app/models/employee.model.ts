@@ -1,6 +1,7 @@
 export interface Employee{
      // 🔹 Personal Info
      employeeId?:number;
+     employeeCode: string;
   firstName: string;
   lastName: string;
   dob: string;

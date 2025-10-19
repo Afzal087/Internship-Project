@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../header/header.component";
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../services/user.service';
@@ -18,7 +18,7 @@ import { EmployeeListComponent } from '../../employee/employee-list/employee-lis
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule , MatIconModule, HeaderComponent],
+  imports: [CommonModule , MatIconModule, RouterLink, RouterOutlet, HeaderComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -32,7 +32,7 @@ export class DashboardComponent {
       employees: EmployeeListComponent,
       item:ItemComponent,
       customers: CustomersComponent,
-    
+      employeeProfile: EmployeeComponent
   };
 
   loadComponent(name: string){ 
