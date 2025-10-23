@@ -45,9 +45,21 @@ export class EmployeeService {
     return this.https.delete<void>(url);
   }
 
-  updateEmployee(id:number): Observable<Employee> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.https.patch<Employee>(url, this);
-  }
+  updateEmployee(info: Employee): Observable<Employee> {
+  const formData = new FormData();
+
+  (Object.keys(info) as (keyof Employee)[]).forEach(key => {
+    const value = info[key];
+    if (value !== null && value !== undefined && !(value instanceof File)) {
+      formData.append(key, value as string);
+    }
+  });
+
+  if (info.offerLetter instanceof File) formData.append('offerLetter', info.offerLetter);
+  if (info.idProof instanceof File) formData.append('idProof', info.idProof);
+
+  return this.https.patch<Employee>(`${this.apiUrl}/${info.employeeId}`, formData);
+}
+
 
 }

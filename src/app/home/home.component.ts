@@ -37,9 +37,12 @@ export class HomeComponent implements OnInit {
   assignment: Assign[] = [];
 
   ngOnInit(): void {
-    // getting assignment-lists
+    this.allServices();
+  }
 
-    this.masterService.getAssignment().subscribe((data: Assign[]) => {
+
+  allServices(){
+this.masterService.getAssignment().subscribe((data: Assign[]) => {
       this.assignment = data;
     });
 
@@ -80,7 +83,7 @@ export class HomeComponent implements OnInit {
 
   removeAssignment(id: number) {
     this.masterService.deleteAssignment(id);
-    this.masterService.getAssignment();
+    this.allServices();
   }
   updateAssignment(id: number) {}
 }

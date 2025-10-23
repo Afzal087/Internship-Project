@@ -16,10 +16,12 @@ import { Router } from '@angular/router';
 export class EmployeeComponent implements OnInit {
   users: Employee[] = [];
   isEditing: boolean = true;
+  editingId: number | null = null;
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
   cities: any[] = [];
+
   selectedCountryCode: string = '';
   selectedStateCode: string = '';
   selectedCity: string = '';
@@ -128,7 +130,12 @@ export class EmployeeComponent implements OnInit {
   }
 
   toggleMode() {
-    this.isEditing = !this.isEditing }
+    this.isEditing = !this.isEditing 
+  }
+
+  
+
+
 
  addEmployee(userForm: NgForm) {
   if (!userForm.valid) return;
@@ -161,17 +168,7 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  updateEmployee(id: any) {
-    this.employeeService.updateEmployee(id).subscribe({
-      next: (updated) => {
-        console.log(`Employee with ID ${id} updated successfully.`);
-        this.users = this.users.map((emp) =>
-          emp.employeeId === id ? updated : emp
-        );
-      },
-      error: (err) => console.error('Error updating employee:', err),
-    });
-  }
+  
 
   resetForm() {
     this.info = {

@@ -34,20 +34,20 @@ export class LoginComponent {
       this.userService.login(this.email, this.password).subscribe({
         next: (success) => {
           if (success) {
-            console.log('✅ Login successful');
+            console.log(' Login successful');
             this.userService.setLoginStatus(true);
             this.router.navigate(['dashboard']);
             
           } else {
-            console.log('❌ Invalid credentials');
+            console.log('Invalid credentials');
             this.userService.setLoginStatus(false);
           }
         },
         error: (err) => {
           if (err.status === 401) {
-            alert('🚫 ' + err.error.message);
+            alert(' ' + err.error.message);
           } else {
-            alert('❌ Something went wrong. Try again later.');
+            alert('Something went wrong. Try again later.');
           }
         },
       });

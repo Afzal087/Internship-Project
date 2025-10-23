@@ -6,10 +6,11 @@ import { Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
 import { OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatIcon],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
@@ -20,6 +21,8 @@ export class EmployeeListComponent implements OnInit {
   ) {}
 
   allEmployee: Employee[] = []
+  totalEmployee:number= 0;
+
 
   addEmployee() {
     this.router.navigate(['dashboard/employees/add']);
@@ -28,6 +31,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void {
     this.employeeService.getEmployee().subscribe((emps: Employee[]) => {
       this.allEmployee = emps;
+     this.totalEmployee = emps.length;
     });
   }
 
@@ -36,8 +40,10 @@ export class EmployeeListComponent implements OnInit {
     this.router.navigate(['/dashboard/employees/view', employeeId]);
   }
 
-  onDelete(employeeId: number) {
-    alert(`Delete employee with ID: ${employeeId}`);
+  onDelete(employeeId: number) {  
+    this.employeeService.deleteEmployee(employeeId).subscribe(() => {
+      this.allEmployee = this.allEmployee.filter(emp => emp.employeeId !== employeeId);
+    });
   }
   onEdit(employeeId: number) {
     this.router.navigate(['/dashboard/employees/edit', employeeId]);

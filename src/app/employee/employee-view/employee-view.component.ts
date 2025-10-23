@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '../../models/employee.model';  
+import { Employee } from '../../models/employee.model';
 import { CustomerService } from '../../services/customer.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
-  selector: 'app-employee',
-  imports: [ CommonModule, FormsModule],
+  selector: 'app-employee-view',
+  imports: [CommonModule, FormsModule],
   templateUrl: './employee-view.component.html',
   styleUrls: ['./employee-view.component.css'],
 })
 export class EmployeeViewComponent implements OnInit {
-
-  
   users: Employee[] = [];
   isEditing: boolean = false;
+
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
@@ -27,14 +25,14 @@ export class EmployeeViewComponent implements OnInit {
   selectedCountryCode: string = '';
   selectedStateCode: string = '';
   selectedCity: string = '';
-
+  absoluteUrl : string = "C:\Users\afzal\Desktop\my-project-backend"
   // Employee form model
   info: Employee = {
     // 🔹 Personal Info
     firstName: '',
     lastName: '',
     dob: '',
-    employeeCode:'',
+    employeeCode: '',
     phone_no: '',
     email: '',
 
@@ -43,7 +41,7 @@ export class EmployeeViewComponent implements OnInit {
     department: '',
     manager: '',
     joiningDate: '',
-    employementType:'',
+    employementType: '',
 
     // 🔹 Payroll Info
     salary: '',
@@ -78,60 +76,131 @@ export class EmployeeViewComponent implements OnInit {
     this.getEmployee();
   }
 
-  getEmployee(){
-
-    this.activatedRoute.paramMap.subscribe(params => {
+  getEmployee() {
+    this.activatedRoute.paramMap.subscribe((params) => {
       const idString = params.get('employeeId');
-      const employeeId = idString? Number(idString) : 0;
+      const employeeId = idString ? Number(idString) : 0;
 
       console.log('Fetched employee ID from route:', idString);
-      if(employeeId>0){
+      if (employeeId > 0) {
         this.employeeService.getEmployeeById(employeeId).subscribe({
-          next:(emp)=>{
+          next: (emp) => {
             this.info = emp;
+            // if countryCode exists on the employee, set selection and load dependent lists
+            if (this.info.countryCode) {
+              this.selectedCountryCode = this.info.countryCode;
+              // if countries already loaded, set country name immediately
+              if (this.countries && this.countries.length) {
+                const found = this.countries.find(
+                  (c) => c.iso2 === this.selectedCountryCode
+                );
+                if (found) {
+                  this.info.country = found.name || this.info.country;
+                }
+                this.getStateData(this.selectedCountryCode);
+              } else {
+                // wait for countries to load then get states
+                this.getCountries();
+                // getCountries will call getStateData after loading if info.countryCode is present
+              }
+            }
           },
-          error: (err)=>{
+          error: (err) => {
             console.error('Error fetching employee data:', err);
-          }
-        })
+          },
+        });
       }
-    })
-    
-
-  }
-
-  
-  getCountries() {
-    this.customerService.getCountryData().subscribe((data: any) => {
-      this.countries = data;
     });
   }
 
-  getStateData(code: string) {
+  getCountries() {
+    this.customerService.getCountryData().subscribe({
+      next: (data: any) => {
+        this.countries = data || [];
+
+        if (this.info.countryCode) {
+          this.selectedCountryCode = this.info.countryCode;
+
+          const found = this.countries.find(
+            (c) => c.iso2 === this.selectedCountryCode
+          );
+          if (found) {
+            this.info.country = found.name || this.info.country;
+          }
+          this.getStateData(this.selectedCountryCode);
+        }
+      },
+      error: (err) => {
+        console.error('Error loading countries:', err);
+      },
+    });
+  }
+
+  getStateData(countryCode: string) {
+    if (!countryCode) return;
+    this.customerService.getStateData(countryCode).subscribe({
+      next: (data: any) => {
+        this.states = data || [];
+        // if employee had a state, keep selection and load cities
+        if (this.info.state) {
+          this.selectedStateCode = this.info.state;
+          this.getCityData(this.selectedStateCode);
+        }
+      },
+      error: (err) => {
+        console.error('Error loading states for', countryCode, err);
+      },
+    });
+  }
+
+  getCityData(stateCode: string) {
+    if (!this.selectedCountryCode || !stateCode) return;
     this.customerService
-      .getStateData(this.selectedCountryCode)
-      .subscribe((data: any) => {
-        this.states = data;
+      .getCityData(this.selectedCountryCode, stateCode)
+      .subscribe({
+        next: (data: any) => {
+          this.cities = data || [];
+        },
+        error: (err) => {
+          console.error('Error loading cities:', err);
+        },
       });
   }
 
-  getCityData(code: string) {
-    this.customerService
-      .getCityData(this.selectedCountryCode, this.selectedStateCode)
-      .subscribe((data: any) => {
-        this.cities = data;
-      });
-  }
+  selectedCountry(value: any) {
+    let countryObj = null;
+    if (!value) return;
 
-  selectedCountry(code: any) {
-    this.info.phone_no = '+'.concat(code.phonecode).concat(this.info.phone_no);
-    this.info.country = code.name;
-    this.info.countryCode = code.iso2;
-    this.selectedCountryCode = code.iso2;
-    this.getStateData(code);
+    if (typeof value === 'string') {
+      countryObj = this.countries.find((c) => c.iso2 === value);
+    } else if (typeof value === 'object') {
+      countryObj = value;
+    }
+
+    if (!countryObj) {
+      console.warn('Selected country not found in countries list:', value);
+      return;
+    }
+
+    // phone code handling: avoid duplicating phone codes
+    const phoneCode = countryObj.phonecode ? String(countryObj.phonecode) : '';
+    if (phoneCode) {
+      const rawNumber = this.info.phone_no;
+      this.info.phone_no = phoneCode
+        ? `+${phoneCode}${rawNumber || ''}`
+        : this.info.phone_no;
+    }
+
+    this.info.country = countryObj.name || '';
+    this.info.countryCode = countryObj.iso2 || '';
+    this.selectedCountryCode = countryObj.iso2 || '';
+
+    // load dependent state/city lists
+    this.getStateData(this.selectedCountryCode);
   }
 
   selectedState(state: string) {
+    if (!state) return;
     this.selectedStateCode = state;
     this.info.state = state;
     this.getCityData(this.selectedStateCode);
@@ -153,48 +222,41 @@ export class EmployeeViewComponent implements OnInit {
     }
   }
 
-  toggleMode() { this.isEditing = !this.isEditing }
+  toggleMode() {
+    this.isEditing = !this.isEditing;
+  }
 
- addEmployee(userForm: NgForm) {
-  if (!userForm.valid) return;
+  addEmployee(userForm: NgForm) {
+    if (!userForm.valid) return;
 
-  console.log('Submitting employee data:', this.info);
-
-  this.employeeService.createEmployee(this.info).subscribe({
-    next: (saved) => {
-      this.users.push(saved);
-      alert('Employee added successfully!');
-      this.resetForm();
-    },
-    error: (err) => {
-      if (err.status === 409) {
-        alert('Employee with this email already exists.');
-      } else {
-        alert('Error adding employee. Please try again.');
-      }
-    },
-  });
-}
-
-  removeEmployee(id: any) {
-    this.employeeService.deleteEmployee(id).subscribe({
-      next: () => {
-        console.log(`Employee with ID ${id} deleted successfully.`);
-        this.users = this.users.filter((emp) => emp.employeeId !== id);
+    console.log('Submitting employee data:', this.info);
+    const data = this.info;
+    this.employeeService.updateEmployee(this.info).subscribe({
+      next: (saved) => {
+        this.users.push(saved);
+        alert('Employee Updated successfully!');
+        this.resetForm();
       },
-      error: (err) => console.error('Error deleting employee:', err),
+      error: (err) => {
+        if (err.status === 409) {
+          alert(err.message);
+        } else {
+          alert(err.message || 'Error updating employee.');
+        }
+      },
     });
   }
 
-  updateEmployee(id: any) {
-    this.employeeService.updateEmployee(id).subscribe({
-      next: (updated) => {
-        console.log(`Employee with ID ${id} updated successfully.`);
-        this.users = this.users.map((emp) =>
-          emp.employeeId === id ? updated : emp
+  removeEmployee(id: any) {
+    const idNum = Number(id);
+    this.employeeService.deleteEmployee(idNum).subscribe({
+      next: () => {
+        console.log(`Employee with ID ${idNum} deleted successfully.`);
+        this.users = this.users.filter(
+          (emp) => Number(emp.employeeId) !== idNum
         );
       },
-      error: (err) => console.error('Error updating employee:', err),
+      error: (err) => console.error('Error deleting employee:', err),
     });
   }
 
@@ -209,10 +271,10 @@ export class EmployeeViewComponent implements OnInit {
       department: '',
       manager: '',
       joiningDate: '',
-      employeeCode:'',
+      employeeCode: '',
       salary: '',
       accountHolderName: '',
-      employementType:'',
+      employementType: '',
       accountNumber: '',
       bankName: '',
       bankAddress: '',
@@ -226,5 +288,9 @@ export class EmployeeViewComponent implements OnInit {
       offerLetter: null,
       idProof: null,
     };
+    this.selectedCountryCode = '';
+    this.selectedStateCode = '';
+    this.cities = [];
+    this.states = [];
   }
 }

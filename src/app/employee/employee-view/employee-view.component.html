@@ -326,31 +326,29 @@
             <select
               [disabled]="!isEditing"
               [ngClass]="{ view: !isEditing, input: isEditing }"
-              name="countryName"
+              name="countryCode"
               id="country"
-              [(ngModel)]="info.country"
+              [(ngModel)]="info.countryCode"
               required
               #country="ngModel"
               [class.invalid]="country.invalid && country.touched"
               (ngModelChange)="selectedCountry($event)"
             >
-              @for (country of countries; track country.iso2) {
-              <option [ngValue]="country">{{ country.name }}</option>
-              }
+              <option value="">-- Select country --</option>
+              <option *ngFor="let country of countries" [value]="country.iso2">
+                {{ country.name }}
+              </option>
             </select>
           </div>
 
           <div class="customerInputDiv">
-            <label class="inputLabel" for="countryCode">Country-Code</label>
+            <label class="inputLabel" for="countryName">Country</label>
             <input
+              id="countryName"
+              name="countryName"
               [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              disabled
-              name="countryCode"
-              id="countryCode"
-              [ngModel]="info.countryCode"
-              #countryCode="ngModel"
-              value="{{ selectedCountryCode }}"
+              [readOnly]="true"
+              [value]="info.countryCode"
             />
           </div>
 
@@ -365,11 +363,9 @@
               [class.invalid]="state.invalid && state.touched"
               (ngModelChange)="selectedState($event)"
             >
-              @for (state of states; track state.iso2) {
-              <option [value]="state.iso2">
+              <option *ngFor="let state of states" [value]="state.iso2">
                 {{ state.name }}
               </option>
-              }
             </select>
           </div>
 
@@ -380,18 +376,15 @@
               [ngClass]="{ view: !isEditing, input: isEditing }"
               [(ngModel)]="info.city"
               name="city"
-              type="text"
               required
               minlength="3"
               maxlength="24"
               #city="ngModel"
               [class.invalid]="city.invalid && city.touched"
             >
-              @for (city of cities; track city.id) {
-              <option [value]="city.name">
+              <option *ngFor="let city of cities" [value]="city.name">
                 {{ city.name }}
               </option>
-              }
             </select>
           </div>
 
@@ -439,9 +432,10 @@
       </div>
 
       <div class="flex p-4">
-        <div class="customerInputDiv -mt-2">
-          <label class="inputLabel" for="idProof">ID Proof</label>
-          <input
+       <div class="customerInputDiv -mt-2">
+        <label class="inputLabel" for="idProof">ID Proof</label>
+
+        <input
             [readOnly]="!isEditing"
             [ngClass]="{
               'view w-[200px]': !isEditing,
@@ -450,12 +444,22 @@
             type="file"
             name="idProof"
             (change)="onIdProofUpload($event)"
-          />
-        </div>
+            [disabled]="!isEditing" *ngIf="isEditing || !info.idProof" />
 
+        <a 
+  *ngIf="!isEditing && info.idProof" 
+    [href]= info.idProof
+  target="_blank" 
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center w-[200px] inline-block"
+>
+  View Offer Letter
+</a>
+    </div>
+          
         <div class="customerInputDiv -mt-2">
-          <label class="inputLabel" for="offerLetter">Offer Letter</label>
-          <input
+        <label class="inputLabel" for="offerLetter">Offer Letter</label>
+
+        <input
             [readOnly]="!isEditing"
             [ngClass]="{
               'view w-[200px]': !isEditing,
@@ -464,8 +468,17 @@
             type="file"
             name="offerLetter"
             (change)="onOfferLetterUpload($event)"
-          />
-        </div>
+            [disabled]="!isEditing" *ngIf="isEditing || !info.offerLetter" />
+        
+        <a 
+  *ngIf="!isEditing && info.offerLetter" 
+  [href]= info.offerLetter
+  target="_blank" 
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center w-[200px] inline-block"
+>
+  View Offer Letter
+</a>
+    </div>
         <div class="customerInputDiv flex flex-row gap-4 ">
           <button
             [disabled]="userForm.invalid"
