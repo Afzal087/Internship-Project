@@ -3,6 +3,7 @@ import { f } from "../../../node_modules/@angular/material/icon-module.d-COXCrhr
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   standalone: true,
@@ -15,8 +16,20 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
 isMenuOpen = false;
 
+searchKeyword: string = '';
+constructor(private employeeService : EmployeeService){}
+
 toggleMenu() {
   this.isMenuOpen = !this.isMenuOpen;
 }
+
+onSearch():void{
+  this.employeeService.searchEmployees(this.searchKeyword);
+}
+onClear():void {
+  this.searchKeyword = '';
+  this.employeeService.searchEmployees(this.searchKeyword);
+}
+
 
 }

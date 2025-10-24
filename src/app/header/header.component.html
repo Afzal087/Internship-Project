@@ -1,18 +1,30 @@
 <!-- navbar.component.html -->
-<div class="w-full flex items-center justify-between px-4 py-2   border-b-blue-900 border-b-[1px] ">
+<div class="w-full flex items-center justify-between px-4 py-2 border-b-blue-900 border-b-[1px]">
   
-
   <!-- Middle: Search Bar -->
   <div class="flex-1 mx-6">
     <div class="relative w-full max-w-lg">
+      <!-- Search Icon -->
       <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
         <mat-icon>search</mat-icon>
       </span>
+      
+      <!-- Search Input -->
       <input
+        [(ngModel)]="searchKeyword"
+        (keyup)="onSearch()"
         type="text"
-        placeholder="Search anything Here..."
-        class="w-full rounded-full border-[2px]  pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Search by name, email, department..."
+        class="w-full rounded-full border-[2px] pl-10 pr-12 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      
+      <!-- ✅ Clear Button (NEW) -->
+      <button 
+        *ngIf="searchKeyword"
+        (click)="onClear()"
+        class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
   </div>
 
@@ -31,8 +43,7 @@
     <!-- Profile -->
     <div class="flex items-center space-x-3 bg-gray-50 px-3 py-1 rounded-full cursor-pointer">
       <img
-    
-        src="https://www.w3schools.com/howto/img_avatar.png"
+        src="https://www.w3schools.com/howto/img_avatar.png" 
         alt="User"
         class="h-10 w-10 bg-cover rounded-full border-2 border-blue-900"
       />
@@ -42,8 +53,6 @@
       </div>
       <mat-icon>expand_more</mat-icon>
     </div>
-    
   </div>
 
-  
 </div>
