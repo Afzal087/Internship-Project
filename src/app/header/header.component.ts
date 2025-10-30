@@ -37,13 +37,13 @@ export class HeaderComponent implements OnInit {
     const currentYear = today.getFullYear();
     const todayDate = new Date(currentYear, today.getMonth(), today.getDate());
 
-    // Map all employees to include their next birthday
+
     const birthdays = this.employees.map((employee) => {
       const dob = new Date(employee.dob);
       const month = dob.getMonth();
       const day = dob.getDate();
 
-      // Calculate next birthday
+  
       let nextBirthday = new Date(currentYear, month, day);
       if (nextBirthday < todayDate) {
         nextBirthday = new Date(currentYear + 1, month, day);
@@ -56,10 +56,10 @@ export class HeaderComponent implements OnInit {
       };
     });
 
-    // Sort by next birthday (ascending)
+   
     birthdays.sort((a, b) => a.nextBirthday.getTime() - b.nextBirthday.getTime());
 
-    // Take only the next 5 upcoming birthdays
+
     this.upcomingBirthdays = birthdays.slice(0, 5);
     this.birthdayCount = this.upcomingBirthdays.length;
 

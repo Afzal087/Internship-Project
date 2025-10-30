@@ -5,15 +5,19 @@ import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../models/employee.model';
 import { CustomerService } from '../services/customer.service';
 import { Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { count } from 'node:console';
 
 @Component({
   standalone: true,
   selector: 'app-employee',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIcon],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
+ 
+  maxBirthDate: string;
   users: Employee[] = [];
   isEditing: boolean = true;
   editingId: number | null = null;
@@ -22,6 +26,8 @@ export class EmployeeComponent implements OnInit {
   states: any[] = [];
   cities: any[] = [];
 
+  currentForm: number = 1;
+
   selectedCountryCode: string = '';
   selectedStateCode: string = '';
   selectedCity: string = '';
@@ -29,46 +35,76 @@ export class EmployeeComponent implements OnInit {
   // Employee form model
   info: Employee = {
     // 🔹 Personal Info
-    firstName: '',
-    employeeCode:'',
-    lastName: '',
-    dob: '',
-    phone_no: '',
-    email: '',
+      firstName: '',
+      lastName: '',
+      dob: '',
+      phone_no: '',
+      email: '',
+      aadharNo: '',
+      gender  : '',
+      maritalStatus: '',
+      fatherName: '', 
+      employeeCode: '',
 
-    // 🔹 Job Info
-    position: '',
-    department: '',
-    manager: '',
-    joiningDate: '',
-    employementType:'',
+      // 🔹 Address Info
+      country: '',
+      countryCode: '',
+      state: '',
+      city: '',
+      street: '',
+      buildingNo: '',
+      postal_code: '',
 
-    // 🔹 Payroll Info
-    salary: '',
-    accountHolderName: '',
-    accountNumber: '',
-    bankName: '',
-    bankAddress: '',
-    ifscCode: '',
+      // 🔹 Job Info
+      position: '',
+      department: '',
+      manager: '',
+      designation: '',
+      dateOfJoining: '',
+      organization: '',
+      workLocation: '',
+      employementType: '',
 
-    // 🔹 Address Info
-    country: '',
-    countryCode: '',
-    state: '',
-    city: '',
-    street: '',
-    buildingNo: '',
 
-    // 🔹 Documents
-    offerLetter: null,
-    idProof: null,
+
+      salary: '',
+      accountHolderName: '',
+      accountNumber: '',
+      bankName: '',
+      ifscCode: '',
+      pfNumber: '',
+      panNumber: '',
+      
+      offerLetter: null,
+      idProof: null,
   };
 
   constructor(
     private employeeService: EmployeeService,
     private customerService: CustomerService,
     private router: Router
-  ) {}
+  ) {
+    const today = new Date();
+    const eighteenYearsAgo = new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
+    this.maxBirthDate = eighteenYearsAgo.toISOString().split('T')[0];
+  }
+
+  nextForm() {
+    if (this.currentForm >= 1 && this.currentForm < 6) {
+      this.currentForm++;
+    }
+    console.log(this.info);
+  }
+
+  previousForm() {
+    if (this.currentForm <= 6 && this.currentForm > 1) {
+      this.currentForm--;
+    }
+  }
 
   ngOnInit(): void {
     this.getCountries();
@@ -76,6 +112,15 @@ export class EmployeeComponent implements OnInit {
       this.users = data;
     });
   }
+
+  getCountryName(code: string) {
+    const countries = this.countries;
+    const country = countries.find((c) => c.iso2 === code);
+     this.info.currency = country.currency;
+
+     return country.name
+
+  } 
 
   getCountries() {
     this.customerService.getCountryData().subscribe((data: any) => {
@@ -99,12 +144,15 @@ export class EmployeeComponent implements OnInit {
       });
   }
 
-  selectedCountry(code: any) {
-    this.info.phone_no = '+'.concat(code.phonecode).concat(this.info.phone_no);
-    this.info.country = code.name;
-    this.info.countryCode = code.iso2;
-    this.selectedCountryCode = code.iso2;
-    this.getStateData(code);
+  selectedCountry(countryName: any) {
+    const country = this.countries.find((c) => c.name === countryName);
+    this.info.countryCode = country.iso2;
+    this.selectedCountryCode = country.iso2;
+    this.getStateData(country.iso2);
+    
+  if (country) {
+    this.info.currency = country.currency;
+  }
   }
 
   selectedState(state: string) {
@@ -130,33 +178,29 @@ export class EmployeeComponent implements OnInit {
   }
 
   toggleMode() {
-    this.isEditing = !this.isEditing 
+    this.isEditing = !this.isEditing;
   }
 
-  
+  addEmployee(userForm: NgForm) {
+    if (!userForm.valid) return;
 
+    console.log('Submitting employee data:', this.info);
 
-
- addEmployee(userForm: NgForm) {
-  if (!userForm.valid) return;
-
-  console.log('Submitting employee data:', this.info);
-
-  this.employeeService.createEmployee(this.info).subscribe({
-    next: (saved) => {
-      this.users.push(saved);
-      alert('Employee added successfully!');
-      this.resetForm();
-    },
-    error: (err) => {
-      if (err.status === 409) {
-        alert('Employee with this email already exists.');
-      } else {
-        alert('Error adding employee. Please try again.');
-      }
-    },
-  });
-}
+    this.employeeService.createEmployee(this.info).subscribe({
+      next: (saved) => {
+        this.users.push(saved);
+        alert('Employee added successfully!');
+        this.resetForm();
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          alert('Employee with this email already exists.');
+        } else {
+          alert('Error adding employee. Please try again.');
+        }
+      },
+    });
+  }
 
   removeEmployee(id: any) {
     this.employeeService.deleteEmployee(id).subscribe({
@@ -168,33 +212,49 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  
-
   resetForm() {
     this.info = {
+      // 🔹 Personal Info
       firstName: '',
       lastName: '',
       dob: '',
       phone_no: '',
       email: '',
-      position: '',
-      department: '',
-      manager: '',
-      joiningDate: '',
-      salary: '',
-      accountHolderName: '',
-      employementType:'',
-      accountNumber: '',
-      bankName: '',
-      bankAddress: '',
-      ifscCode: '',
+      aadharNo: '',
+      gender  : '',
+      maritalStatus: '',
+      fatherName: '', 
+      employeeCode: '',
+
+      // 🔹 Address Info
       country: '',
       countryCode: '',
-      employeeCode:'',
       state: '',
       city: '',
       street: '',
       buildingNo: '',
+      postal_code: '',
+
+      // 🔹 Job Info
+      position: '',
+      department: '',
+      manager: '',
+      designation: '',
+      dateOfJoining: '',
+      organization: '',
+      workLocation: '',
+      employementType: '',
+
+
+
+      salary: '',
+      accountHolderName: '',
+      accountNumber: '',
+      bankName: '',
+      ifscCode: '',
+      pfNumber: '',
+      panNumber: '',
+      
       offerLetter: null,
       idProof: null,
     };

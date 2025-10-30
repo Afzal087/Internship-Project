@@ -30,8 +30,8 @@ export class DashboardComponent {
   componentMap : Record<string,any> ={
       home: HomeComponent,
       employees: EmployeeListComponent,
-      item:ItemComponent,
-      customers: CustomersComponent,
+      // item:ItemComponent,
+      // customers: CustomersComponent,
       employeeProfile: EmployeeComponent
   };
 

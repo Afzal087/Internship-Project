@@ -1,499 +1,739 @@
-<div class="flex w-[90%] flex-col h-full">
-  <div
-    class="flex h-[60px] w-full mt-[1%] pt-1 my-[10px] mx-[50px] border-t-2 border-b-2"
-  >
-    <img class="w-[50px] h-[50px]" src="formIcon.png" alt="form" />
-    <div class="flex flex-col ml-3">
-      <p class="text-blue-900 font-medium">Employee Information</p>
-      <p class="text-gray-500 text-[12px]">
-        Enter all personal, job, payroll, and document details below
-      </p>
+<!-- Main container for the multi-step form -->
+<div class="flex w-full justify-center p-6 bg-gray-100">
+  <div class="w-full max-w-5xl">
+    <!-- 6-Step Progress Bar -->
+    <div class="mb-6 px-4">
+      <div class="w-full px-4 ">
+       <div class="w-full px-4 ">
+  <div class="flex items-center">
+    <!-- Step 1 -->
+    <div class="flex flex-col items-center">
+      <div
+        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
+        [ngClass]="{
+          'bg-blue-900': currentForm >= 1,
+          'bg-gray-200': currentForm < 1
+        }"
+      >
+        <span
+          class="font-bold"
+          [ngClass]="{
+            'text-white': currentForm >= 1,
+            'text-gray-500': currentForm < 1
+          }"
+          >1</span
+        >
+      </div>
+      <div
+        class="mt-1 text-xs font-semibold"
+        [ngClass]="{
+          'text-blue-900': currentForm >= 1,
+          'text-gray-500': currentForm < 1
+        }"
+      >
+        Personal
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div
+      class="flex-auto border-t-2"
+      [ngClass]="{
+        'border-blue-900': currentForm > 1,
+        'border-gray-300': currentForm <= 1
+      }"
+    ></div>
+
+    <!-- Step 2 -->
+    <div class="flex flex-col items-center">
+      <div
+        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
+        [ngClass]="{
+          'bg-blue-900': currentForm >= 2,
+          'bg-gray-200': currentForm < 2
+        }"
+      >
+        <span
+          class="font-bold"
+          [ngClass]="{
+            'text-white': currentForm >= 2,
+            'text-gray-500': currentForm < 2
+          }"
+          >2</span
+        >
+      </div>
+      <div
+        class="mt-1 text-xs font-semibold"
+        [ngClass]="{
+          'text-blue-900': currentForm >= 2,
+          'text-gray-500': currentForm < 2
+        }"
+      >
+        Address
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div
+      class="flex-auto border-t-2"
+      [ngClass]="{
+        'border-blue-900': currentForm > 2,
+        'border-gray-300': currentForm <= 2
+      }"
+    ></div>
+
+    <!-- Step 3 -->
+    <div class="flex flex-col items-center">
+      <div
+        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
+        [ngClass]="{
+          'bg-blue-900': currentForm >= 3,
+          'bg-gray-200': currentForm < 3
+        }"
+      >
+        <span
+          class="font-bold"
+          [ngClass]="{
+            'text-white': currentForm >= 3,
+            'text-gray-500': currentForm < 3
+          }"
+          >3</span
+        >
+      </div>
+      <div
+        class="mt-1 text-xs font-semibold"
+        [ngClass]="{
+          'text-blue-900': currentForm >= 3,
+          'text-gray-500': currentForm < 3
+        }"
+      >
+        Job Info
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div
+      class="flex-auto border-t-2"
+      [ngClass]="{
+        'border-blue-900': currentForm > 3,
+        'border-gray-300': currentForm <= 3
+      }"
+    ></div>
+
+    <!-- Step 4 -->
+    <div class="flex flex-col items-center">
+      <div
+        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
+        [ngClass]="{
+          'bg-blue-900': currentForm >= 4,
+          'bg-gray-200': currentForm < 4
+        }"
+      >
+        <span
+          class="font-bold"
+          [ngClass]="{
+            'text-white': currentForm >= 4,
+            'text-gray-500': currentForm < 4
+          }"
+          >4</span
+        >
+      </div>
+      <div
+        class="mt-1 text-xs font-semibold"
+        [ngClass]="{
+          'text-blue-900': currentForm >= 4,
+          'text-gray-500': currentForm < 4
+        }"
+      >
+        Payroll
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div
+      class="flex-auto border-t-2"
+      [ngClass]="{
+        'border-blue-900': currentForm > 4,
+        'border-gray-300': currentForm <= 4
+      }"
+    ></div>
+
+    <!-- Step 5 -->
+    <div class="flex flex-col items-center">
+      <div
+        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
+        [ngClass]="{
+          'bg-blue-900': currentForm >= 5,
+          'bg-gray-200': currentForm < 5
+        }"
+      >
+        <span
+          class="font-bold"
+          [ngClass]="{
+            'text-white': currentForm >= 5,
+            'text-gray-500': currentForm < 5
+          }"
+          >5</span
+        >
+      </div>
+      <div
+        class="mt-1 text-xs font-semibold"
+        [ngClass]="{
+          'text-blue-900': currentForm >= 5,
+          'text-gray-500': currentForm < 5
+        }"
+      >
+        Documents
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div
+      class="flex-auto border-t-2"
+      [ngClass]="{
+        'border-blue-900': currentForm > 5,
+        'border-gray-300': currentForm <= 5
+      }"
+    ></div>
+
+    <!-- Step 6 -->
+    <div class="flex flex-col items-center">
+      <div
+        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
+        [ngClass]="{
+          'bg-blue-900': currentForm >= 6,
+          'bg-gray-200': currentForm < 6
+        }"
+      >
+        <span
+          class="font-bold"
+          [ngClass]="{
+            'text-white': currentForm >= 6,
+            'text-gray-500': currentForm < 6
+          }"
+          >6</span
+        >
+      </div>
+      <div
+        class="mt-1 text-xs font-semibold"
+        [ngClass]="{
+          'text-blue-900': currentForm >= 6,
+          'text-gray-500': currentForm < 6
+        }"
+      >
+        Complete
+      </div>
     </div>
   </div>
+</div>
 
-  <form #userForm="ngForm" (ngSubmit)="addEmployee(userForm)" novalidate>
-    <div
-      class="flex flex-col h-[95%] w-full rounded-md shadow-lg border-gray-200 border-2 bg-gray-100 my-[10px] mx-[50px]"
-    >
-      <div class="flex flex-wrap ml-4 w-full">
-        <div class="w-full flex flex-wrap md:w-1/2 ">
-          <div
-            class="w-full border-b-2 border-gray-300 p-2 bg-gray-50 mb-2"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Personal Information
-            </h2>
-            <p class="text-gray-500 text-[10px] ">
-              Name, Date of Birth, and Contact Details
-            </p>
-          </div>
+      </div>
+    </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="firstName"
-              >First-Name <span class="text-red-600">*</span></label
-            >
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.firstName"
-              name="firstName"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #firstName="ngModel"
-              [class.invalid]="firstName.invalid && firstName.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="lastName">Last-Name</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.lastName"
-              name="lastName"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #lastName="ngModel"
-              [class.invalid]="lastName.invalid && lastName.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="dob">Date-of-Birth</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.dob"
-              name="dob"
-              type="date"
-              placeholder=" DD/MM/YYYY"
-              required
-              maxlength="16"
-              #dob="ngModel"
-              [class.invalid]="dob.invalid && dob.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="phoneno">Phone Number</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.phone_no"
-              name="phoneno"
-              required
-              type="text"
-              minlength="3"
-              maxlength="24"
-              #phoneNo="ngModel"
-              [class.invalid]="phoneNo.invalid && phoneNo.touched"
-            />
-          </div>
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="email">Email-Address</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.email"
-              name="email"
-              type="email"
-              required
-              minlength="8"
-              maxlength="50"
-              #email="ngModel"
-              [class.invalid]="email.invalid && email.touched"
-            />
-          </div>
+    <!-- Form Card -->
+    <div class="flex flex-col bg-white w-full shadow-2xl rounded-xl border-2 border-gray-200">
+      <!-- Card Header -->
+      <div *ngIf="currentForm < 6" class="flex items-center p-4 border-b-2 border-gray-100">
+        <!-- Container for the icon - layout remains the same -->
+        <div class="h-[40px] w-[40px] flex items-center justify-center">
+          <mat-icon class="text-blue-900" style="
+              font-size: 40px;
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+            ">account_box</mat-icon>
         </div>
 
-        <div class="w-full flex flex-wrap md:w-1/2 p-4">
-          <div
-            class="w-full -mt-4 border-b-2 border-gray-300 p-2 bg-gray-50 mb-3"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Job Information
-            </h2>
-            <p class="text-gray-500 text-[10px] mb-1">
-              Enter details related to position, department, and manager
-            </p>
+        <div class="flex flex-col ml-3">
+          <p class="text-blue-900 font-semibold text-md">
+            Employee Information
+          </p>
+          <p class="text-gray-500 text-xs">Step 1: Personal Details</p>
+        </div>
+      </div>
+
+      <!-- Form Fields Section -->
+      <form #personalInfoForm="ngForm" (ngSubmit)="addEmployee(personalInfoForm)"  class="p-6">
+        <div *ngIf="currentForm === 1" class="flex flex-wrap -mx-3">
+          <!-- First Name -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="firstName">First Name <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.firstName" name="firstName" type="text" required
+              minlength="3" #firstName="ngModel" [class.border-red-500]="firstName.invalid && firstName.touched" />
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="employementType">Employement-Type</label>
-            <select
-              [disabled]="!isEditing"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              name="typeOfEmployee"
-              id="employementType"
-              [(ngModel)]="info.employementType"
-              required
-              #employementType="ngModel"
-              [class.invalid]="
-                employementType.invalid && employementType.touched
-              "
-            >
-              <option>Full-time</option>
+          <!-- Last Name -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="lastName">Last Name <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.lastName" name="lastName" type="text" required minlength="3"
+              #lastName="ngModel" [class.border-red-500]="lastName.invalid && lastName.touched" />
+          </div>
+
+          <!-- Spouse Name -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="spouseName">Father's Name <span class="text-red-600">*</span></label>
+            <input required class="employeeInput" [(ngModel)]="info.fatherName" name="spouseName" type="text"
+              #fathersName="ngModel" [class.border-red-500]="
+                fathersName.invalid && fathersName.touched
+              " />
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="dob">Date of Birth <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [max]="maxBirthDate" [(ngModel)]="info.dob" name="dob" type="date" required #dob="ngModel"
+              [class.border-red-500]="dob.invalid && dob.touched" />
+          </div>
+
+          <!-- Phone Number -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="phoneno">Phone Number <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.phone_no" name="phoneno" type="tel" required minlength="10"
+              #phoneNo="ngModel" [class.border-red-500]="phoneNo.invalid && phoneNo.touched" />
+          </div>
+
+          <!-- Email Address -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="email">Email Address <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.email" name="email" type="email" required email
+              #email="ngModel" [class.border-red-500]="email.invalid && email.touched" />
+          </div>
+
+          <!-- Aadhar Number -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="aadharNumber">Aadhar Number <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.aadharNo" name="aadharNumber" type="text" minlength="12"
+              maxlength="12" required #aadharNumber="ngModel" [class.border-red-500]="
+                aadharNumber.invalid && aadharNumber.touched
+              " />
+          </div>
+
+          <!-- Gender -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="gender">Gender</label>
+            <select required #Gender="ngModel" [class.border-red-500]="Gender.invalid && Gender.touched"
+              class="employeeInput" [(ngModel)]="info.gender" name="gender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- Marital Status -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="maritalStatus">Marital Status</label>
+            <select required #marital="ngModel" [class.border-red-500]="marital.invalid && marital.touched"
+              class="employeeInput" [(ngModel)]="info.maritalStatus" name="maritalStatus">
+              <option>Single</option>
+              <option>Married</option>
+            </select>
+          </div>
+        </div>
+        <!-- Addressform -->
+        <div *ngIf="currentForm === 2" class="flex flex-wrap -mx-3">
+          <!-- Country -->
+
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="country">Country</label>
+            <select class="employeeInput" name="countryName" id="country" [(ngModel)]="info.country" required
+              #country="ngModel" [class.border-red-500]="country.invalid && country.touched"
+              (ngModelChange)="selectedCountry($event)">
+              @for (country of countries; track country.iso2) {
+              <option [ngValue]="country.name">{{ country.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Country Code -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="countryCode">Country-Code</label>
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+              disabled name="countryCode" id="countryCode" [ngModel]="info.countryCode" [value]="selectedCountryCode" />
+          </div>
+
+          <!-- State -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="state">State</label>
+            <select class="employeeInput" [disabled]="!isEditing" [(ngModel)]="info.state" name="state"
+              [ngClass]="{ view: !isEditing, input: isEditing }" #state="ngModel"
+              [class.invalid]="state.invalid && state.touched" (ngModelChange)="selectedState($event)">
+              @for (state of states; track state.iso2) {
+              <option [value]="state.iso2">{{ state.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- City -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="city">City</label>
+            <select class="employeeInput" [disabled]="!isEditing" [ngClass]="{ view: !isEditing, input: isEditing }"
+              [(ngModel)]="info.city" name="city" required #city="ngModel"
+              [class.invalid]="city.invalid && city.touched">
+              @for (city of cities; track city.id) {
+              <option [value]="city.name">{{ city.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Street-Name -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="street">Street-Name</label>
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+              [(ngModel)]="info.street" name="street" type="text" required #street="ngModel"
+              [class.invalid]="street.invalid && street.touched" />
+          </div>
+
+          <!-- Building-No. -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="buildingNo">Building-No.</label>
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+              [(ngModel)]="info.buildingNo" name="buildingNo" type="text" required #building="ngModel"
+              [class.invalid]="building.invalid && building.touched" />
+          </div>
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="postal_code">Postal-Code</label>
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+              [(ngModel)]="info.postal_code" name="postal_code" type="text" required #postal="ngModel"
+              [class.invalid]="postal.invalid && postal.touched" />
+          </div>
+        </div>
+        <!-- JobForm -->
+        <div *ngIf="currentForm === 3" class="flex flex-wrap -mx-3">
+          <!-- Designation -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="designation">
+              Designation <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.designation" name="designation" type="text" required
+              #designation="ngModel" [class.border-red-500]="
+                designation.invalid && designation.touched
+              " />
+          </div>
+
+          <!-- Department -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="department">
+              Department <span class="text-red-600">*</span>
+            </label>
+            <select class="employeeInput" [(ngModel)]="info.department" name="department" required #department="ngModel"
+              [class.border-red-500]="department.invalid && department.touched">
+              <option>Engineering</option>
+              <option>Human Resources</option>
+              <option>Sales</option>
+              <option>Marketing</option>
+              <option>Finance</option>
+            </select>
+          </div>
+
+          <!-- Date of Joining -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="dateOfJoining">
+              Date of Joining <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.dateOfJoining" name="dateOfJoining" type="date" required
+              #dateOfJoining="ngModel" [class.border-red-500]="
+                dateOfJoining.invalid && dateOfJoining.touched
+              " />
+          </div>
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="employmentType">
+              Employment Type <span class="text-red-600">*</span>
+            </label>
+            <select class="employeeInput" [(ngModel)]="info.employementType" name="employmentType" required
+              #employment="ngModel" [class.border-red-500]="employment.invalid && employment.touched">
+              <option disabled value="">-- Select Type --</option>
+              <option>Full-Time</option>
               <option>Contract</option>
               <option>Intern</option>
             </select>
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="position">Position</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.position"
-              name="position"
-              type="text"
-              required
-              minlength="2"
-              maxlength="50"
-              #position="ngModel"
-              [class.invalid]="position.invalid && position.touched"
-            />
+          
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="organizationName">
+              Organization Name <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.organization" name="organizationName" type="text" required
+              #organizationName="ngModel" [class.border-red-500]="
+                organizationName.invalid && organizationName.touched
+              " />
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="department">Department</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.department"
-              name="department"
-              type="text"
-              required
-              minlength="2"
-              maxlength="50"
-              #department="ngModel"
-              [class.invalid]="department.invalid && department.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="manager">Manager</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.manager"
-              name="manager"
-              type="text"
-              required
-              minlength="3"
-              maxlength="50"
-              #manager="ngModel"
-              [class.invalid]="manager.invalid && manager.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="joiningDate">Joining Date</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.joiningDate"
-              name="joiningDate"
-              type="date"
-              required
-              #joiningDate="ngModel"
-              [class.invalid]="joiningDate.invalid && joiningDate.touched"
-            />
+          <!-- Work Location -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="workLocation">Work Location</label>
+            <input class="employeeInput" [(ngModel)]="info.workLocation" name="workLocation" type="text"
+              #workLocation="ngModel" />
           </div>
         </div>
-      </div>
-
-      <hr class="w-full border-gray-300" />
-
-      <div class="flex flex-wrap w-full">
-        <div class="w-full flex flex-wrap md:w-1/2 p-4">
-          <div
-            class="w-full -mt-4 border-b-2 border-gray-300 p-2 bg-gray-50 mb-3"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Payroll Information
-            </h2>
-            <p class="text-gray-500 text-[10px] mb-1">
-              Salary and Bank Details for Direct Deposit
-            </p>
+        <!-- Payroll Form -->
+        <div *ngIf="currentForm === 4" class="flex flex-wrap -mx-3">
+          <!-- Bank Name -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="bankName">
+              Bank Name <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.bankName" name="bankName" type="text" required
+              #bankName="ngModel" [class.border-red-500]="bankName.invalid && bankName.touched" />
+          </div>
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="salary">
+              Salary <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.salary" name="salary" type="text" required #salary="ngModel"
+              [class.border-red-500]="salary.invalid && salary.touched" />
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="salary">Salary</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.salary"
-              name="salary"
-              type="number"
-              required
-              min="0"
-              #salary="ngModel"
-              [class.invalid]="salary.invalid && salary.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="accountHolderName"
-              >Account Holder Name</label
-            >
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.accountHolderName"
-              name="accountHolderName"
-              type="text"
-              placeholder="e.g., Jane A. Doe"
-              required
-              minlength="5"
-              maxlength="50"
-              #accountHolderName="ngModel"
-              [class.invalid]="
+          <!-- Account Holder Name -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="accountHolderName">
+              Account Holder Name <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.accountHolderName" name="accountHolderName" type="text"
+              required #accountHolderName="ngModel" [class.border-red-500]="
                 accountHolderName.invalid && accountHolderName.touched
-              "
-            />
+              " />
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="accountNumber">Account Number</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.accountNumber"
-              name="accountNumber"
-              type="text"
-              placeholder="Enter your full account number"
-              required
-              minlength="8"
-              maxlength="20"
-              #accountNumber="ngModel"
-              [class.invalid]="accountNumber.invalid && accountNumber.touched"
-            />
+          <!-- Bank Account Number -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="accountNumber">
+              Bank Account Number <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.accountNumber" name="accountNumber" type="text" required
+              #accountNumber="ngModel" [class.border-red-500]="
+                accountNumber.invalid && accountNumber.touched
+              " />
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="bankName">Bank Name</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.bankName"
-              name="bankName"
-              type="text"
-              placeholder="e.g., State Bank of India"
-              required
-              minlength="3"
-              maxlength="50"
-              #bankName="ngModel"
-              [class.invalid]="bankName.invalid && bankName.touched"
-            />
+          <!-- IFSC Code -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="ifscCode">
+              IFSC Code <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.ifscCode" name="ifscCode" type="text" required
+              #ifscCode="ngModel" [class.border-red-500]="ifscCode.invalid && ifscCode.touched" />
           </div>
 
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="ifscCode">IFSC Code</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.ifscCode"
-              name="ifscCode"
-              type="text"
-              placeholder="e.g., SBIN0001234"
-              required
-              minlength="11"
-              maxlength="11"
-              #ifscCode="ngModel"
-              [class.invalid]="ifscCode.invalid && ifscCode.touched"
-            />
+          <!-- PF Account Number (UAN) -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="pfNumber">
+              PF Account Number (UAN) <span class="text-red-600">*</span>
+            </label>
+            <input class="employeeInput" [(ngModel)]="info.pfNumber" name="pfNumber" type="text" required minlength="12"
+              maxlength="12" #pfNumber="ngModel" [class.border-red-500]="pfNumber.invalid && pfNumber.touched" />
+          </div>
+
+          <!-- PAN Number -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="panNumber">PAN Number</label>
+            <input class="employeeInput" [(ngModel)]="info.panNumber" name="panNumber" type="text"
+              #panNumber="ngModel" />
           </div>
         </div>
+        <!-- Document Upload Form -->
+        <div *ngIf="currentForm === 5" class="w-full p-4">
+          <div class="flex justify-center items-center gap-6">
+            <!-- Box 1: ID Proof Upload -->
+            <div class="w-1/2 max-w-sm">
+              <label for="idProofUpload"
+                class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <mat-icon class="text-gray-500 mb-4"
+                    style="font-size: 48px; width: 48px; height: 48px">picture_as_pdf</mat-icon>
+                  <p class="text-sm font-semibold text-gray-600">ID Proof</p>
+                  <p class="text-xs text-gray-500">
+                    Click to upload (PDF, PNG, JPG)
+                  </p>
+                </div>
+                <input id="idProofUpload" type="file" class="hidden" (change)="onIdProofUpload($event)" />
+              </label>
+            </div>
 
-        <div class="w-full flex flex-wrap md:w-1/2 p-4">
-          <div
-            class="w-full ml-4 -mt-4 border-b-2 border-gray-300 p-2 bg-gray-50 mb-3"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Address Information
-            </h2>
-            <p class="text-gray-500 text-[10px] mb-1">
-              Complete address details
-            </p>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="country">Country</label>
-            <select
-              [disabled]="!isEditing"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              name="countryName"
-              id="country"
-              [(ngModel)]="info.country"
-              required
-              #country="ngModel"
-              [class.invalid]="country.invalid && country.touched"
-              (ngModelChange)="selectedCountry($event)"
-            >
-              @for (country of countries; track country.iso2) {
-              <option [ngValue]="country">{{ country.name }}</option>
-              }
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="countryCode">Country-Code</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              disabled
-              name="countryCode"
-              id="countryCode"
-              [ngModel]="info.countryCode"
-              #countryCode="ngModel"
-              value="{{ selectedCountryCode }}"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="state">State</label>
-            <select
-              [disabled]="!isEditing"
-              [(ngModel)]="info.state"
-              name="state"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              #state="ngModel"
-              [class.invalid]="state.invalid && state.touched"
-              (ngModelChange)="selectedState($event)"
-            >
-              @for (state of states; track state.iso2) {
-              <option [value]="state.iso2">
-                {{ state.name }}
-              </option>
-              }
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="city">City</label>
-            <select
-              [disabled]="!isEditing"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [(ngModel)]="info.city"
-              name="city"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #city="ngModel"
-              [class.invalid]="city.invalid && city.touched"
-            >
-              @for (city of cities; track city.id) {
-              <option [value]="city.name">
-                {{ city.name }}
-              </option>
-              }
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="street">Street-Name</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.street"
-              name="street"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #street="ngModel"
-              [class.invalid]="street.invalid && street.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="buildingNo">Building-No.</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.buildingNo"
-              name="buildingNo"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #building="ngModel"
-              [class.invalid]="building.invalid && building.touched"
-            />
+            <!-- Box 2: Offer Letter Upload -->
+            <div class="w-1/2 max-w-sm">
+              <label for="offerLetterUpload"
+                class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <mat-icon class="text-gray-500 mb-4"
+                    style="font-size: 48px; width: 48px; height: 48px">picture_as_pdf</mat-icon>
+                  <p class="text-sm font-semibold text-gray-600">
+                    Offer Letter
+                  </p>
+                  <p class="text-xs text-gray-500">
+                    Click to upload (PDF, PNG, JPG)
+                  </p>
+                </div>
+                <input id="offerLetterUpload" type="file" class="hidden" (change)="onOfferLetterUpload($event)" />
+              </label>
+            </div>
           </div>
         </div>
+        <!-- Confirmation Page -->
+        <div *ngIf="currentForm === 6" class="px-6 bg-white rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold text-blue-900 mb-6 border-b pb-2">
+            Confirm Your Details
+          </h2>
+
+          <!-- Personal & Address Details Section (4-Column Layout) -->
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">
+              Personal & Address Details
+            </h3>
+            <div class="flex flex-wrap -mx-2 text-sm">
+              <!-- Row 1 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">First Name</p>
+                <p class="font-medium text-gray-800">{{ info.firstName }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Last Name</p>
+                <p class="font-medium text-gray-800">{{ info.lastName }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Father's Name</p>
+                <p class="font-medium text-gray-800">{{ info.fatherName }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Date of Birth</p>
+                <p class="font-medium text-gray-800">{{ info.dob | date }}</p>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Phone Number</p>
+                <p class="font-medium text-gray-800">{{ info.phone_no }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Email Address</p>
+                <p class="font-medium text-gray-800">{{ info.email }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Aadhar</p>
+                <p class="font-medium text-gray-800">{{ info.aadharNo }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Gender</p>
+                <p class="font-medium text-gray-800">{{ info.gender }}</p>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Marital Status</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.maritalStatus }}
+                </p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Street & Building</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.buildingNo }} {{ info.street }}
+                </p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">City</p>
+                <p class="font-medium text-gray-800">{{ info.city }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">State</p>
+                <p class="font-medium text-gray-800">{{ info.state }}</p>
+              </div>
+
+              <!-- Row 4 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Country</p>
+                <p class="font-medium text-gray-800">{{ info.country }}</p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Employment & Payroll Section (4-Column Layout) -->
+          <div>
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">
+              Employment & Payroll
+            </h3>
+            <div class="flex flex-wrap -mx-2 text-sm">
+              <!-- Row 1 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Organization</p>
+                <p class="font-medium text-gray-800">{{ info.organization }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Designation</p>
+                <p class="font-medium text-gray-800">{{ info.designation }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Department</p>
+                <p class="font-medium text-gray-800">{{ info.department }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Employment Type</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.employementType }}
+                </p>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Date of Joining</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.dateOfJoining | date }}
+                </p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Salary</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.salary | currency : info.currency }}
+                </p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Bank Name</p>
+                <p class="font-medium text-gray-800">{{ info.bankName }}</p>
+              </div>
+
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">PAN Number</p>
+                <p class="font-medium text-gray-800">{{ info.panNumber }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Account Number</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.accountNumber }}
+                </p>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">PF Number (UAN)</p>
+                <p class="font-medium text-gray-800">{{ info.pfNumber }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end gap-4 p-4 bg-gray-50 rounded-b-xl border-t-2 border-gray-100">
+        <button [hidden]="currentForm === 1" type="button" (click)="previousForm()"
+          class="px-5 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
+          Previous
+        </button>
+
+        <!-- [disabled]="personalInfoForm.invalid" have to add this in button -->
+        <button type="button" (click)="nextForm()"
+          [hidden]="currentForm >= 6"
+          class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
+          Next
+        </button>
+        <button type="submit" [hidden]= "currentForm <= 5 "
+          [disabled]="personalInfoForm.invalid"
+          [class.bg-grey-400]="personalInfoForm.invalid"
+          class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
+          Submit
+        </button>
       </div>
+      </form>
 
-      <hr class="w-full border-gray-300" />
-
-      <div class="w-full ml-4 border-b-2 border-gray-300 p-2 bg-gray-50 mt-4">
-        <h2 class="text-blue-900 font-semibold text-base">Documents</h2>
-        <p class="text-gray-500 text-[10px] mb-1">
-          Upload required employee documents (ID Proof and Offer Letter)
-        </p>
-      </div>
-
-      <div class="flex p-4">
-        <div class="customerInputDiv -mt-2">
-          <label class="inputLabel" for="idProof">ID Proof</label>
-          <input
-            [readOnly]="!isEditing"
-            [ngClass]="{
-              'view w-[200px]': !isEditing,
-              'input w-[200px]': isEditing
-            }"
-            type="file"
-            name="idProof"
-            (change)="onIdProofUpload($event)"
-          />
-        </div>
-
-        <div class="customerInputDiv -mt-2">
-          <label class="inputLabel" for="offerLetter">Offer Letter</label>
-          <input
-            [readOnly]="!isEditing"
-            [ngClass]="{
-              'view w-[200px]': !isEditing,
-              'input w-[200px]': isEditing
-            }"
-            type="file"
-            name="offerLetter"
-            (change)="onOfferLetterUpload($event)"
-          />
-        </div>
-        <div class="customerInputDiv flex flex-row gap-4 ">
-          <button
-            [disabled]="userForm.invalid"
-            [class.blocked]="userForm.invalid"
-            type="submit"
-            class="hover-btn mb-2 bg-blue-950 text-white font-semibold  rounded-sm w-[100px] h-[40px]"
-          >
-            Save
-          </button>
-          <button
-            (click)="toggleMode()"
-            [class.blocked]="userForm.invalid"
-            type="button"
-            class="hover-btn mb-2 bg-blue-950 text-white font-semibold rounded-sm w-[100px] h-[40px]"
-          >
-            Edit
-          </button>
-         
-          <button
-            (click)="isEditing = false"
-            [class.blocked]="userForm.invalid"
-            type="button"
-            class="hover-btn mb-2 bg-blue-950 text-white font-semibold rounded-sm w-[100px] h-[40px]"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
+      <!-- Form Footer with Navigation -->
+      
     </div>
-  </form>
+  </div>
 </div>

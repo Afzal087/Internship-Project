@@ -28,40 +28,49 @@ export class EmployeeViewComponent implements OnInit {
   absoluteUrl : string = "C:\Users\afzal\Desktop\my-project-backend"
   // Employee form model
   info: Employee = {
-    // 🔹 Personal Info
-    firstName: '',
-    lastName: '',
-    dob: '',
-    employeeCode: '',
-    phone_no: '',
-    email: '',
+// 🔹 Personal Info
+      firstName: '',
+      lastName: '',
+      dob: '',
+      phone_no: '',
+      email: '',
+      aadharNo: '',
+      gender  : '',
+      maritalStatus: '',
+      fatherName: '', 
+      employeeCode: '',
 
-    // 🔹 Job Info
-    position: '',
-    department: '',
-    manager: '',
-    joiningDate: '',
-    employementType: '',
+      // 🔹 Address Info
+      country: '',
+      countryCode: '',
+      state: '',
+      city: '',
+      street: '',
+      buildingNo: '',
+      postal_code: '',
 
-    // 🔹 Payroll Info
-    salary: '',
-    accountHolderName: '',
-    accountNumber: '',
-    bankName: '',
-    bankAddress: '',
-    ifscCode: '',
+      // 🔹 Job Info
+      position: '',
+      department: '',
+      manager: '',
+      designation: '',
+      dateOfJoining: '',
+      organization: '',
+      workLocation: '',
+      employementType: '',
 
-    // 🔹 Address Info
-    country: '',
-    countryCode: '',
-    state: '',
-    city: '',
-    street: '',
-    buildingNo: '',
 
-    // 🔹 Documents
-    offerLetter: null,
-    idProof: null,
+
+      salary: '',
+      accountHolderName: '',
+      accountNumber: '',
+      bankName: '',
+      ifscCode: '',
+      pfNumber: '',
+      panNumber: '',
+      
+      offerLetter: null,
+      idProof: null,
   };
 
   constructor(
@@ -261,30 +270,48 @@ export class EmployeeViewComponent implements OnInit {
   }
 
   resetForm() {
-    this.info = {
+    this.info =  {
+     // 🔹 Personal Info
       firstName: '',
       lastName: '',
       dob: '',
       phone_no: '',
       email: '',
-      position: '',
-      department: '',
-      manager: '',
-      joiningDate: '',
+      aadharNo: '',
+      gender  : '',
+      maritalStatus: '',
+      fatherName: '', 
       employeeCode: '',
-      salary: '',
-      accountHolderName: '',
-      employementType: '',
-      accountNumber: '',
-      bankName: '',
-      bankAddress: '',
-      ifscCode: '',
+
+      // 🔹 Address Info
       country: '',
       countryCode: '',
       state: '',
       city: '',
       street: '',
       buildingNo: '',
+      postal_code: '',
+
+      // 🔹 Job Info
+      position: '',
+      department: '',
+      manager: '',
+      designation: '',
+      dateOfJoining: '',
+      organization: '',
+      workLocation: '',
+      employementType: '',
+
+
+
+      salary: '',
+      accountHolderName: '',
+      accountNumber: '',
+      bankName: '',
+      ifscCode: '',
+      pfNumber: '',
+      panNumber: '',
+      
       offerLetter: null,
       idProof: null,
     };
