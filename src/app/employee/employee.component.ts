@@ -189,8 +189,11 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.createEmployee(this.info).subscribe({
       next: (saved) => {
         this.users.push(saved);
+        this.router.navigate(['employees']);
         alert('Employee added successfully!');
         this.resetForm();
+        
+         
       },
       error: (err) => {
         if (err.status === 409) {

@@ -35,7 +35,6 @@ export class EmployeeService {
     });
   }
 
-
     searchEmployees(keyword: string): void {
     if (!keyword || keyword.trim() === '') {
       // No keyword, show all employees
@@ -58,7 +57,6 @@ export class EmployeeService {
     this.employeeSubject.next(filtered);  // Broadcast filtered results
   }
 
-  // ✅ NEW: Clear search and show all
   clearSearch(): void {
     console.log('🔄 Showing all employees');
     this.employeeSubject.next(this.allEmployee);
@@ -80,6 +78,7 @@ export class EmployeeService {
 
   return this.http.post<Employee>(this.apiUrl, formData);
 }
+
   getEmployeeById(id:number): Observable <Employee> {
     return this.http.get<Employee>(`${this.apiUrl}/${id}`);
   }
@@ -106,6 +105,5 @@ export class EmployeeService {
 
   return this.http.patch<Employee>(`${this.apiUrl}/${info.employeeId}`, formData);
 }
-
 
 }
