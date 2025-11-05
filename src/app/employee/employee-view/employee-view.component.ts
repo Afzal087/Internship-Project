@@ -25,52 +25,58 @@ export class EmployeeViewComponent implements OnInit {
   selectedCountryCode: string = '';
   selectedStateCode: string = '';
   selectedCity: string = '';
-  absoluteUrl : string = "C:\Users\afzal\Desktop\my-project-backend"
+  absoluteUrl: string = 'C:UsersafzalDesktopmy-project-backend';
   // Employee form model
   info: Employee = {
-// 🔹 Personal Info
-      firstName: '',
-      lastName: '',
-      dob: '',
-      phone_no: '',
-      email: '',
-      aadharNo: '',
-      gender  : '',
-      maritalStatus: '',
-      fatherName: '', 
-      employeeCode: '',
+    // 🔹 Personal Info
+    firstName: '',
+    lastName: '',
+    dob: '',
+    phone_no: '',
+    email: '',
+    aadharNo: '',
+    gender: '',
+    maritalStatus: '',
+    fatherName: '',
+    employeeCode: '',
 
-      // 🔹 Address Info
-      country: '',
-      countryCode: '',
-      state: '',
-      city: '',
-      street: '',
-      buildingNo: '',
-      postal_code: '',
+    // 🔹 Address Info
+   
+    country: '',
+    countryCode: '',
+    state: '',
+    city: '',
+    street: '',
+    buildingNo: '',
+    postal_code: '',
 
-      // 🔹 Job Info
-      position: '',
-      department: '',
-      manager: '',
-      designation: '',
-      dateOfJoining: '',
-      organization: '',
-      workLocation: '',
-      employementType: '',
+    // 🔹 Job Info
+
+    
 
 
+    department: '',
+    manager: '',
+    designation: '',
+    dateOfJoining: '',
+    organization: '',
+    workLocation: '',
+    employementType: '',
 
-      salary: '',
-      accountHolderName: '',
-      accountNumber: '',
-      bankName: '',
-      ifscCode: '',
-      pfNumber: '',
-      panNumber: '',
-      
-      offerLetter: null,
-      idProof: null,
+  
+
+    salary: '',
+    accountHolderName: '',
+    accountNumber: '',
+    bankName: '',
+    ifscCode: '',
+    pfNumber: '',
+    panNumber: '',
+
+   
+
+    offerLetter: null,
+    idProof: null,
   };
 
   constructor(
@@ -90,10 +96,10 @@ export class EmployeeViewComponent implements OnInit {
       const idString = params.get('employeeId');
       const employeeId = idString ? Number(idString) : 0;
 
-      console.log('Fetched employee ID from route:', idString);
       if (employeeId > 0) {
         this.employeeService.getEmployeeById(employeeId).subscribe({
           next: (emp) => {
+            console.log("This is the Employee Format when get byID : ",emp)
             this.info = emp;
             // if countryCode exists on the employee, set selection and load dependent lists
             if (this.info.countryCode) {
@@ -146,21 +152,26 @@ export class EmployeeViewComponent implements OnInit {
   }
 
   getStateData(countryCode: string) {
-    if (!countryCode) return;
-    this.customerService.getStateData(countryCode).subscribe({
-      next: (data: any) => {
-        this.states = data || [];
-        // if employee had a state, keep selection and load cities
-        if (this.info.state) {
-          this.selectedStateCode = this.info.state;
+  if (!countryCode) return;
+  this.customerService.getStateData(countryCode).subscribe({
+    next: (data: any) => {
+      this.states = data || [];
+      
+      // If employee already has a state, find its code
+      if (this.info.state) {
+        const stateObj = this.states.find((s) => s.name === this.info.state);
+        if (stateObj) {
+          this.selectedStateCode = stateObj.iso2;
           this.getCityData(this.selectedStateCode);
         }
-      },
-      error: (err) => {
-        console.error('Error loading states for', countryCode, err);
-      },
-    });
-  }
+      }
+    },
+    error: (err) => {
+      console.error('Error loading states for', countryCode, err);
+    },
+  });
+}
+
 
   getCityData(stateCode: string) {
     if (!this.selectedCountryCode || !stateCode) return;
@@ -208,12 +219,18 @@ export class EmployeeViewComponent implements OnInit {
     this.getStateData(this.selectedCountryCode);
   }
 
-  selectedState(state: string) {
-    if (!state) return;
-    this.selectedStateCode = state;
-    this.info.state = state;
-    this.getCityData(this.selectedStateCode);
+  selectedState(stateCode: string) {
+  if (!stateCode) return;
+  this.selectedStateCode = stateCode;
+  
+  // Find the state object and get its name
+  const stateObj = this.states.find((s) => s.iso2 === stateCode);
+  if (stateObj) {
+    this.info.state = stateObj.name;  // Save state NAME, not code
   }
+  
+  this.getCityData(this.selectedStateCode);
+}
 
   onOfferLetterUpload(event: any) {
     const file = event.target.files?.[0];
@@ -270,50 +287,57 @@ export class EmployeeViewComponent implements OnInit {
   }
 
   resetForm() {
-    this.info =  {
-     // 🔹 Personal Info
-      firstName: '',
-      lastName: '',
-      dob: '',
-      phone_no: '',
-      email: '',
-      aadharNo: '',
-      gender  : '',
-      maritalStatus: '',
-      fatherName: '', 
-      employeeCode: '',
+    this.info = {
+      // 🔹 Personal Info
+       firstName: '',
+    lastName: '',
+    dob: '',
+    phone_no: '',
+    email: '',
+    aadharNo: '',
+    gender: '',
+    maritalStatus: '',
+    fatherName: '',
+    employeeCode: '',
 
-      // 🔹 Address Info
-      country: '',
-      countryCode: '',
-      state: '',
-      city: '',
-      street: '',
-      buildingNo: '',
-      postal_code: '',
+    // 🔹 Address Info
+    
 
-      // 🔹 Job Info
-      position: '',
-      department: '',
-      manager: '',
-      designation: '',
-      dateOfJoining: '',
-      organization: '',
-      workLocation: '',
-      employementType: '',
+    country: '',
+    countryCode: '',
+    state: '',
+    city: '',
+    street: '',
+    buildingNo: '',
+    postal_code: '',
+
+    // 🔹 Job Info
+
+    
 
 
+    department: '',
+    manager: '',
+    designation: '',
+    dateOfJoining: '',
+    organization: '',
+    workLocation: '',
+    employementType: '',
 
-      salary: '',
-      accountHolderName: '',
-      accountNumber: '',
-      bankName: '',
-      ifscCode: '',
-      pfNumber: '',
-      panNumber: '',
-      
-      offerLetter: null,
-      idProof: null,
+   
+
+    salary: '',
+    accountHolderName: '',
+    accountNumber: '',
+    bankName: '',
+    ifscCode: '',
+    pfNumber: '',
+    panNumber: '',
+
+   
+
+    offerLetter: null,
+    idProof: null,
     };
     this.selectedCountryCode = '';
     this.selectedStateCode = '';

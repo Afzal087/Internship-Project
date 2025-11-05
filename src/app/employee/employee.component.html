@@ -4,236 +4,163 @@
     <!-- 6-Step Progress Bar -->
     <div class="mb-6 px-4">
       <div class="w-full px-4 ">
-       <div class="w-full px-4 ">
-  <div class="flex items-center">
-    <!-- Step 1 -->
-    <div class="flex flex-col items-center">
-      <div
-        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
-        [ngClass]="{
+        <div class="w-full px-4 ">
+          <div class="flex items-center">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center">
+              <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
           'bg-blue-900': currentForm >= 1,
           'bg-gray-200': currentForm < 1
-        }"
-      >
-        <span
-          class="font-bold"
-          [ngClass]="{
+        }">
+                <span class="font-bold"  [ngClass]="{
             'text-white': currentForm >= 1,
             'text-gray-500': currentForm < 1
-          }"
-          >1</span
-        >
-      </div>
-      <div
-        class="mt-1 text-xs font-semibold"
-        [ngClass]="{
+
+          }"><button [disabled]="currentForm==1" (click)="currentForm=1">1</button></span>
+              </div>
+              <div class="mt-1 text-xs font-semibold" [ngClass]="{
           'text-blue-900': currentForm >= 1,
           'text-gray-500': currentForm < 1
-        }"
-      >
-        Personal
-      </div>
-    </div>
+        }">
+                Personal
+              </div>
+            </div>
 
-    <!-- Connector -->
-    <div
-      class="flex-auto border-t-2"
-      [ngClass]="{
+            <!-- Connector -->
+            <div class="flex-auto border-t-2" [ngClass]="{
         'border-blue-900': currentForm > 1,
         'border-gray-300': currentForm <= 1
-      }"
-    ></div>
+      }"></div>
 
-    <!-- Step 2 -->
-    <div class="flex flex-col items-center">
-      <div
-        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
-        [ngClass]="{
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center">
+              <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
           'bg-blue-900': currentForm >= 2,
           'bg-gray-200': currentForm < 2
-        }"
-      >
-        <span
-          class="font-bold"
-          [ngClass]="{
+        }">
+                <span class="font-bold" [ngClass]="{
             'text-white': currentForm >= 2,
             'text-gray-500': currentForm < 2
-          }"
-          >2</span
-        >
-      </div>
-      <div
-        class="mt-1 text-xs font-semibold"
-        [ngClass]="{
+          }"><button [disabled]="currentForm<2" (click)="currentForm=2">2</button></span>
+              </div>
+              <div class="mt-1 text-xs font-semibold" [ngClass]="{
           'text-blue-900': currentForm >= 2,
           'text-gray-500': currentForm < 2
-        }"
-      >
-        Address
-      </div>
-    </div>
+        }">
+                Address
+              </div>
+            </div>
 
-    <!-- Connector -->
-    <div
-      class="flex-auto border-t-2"
-      [ngClass]="{
+            <!-- Connector -->
+            <div class="flex-auto border-t-2" [ngClass]="{
         'border-blue-900': currentForm > 2,
         'border-gray-300': currentForm <= 2
-      }"
-    ></div>
+      }"></div>
 
-    <!-- Step 3 -->
-    <div class="flex flex-col items-center">
-      <div
-        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
-        [ngClass]="{
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center">
+              <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
           'bg-blue-900': currentForm >= 3,
           'bg-gray-200': currentForm < 3
-        }"
-      >
-        <span
-          class="font-bold"
-          [ngClass]="{
+        }">
+                <span class="font-bold" [ngClass]="{
             'text-white': currentForm >= 3,
             'text-gray-500': currentForm < 3
-          }"
-          >3</span
-        >
-      </div>
-      <div
-        class="mt-1 text-xs font-semibold"
-        [ngClass]="{
+          }"><button [disabled]="currentForm<3" (click)="currentForm=3">3</button></span>
+              </div>
+              <div class="mt-1 text-xs font-semibold" [ngClass]="{
           'text-blue-900': currentForm >= 3,
           'text-gray-500': currentForm < 3
-        }"
-      >
-        Job Info
-      </div>
-    </div>
+        }">
+                Job Info
+              </div>
+            </div>
 
-    <!-- Connector -->
-    <div
-      class="flex-auto border-t-2"
-      [ngClass]="{
+            <!-- Connector -->
+            <div class="flex-auto border-t-2" [ngClass]="{
         'border-blue-900': currentForm > 3,
         'border-gray-300': currentForm <= 3
-      }"
-    ></div>
+      }"></div>
 
-    <!-- Step 4 -->
-    <div class="flex flex-col items-center">
-      <div
-        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
-        [ngClass]="{
+            <!-- Step 4 -->
+            <div class="flex flex-col items-center">
+              <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
           'bg-blue-900': currentForm >= 4,
           'bg-gray-200': currentForm < 4
-        }"
-      >
-        <span
-          class="font-bold"
-          [ngClass]="{
+        }">
+                <span class="font-bold" [ngClass]="{
             'text-white': currentForm >= 4,
             'text-gray-500': currentForm < 4
-          }"
-          >4</span
-        >
-      </div>
-      <div
-        class="mt-1 text-xs font-semibold"
-        [ngClass]="{
+          }"><button [disabled]="currentForm<4" (click)="currentForm=4">4</button></span>
+              </div>
+              <div class="mt-1 text-xs font-semibold" [ngClass]="{
           'text-blue-900': currentForm >= 4,
           'text-gray-500': currentForm < 4
-        }"
-      >
-        Payroll
-      </div>
-    </div>
+        }">
+                Payroll
+              </div>
+            </div>
 
-    <!-- Connector -->
-    <div
-      class="flex-auto border-t-2"
-      [ngClass]="{
+            <!-- Connector -->
+            <div class="flex-auto border-t-2" [ngClass]="{
         'border-blue-900': currentForm > 4,
         'border-gray-300': currentForm <= 4
-      }"
-    ></div>
+      }"></div>
 
-    <!-- Step 5 -->
-    <div class="flex flex-col items-center">
-      <div
-        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
-        [ngClass]="{
+            <!-- Step 5 -->
+            <div class="flex flex-col items-center">
+              <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
           'bg-blue-900': currentForm >= 5,
           'bg-gray-200': currentForm < 5
-        }"
-      >
-        <span
-          class="font-bold"
-          [ngClass]="{
+        }">
+                <span class="font-bold" [ngClass]="{
             'text-white': currentForm >= 5,
             'text-gray-500': currentForm < 5
-          }"
-          >5</span
-        >
-      </div>
-      <div
-        class="mt-1 text-xs font-semibold"
-        [ngClass]="{
+          }"><button [disabled]="currentForm<5" (click)="currentForm=5">5</button></span>
+              </div>
+              <div class="mt-1 text-xs font-semibold" [ngClass]="{
           'text-blue-900': currentForm >= 5,
           'text-gray-500': currentForm < 5
-        }"
-      >
-        Documents
-      </div>
-    </div>
+        }">
+                Documents
+              </div>
+            </div>
 
-    <!-- Connector -->
-    <div
-      class="flex-auto border-t-2"
-      [ngClass]="{
+            <!-- Connector -->
+            <div class="flex-auto border-t-2" [ngClass]="{
         'border-blue-900': currentForm > 5,
         'border-gray-300': currentForm <= 5
-      }"
-    ></div>
+      }"></div>
 
-    <!-- Step 6 -->
-    <div class="flex flex-col items-center">
-      <div
-        class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10"
-        [ngClass]="{
+            <!-- Step 6 -->
+            <div class="flex flex-col items-center">
+              <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
           'bg-blue-900': currentForm >= 6,
           'bg-gray-200': currentForm < 6
-        }"
-      >
-        <span
-          class="font-bold"
-          [ngClass]="{
+        }">
+                <span class="font-bold" [ngClass]="{
             'text-white': currentForm >= 6,
             'text-gray-500': currentForm < 6
-          }"
-          >6</span
-        >
-      </div>
-      <div
-        class="mt-1 text-xs font-semibold"
-        [ngClass]="{
+          }"><button [disabled]="currentForm<6" (click)="currentForm=6">6</button></span>
+              </div>
+              <div class="mt-1 text-xs font-semibold" [ngClass]="{
           'text-blue-900': currentForm >= 6,
           'text-gray-500': currentForm < 6
-        }"
-      >
-        Complete
-      </div>
-    </div>
-  </div>
-</div>
+        }">
+                Complete
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
 
     <!-- Form Card -->
+
     <div class="flex flex-col bg-white w-full shadow-2xl rounded-xl border-2 border-gray-200">
       <!-- Card Header -->
-      <div *ngIf="currentForm < 6" class="flex items-center p-4 border-b-2 border-gray-100">
+      <div *ngIf="currentForm ==1" class="flex items-center p-4 border-b-2 border-gray-100">
         <!-- Container for the icon - layout remains the same -->
         <div class="h-[40px] w-[40px] flex items-center justify-center">
           <mat-icon class="text-blue-900" style="
@@ -251,9 +178,83 @@
           <p class="text-gray-500 text-xs">Step 1: Personal Details</p>
         </div>
       </div>
+      <div *ngIf="currentForm ==2" class="flex items-center p-4 border-b-2 border-gray-100">
+        <!-- Container for the icon - layout remains the same -->
+        <div class="h-[40px] w-[40px] flex items-center justify-center">
+          <mat-icon class="text-blue-900" style="
+              font-size: 40px;
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+            ">account_box</mat-icon>
+        </div>
+
+        <div class="flex flex-col ml-3">
+          <p class="text-blue-900 font-semibold text-md">
+            Address Information
+          </p>
+          <p class="text-gray-500 text-xs">Step 2: Enter Address Information </p>
+        </div>
+      </div>
+      <div *ngIf="currentForm ==3" class="flex items-center p-4 border-b-2 border-gray-100">
+        <!-- Container for the icon - layout remains the same -->
+        <div class="h-[40px] w-[40px] flex items-center justify-center">
+          <mat-icon class="text-blue-900" style="
+              font-size: 40px;
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+            ">account_box</mat-icon>
+        </div>
+
+        <div class="flex flex-col ml-3">
+          <p class="text-blue-900 font-semibold text-md">
+            Job Information
+          </p>
+          <p class="text-gray-500 text-xs">Step 3: Enter Job Related Information </p>
+        </div>
+      </div>
+      <div *ngIf="currentForm ==4" class="flex items-center p-4 border-b-2 border-gray-100">
+        <!-- Container for the icon - layout remains the same -->
+        <div class="h-[40px] w-[40px] flex items-center justify-center">
+          <mat-icon class="text-blue-900" style="
+              font-size: 40px;
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+            ">account_box</mat-icon>
+        </div>
+
+        <div class="flex flex-col ml-3">
+          <p class="text-blue-900 font-semibold text-md">
+            Payroll Information
+          </p>
+          <p class="text-gray-500 text-xs">Step 4: Enter Payroll Information </p>
+        </div>
+      </div>
+      <div *ngIf="currentForm ==5" class="flex items-center p-4 border-b-2 border-gray-100">
+        <!-- Container for the icon - layout remains the same -->
+        <div class="h-[40px] w-[40px] flex items-center justify-center">
+          <mat-icon class="text-blue-900" style="
+              font-size: 40px;
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+            ">account_box</mat-icon>
+        </div>
+
+        <div class="flex flex-col ml-3">
+          <p class="text-blue-900 font-semibold text-md">
+            Upload Documents
+          </p>
+          <p class="text-gray-500 text-xs">Step 4: Upload Document </p>
+        </div>
+      </div>
+
+
 
       <!-- Form Fields Section -->
-      <form #personalInfoForm="ngForm" (ngSubmit)="addEmployee(personalInfoForm)"  class="p-6">
+      <form #personalInfoForm="ngForm" (ngSubmit)="addEmployee(personalInfoForm)" class="p-6">
         <div *ngIf="currentForm === 1" class="flex flex-wrap -mx-3">
           <!-- First Name -->
           <div class="employeeInputDiv">
@@ -272,7 +273,7 @@
           <!-- Spouse Name -->
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="spouseName">Father's Name <span class="text-red-600">*</span></label>
-            <input required class="employeeInput" [(ngModel)]="info.fatherName" name="spouseName" type="text"
+            <input required class="employeeInput"  [(ngModel)]="info.fatherName" name="spouseName" type="text"
               #fathersName="ngModel" [class.border-red-500]="
                 fathersName.invalid && fathersName.touched
               " />
@@ -281,21 +282,21 @@
           <!-- Date of Birth -->
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="dob">Date of Birth <span class="text-red-600">*</span></label>
-            <input class="employeeInput" [max]="maxBirthDate" [(ngModel)]="info.dob" name="dob" type="date" required #dob="ngModel"
-              [class.border-red-500]="dob.invalid && dob.touched" />
+            <input class="employeeInput" [max]="maxBirthDate" [(ngModel)]="info.dob" name="dob" type="date" required
+              #dob="ngModel" [class.border-red-500]="dob.invalid && dob.touched" />
           </div>
 
           <!-- Phone Number -->
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="phoneno">Phone Number <span class="text-red-600">*</span></label>
-            <input class="employeeInput" [(ngModel)]="info.phone_no" name="phoneno" type="tel" required minlength="10"
+            <input class="employeeInput" maxlength="15" [(ngModel)]="info.phone_no" name="phoneno" type="tel" required minlength="10"
               #phoneNo="ngModel" [class.border-red-500]="phoneNo.invalid && phoneNo.touched" />
           </div>
 
           <!-- Email Address -->
           <div class="employeeInputDiv">
-            <label class="employeeLabel" for="email">Email Address <span class="text-red-600">*</span></label>
-            <input class="employeeInput" [(ngModel)]="info.email" name="email" type="email" required email
+            <label class="employeeLabel"      for="email">Email Address <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.email" name="email" maxlength="50"  oninput="this.value = this.value.toLowerCase()"  pattern="[a-z0-9]+@[a-z0-9]+\.[a-z]{2,5}$" type="email" required email
               #email="ngModel" [class.border-red-500]="email.invalid && email.touched" />
           </div>
 
@@ -427,7 +428,7 @@
             </label>
             <select class="employeeInput" [(ngModel)]="info.department" name="department" required #department="ngModel"
               [class.border-red-500]="department.invalid && department.touched">
-              <option>Engineering</option>
+              <option>Information and Technology</option>
               <option>Human Resources</option>
               <option>Sales</option>
               <option>Marketing</option>
@@ -458,7 +459,7 @@
             </select>
           </div>
 
-          
+
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="organizationName">
               Organization Name <span class="text-red-600">*</span>
@@ -722,28 +723,29 @@
           </div>
         </div>
         <div class="flex justify-end gap-4 p-4 bg-gray-50 rounded-b-xl border-t-2 border-gray-100">
-        <button [hidden]="currentForm === 1" type="button" (click)="previousForm()"
-          class="px-5 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
-          Previous
-        </button>
+          <button [hidden]="currentForm === 1" type="button" (click)="previousForm()"
+            class="px-5 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
+            Previous
+          </button>
 
-        <!-- [disabled]="personalInfoForm.invalid" have to add this in button -->
-        <button type="button" (click)="nextForm()"
-          [hidden]="currentForm >= 6"
-          class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
-          Next
-        </button>
-        <button type="submit" [hidden]= "currentForm <= 5 "
+          <!-- [disabled]="personalInfoForm.invalid" have to add this in button -->
+          <button type="button" (click)="nextForm(personalInfoForm)"
           [disabled]="personalInfoForm.invalid"
-          [class.bg-grey-400]="personalInfoForm.invalid"
-          class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
-          Submit
-        </button>
-      </div>
+           [hidden]="currentForm >= 6"
+            class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
+            Next
+          </button>
+          <button type="submit" [hidden]="currentForm <= 5 "
+            [disabled]="personalInfoForm.invalid ||personalInfoForm.untouched"
+            [class.bg-grey-400]="personalInfoForm.invalid"
+            class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
+            Submit
+          </button>
+        </div>
       </form>
 
       <!-- Form Footer with Navigation -->
-      
+
     </div>
   </div>
 </div>

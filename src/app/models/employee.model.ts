@@ -11,20 +11,22 @@ export interface Employee{
   gender?:string;
   maritalStatus?:string;
   fatherName?:string;
-
-  
-
-  // 🔹 Job Info
+  country: string;
+  countryCode: string;
+  state: string;
+  city: string;
+  street: string;
+  buildingNo: string;
+  postal_code?:string;
   designation: string;
   dateOfJoining: string;
   organization: string;
-  position: string;
   workLocation: string;
   department: string;
   manager: string;
   employementType:string;
-
-  // 🔹 Payroll Info
+  offerLetter: File | null;
+  idProof: File | null;
   salary: string; 
   bankName: string;
   accountHolderName: string;
@@ -33,16 +35,7 @@ export interface Employee{
   pfNumber: string;
   panNumber: string;
   currency?:string;
-  // 🔹 Address Info
-  country: string;
-  countryCode: string;
-  state: string;
-  city: string;
-  street: string;
-  buildingNo: string;
-  postal_code?:string;
 
-  // 🔹 Documents
-  offerLetter: File | null;
-  idProof: File | null;
+
+ 
 }

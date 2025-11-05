@@ -21,10 +21,12 @@ export class EmployeeComponent implements OnInit {
   users: Employee[] = [];
   isEditing: boolean = true;
   editingId: number | null = null;
+
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
   cities: any[] = [];
+
 
   currentForm: number = 1;
 
@@ -56,7 +58,7 @@ export class EmployeeComponent implements OnInit {
       postal_code: '',
 
       // 🔹 Job Info
-      position: '',
+    
       department: '',
       manager: '',
       designation: '',
@@ -93,8 +95,11 @@ export class EmployeeComponent implements OnInit {
     this.maxBirthDate = eighteenYearsAgo.toISOString().split('T')[0];
   }
 
-  nextForm() {
-    if (this.currentForm >= 1 && this.currentForm < 6) {
+  nextForm(form:NgForm) {
+    if (this.currentForm >= 1 && this.currentForm < 6 ) {
+      if(form.invalid){
+        alert("Invalid Form Details Please Check All Fields to Move to Next Form");
+      }
       this.currentForm++;
     }
     console.log(this.info);
@@ -109,7 +114,8 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.getCountries();
     this.employeeService.getEmployee().subscribe((data) => {
-      this.users = data;
+      this.users  = data;
+      
     });
   }
 
@@ -239,7 +245,7 @@ export class EmployeeComponent implements OnInit {
       postal_code: '',
 
       // 🔹 Job Info
-      position: '',
+  
       department: '',
       manager: '',
       designation: '',

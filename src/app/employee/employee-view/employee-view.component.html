@@ -1,509 +1,444 @@
-<div class="flex w-[90%] flex-col h-full">
-  <div
-    class="flex h-[60px] w-full mt-[1%] pt-1 my-[10px] mx-[50px] border-t-2 border-b-2"
-  >
-    <img class="w-[50px] h-[50px]" src="formIcon.png" alt="form" />
-    <div class="flex flex-col ml-3">
-      <p class="text-blue-900 font-medium">Employee Information</p>
-      <p class="text-gray-500 text-[12px]">
-        Enter all personal, job, payroll, and document details below
-      </p>
-    </div>
-  </div>
-
-  <form #userForm="ngForm" (ngSubmit)="addEmployee(userForm)" novalidate>
-    <div
-      class="flex flex-col h-[95%] w-full rounded-md shadow-lg border-gray-200 border-2 bg-gray-100 my-[10px] mx-[50px]"
-    >
-      <div class="flex flex-wrap ml-4 w-full">
-        <div class="w-full flex flex-wrap md:w-1/2 ">
-          <div
-            class="w-full border-b-2 border-gray-300 p-2 bg-gray-50 mb-2"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Personal Information
-            </h2>
-            <p class="text-gray-500 text-[10px] ">
-              Name, Date of Birth, and Contact Details
-            </p>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="firstName"
-              >First-Name <span class="text-red-600">*</span></label
-            >
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.firstName"
-              name="firstName"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #firstName="ngModel"
-              [class.invalid]="firstName.invalid && firstName.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="lastName">Last-Name</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.lastName"
-              name="lastName"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #lastName="ngModel"
-              [class.invalid]="lastName.invalid && lastName.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="dob">Date-of-Birth</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.dob"
-              name="dob"
-              type="date"
-              placeholder=" DD/MM/YYYY"
-              required
-              maxlength="16"
-              #dob="ngModel"
-              [class.invalid]="dob.invalid && dob.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="phoneno">Phone Number</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.phone_no"
-              name="phoneno"
-              required
-              type="text"
-              minlength="3"
-              maxlength="24"
-              #phoneNo="ngModel"
-              [class.invalid]="phoneNo.invalid && phoneNo.touched"
-            />
-          </div>
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="email">Email-Address</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.email"
-              name="email"
-              type="email"
-              required
-              minlength="8"
-              maxlength="50"
-              #email="ngModel"
-              [class.invalid]="email.invalid && email.touched"
-            />
-          </div>
-        </div>
-
-        <div class="w-full flex flex-wrap md:w-1/2 p-4">
-          <div
-            class="w-full -mt-4 border-b-2 border-gray-300 p-2 bg-gray-50 mb-3"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Job Information
-            </h2>
-            <p class="text-gray-500 text-[10px] mb-1">
-              Enter details related to position, department, and manager
-            </p>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="employementType">Employement-Type</label>
-            <select
-              [disabled]="!isEditing"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              name="typeOfEmployee"
-              id="employementType"
-              [(ngModel)]="info.employementType"
-              required
-              #employementType="ngModel"
-              [class.invalid]="
-                employementType.invalid && employementType.touched
-              "
-            >
-              <option>Full-time</option>
-              <option>Contract</option>
-              <option>Intern</option>
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="position">Position</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.position"
-              name="position"
-              type="text"
-              required
-              minlength="2"
-              maxlength="50"
-              #position="ngModel"
-              [class.invalid]="position.invalid && position.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="department">Department</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.department"
-              name="department"
-              type="text"
-              required
-              minlength="2"
-              maxlength="50"
-              #department="ngModel"
-              [class.invalid]="department.invalid && department.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="manager">Manager</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.manager"
-              name="manager"
-              type="text"
-              required
-              minlength="3"
-              maxlength="50"
-              #manager="ngModel"
-              [class.invalid]="manager.invalid && manager.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="joiningDate">Joining Date</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.dateOfJoining"
-              name="joiningDate"
-              type="date"
-              required
-              #joiningDate="ngModel"
-              [class.invalid]="joiningDate.invalid && joiningDate.touched"
-            />
-          </div>
-        </div>
-      </div>
-
-      <hr class="w-full border-gray-300" />
-
-      <div class="flex flex-wrap w-full">
-        <div class="w-full flex flex-wrap md:w-1/2 p-4">
-          <div
-            class="w-full -mt-4 border-b-2 border-gray-300 p-2 bg-gray-50 mb-3"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Payroll Information
-            </h2>
-            <p class="text-gray-500 text-[10px] mb-1">
-              Salary and Bank Details for Direct Deposit
-            </p>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="salary">Salary</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.salary"
-              name="salary"
-              type="number"
-              required
-              min="0"
-              #salary="ngModel"
-              [class.invalid]="salary.invalid && salary.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="accountHolderName"
-              >Account Holder Name</label
-            >
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.accountHolderName"
-              name="accountHolderName"
-              type="text"
-              placeholder="e.g., Jane A. Doe"
-              required
-              minlength="5"
-              maxlength="50"
-              #accountHolderName="ngModel"
-              [class.invalid]="
-                accountHolderName.invalid && accountHolderName.touched
-              "
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="accountNumber">Account Number</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.accountNumber"
-              name="accountNumber"
-              type="text"
-              placeholder="Enter your full account number"
-              required
-              minlength="8"
-              maxlength="20"
-              #accountNumber="ngModel"
-              [class.invalid]="accountNumber.invalid && accountNumber.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="bankName">Bank Name</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.bankName"
-              name="bankName"
-              type="text"
-              placeholder="e.g., State Bank of India"
-              required
-              minlength="3"
-              maxlength="50"
-              #bankName="ngModel"
-              [class.invalid]="bankName.invalid && bankName.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="ifscCode">IFSC Code</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.ifscCode"
-              name="ifscCode"
-              type="text"
-              placeholder="e.g., SBIN0001234"
-              required
-              minlength="11"
-              maxlength="11"
-              #ifscCode="ngModel"
-              [class.invalid]="ifscCode.invalid && ifscCode.touched"
-            />
-          </div>
-        </div>
-
-        <div class="w-full flex flex-wrap md:w-1/2 p-4">
-          <div
-            class="w-full ml-4 -mt-4 border-b-2 border-gray-300 p-2 bg-gray-50 mb-3"
-          >
-            <h2 class="text-blue-900 font-semibold text-base">
-              Address Information
-            </h2>
-            <p class="text-gray-500 text-[10px] mb-1">
-              Complete address details
-            </p>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="country">Country</label>
-            <select
-              [disabled]="!isEditing"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              name="countryCode"
-              id="country"
-              [(ngModel)]="info.countryCode"
-              required
-              #country="ngModel"
-              [class.invalid]="country.invalid && country.touched"
-              (ngModelChange)="selectedCountry($event)"
-            >
-              <option value="">-- Select country --</option>
-              <option *ngFor="let country of countries" [value]="country.iso2">
-                {{ country.name }}
-              </option>
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="countryName">Country</label>
-            <input
-              id="countryName"
-              name="countryName"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="true"
-              [value]="info.countryCode"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="state">State</label>
-            <select
-              [disabled]="!isEditing"
-              [(ngModel)]="info.state"
-              name="state"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              #state="ngModel"
-              [class.invalid]="state.invalid && state.touched"
-              (ngModelChange)="selectedState($event)"
-            >
-              <option *ngFor="let state of states" [value]="state.iso2">
-                {{ state.name }}
-              </option>
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="city">City</label>
-            <select
-              [disabled]="!isEditing"
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [(ngModel)]="info.city"
-              name="city"
-              required
-              minlength="3"
-              maxlength="24"
-              #city="ngModel"
-              [class.invalid]="city.invalid && city.touched"
-            >
-              <option *ngFor="let city of cities" [value]="city.name">
-                {{ city.name }}
-              </option>
-            </select>
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="street">Street-Name</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.street"
-              name="street"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #street="ngModel"
-              [class.invalid]="street.invalid && street.touched"
-            />
-          </div>
-
-          <div class="customerInputDiv">
-            <label class="inputLabel" for="buildingNo">Building-No.</label>
-            <input
-              [ngClass]="{ view: !isEditing, input: isEditing }"
-              [readOnly]="!isEditing"
-              [(ngModel)]="info.buildingNo"
-              name="buildingNo"
-              type="text"
-              required
-              minlength="3"
-              maxlength="24"
-              #building="ngModel"
-              [class.invalid]="building.invalid && building.touched"
-            />
-          </div>
-        </div>
-      </div>
-
-      <hr class="w-full border-gray-300" />
-
-      <div class="w-full ml-4 border-b-2 border-gray-300 p-2 bg-gray-50 mt-4">
-        <h2 class="text-blue-900 font-semibold text-base">Documents</h2>
-        <p class="text-gray-500 text-[10px] mb-1">
-          Upload required employee documents (ID Proof and Offer Letter)
+<div class="max-w-7xl mx-auto p-3">
+  <form *ngIf="info" #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+    <!-- Header -->
+    <div class="bg-white rounded-lg shadow-sm p-3 mb-3 flex justify-between items-center">
+      
+      <div><div  class=" h-[100px] w-[100px] bg-blue-300  rounded-full"></div>
+        <h2 class="text-lg font-bold text-blue-900">Employee Profile</h2>
+        <p class="text-gray-500 text-xs">
+          Review and update employee information
         </p>
       </div>
-
-      <div class="flex p-4">
-       <div class="customerInputDiv -mt-2">
-        <label class="inputLabel" for="idProof">ID Proof</label>
-
-        <input
-            [readOnly]="!isEditing"
-            [ngClass]="{
-              'view w-[200px]': !isEditing,
-              'input w-[200px]': isEditing
-            }"
-            type="file"
-            name="idProof"
-            (change)="onIdProofUpload($event)"
-            [disabled]="!isEditing" *ngIf="isEditing || !info.idProof" />
-
-        <a 
-  *ngIf="!isEditing && info.idProof" 
-    [href]= info.idProof
-  target="_blank" 
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center w-[200px] inline-block"
->
-  View Offer Letter
-</a>
+      <div class="flex gap-2">
+        <button *ngIf="!isEditing" type="button" (click)="toggleMode()"
+          class="px-4 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+          Edit
+        </button>
+        <button *ngIf="isEditing" type="submit" [disabled]="!employeeForm.valid"
+          class="px-4 py-1.5 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50">
+          Save
+        </button>
+        <button *ngIf="isEditing" type="button" (click)="toggleMode(); getEmployee()"
+          class="px-4 py-1.5 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium">
+          Cancel 
+        </button>
+      </div>
     </div>
-          
-        <div class="customerInputDiv -mt-2">
-        <label class="inputLabel" for="offerLetter">Offer Letter</label>
 
-        <input
-            [readOnly]="!isEditing"
-            [ngClass]="{
-              'view w-[200px]': !isEditing,
-              'input w-[200px]': isEditing
-            }"
-            type="file"
-            name="offerLetter"
-            (change)="onOfferLetterUpload($event)"
-            [disabled]="!isEditing" *ngIf="isEditing || !info.offerLetter" />
-        
-        <a 
-  *ngIf="!isEditing && info.offerLetter" 
-  [href]= info.offerLetter
-  target="_blank" 
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center w-[200px] inline-block"
->
-  View Offer Letter
-</a>
+    <!-- Personal Information (ROOT LEVEL) -->
+    <div class="bg-white rounded-lg shadow-sm p-3 mb-3">
+      <h3 class="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">
+        Personal Information
+      </h3>
+
+      <div  class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Employee Code</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.employeeCode" name="employeeCode" [readOnly]="true"
+            class="w-full px-2 py-1 text-xs bg-gray-100 border border-gray-300 rounded text-gray-600 cursor-not-allowed" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.employeeCode || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">First Name *</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.firstName" name="firstName" required
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.firstName }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Last Name *</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.lastName" name="lastName" required
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.lastName }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Father's Name</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.fatherName" name="fatherName"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.fatherName || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Date of Birth</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.dob" name="dob" type="date"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.dob | date : "mediumDate" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Phone Number *</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.phone_no" name="phoneNo" required
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.phone_no }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Email Address *</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.email" name="email" type="email" required
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.email }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Gender</p>
+          <select *ngIf="isEditing" [(ngModel)]="info.gender" name="gender"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.gender || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Marital Status</p>
+          <select *ngIf="isEditing" [(ngModel)]="info.maritalStatus" name="maritalStatus"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500">
+            <option value="">Select</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.maritalStatus || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Aadhar Number</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.aadharNo" name="aadharNo"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.aadharNo || "-" }}
+          </p>
+        </div>
+      </div>
     </div>
-        <div class="customerInputDiv flex flex-row gap-4 ">
-          <button
-            [disabled]="userForm.invalid"
-            [class.blocked]="userForm.invalid"
-            type="submit"
-            class="hover-btn mb-2 bg-blue-950 text-white font-semibold  rounded-sm w-[100px] h-[40px]"
-          >
-            Save
-          </button>
-          <button
-            (click)="toggleMode()"
-            [class.blocked]="userForm.invalid"
-            type="button"
-            class="hover-btn mb-2 bg-blue-950 text-white font-semibold rounded-sm w-[100px] h-[40px]"
-          >
-            Edit
-          </button>
-          <button
-            (click)="isEditing = false"
-            [class.blocked]="userForm.invalid"
-            type="button"
-            class="hover-btn mb-2 bg-blue-950 text-white font-semibold rounded-sm w-[100px] h-[40px]"
-          >
-            Cancel
-          </button>
+
+    <!-- AddressINfo -->
+    <div class="bg-white rounded-lg shadow-sm p-3 mb-3">
+      <h3 class="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">
+        Address Information
+      </h3>
+
+      <div  class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Country</p>
+          <select *ngIf="isEditing" [(ngModel)]="info.countryCode" name="countryCode"
+            (ngModelChange)="selectedCountry($event)"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500">
+            <option *ngIf="!isEditing" default>
+              {{ info.country }}
+            </option>
+            <option value="">Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.iso2">
+              {{ country.name }}
+            </option>
+          </select>
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.country || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">State</p>
+          <select *ngIf="isEditing" [(ngModel)]="info.state" name="state"
+            (ngModelChange)="selectedState($event)"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500">
+            <option value="">Select State</option>
+            <option *ngFor="let state of states" [value]="state.iso2">
+              {{ state.name }}
+            </option>
+          </select>
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.state || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">City</p>
+          <select *ngIf="isEditing" [(ngModel)]="info.city" name="city"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500">
+            <option value="">Select City</option>
+            <option *ngFor="let city of cities" [value]="city.name">
+              {{ city.name }}
+            </option>
+          </select>
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.city || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Building Number</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.buildingNo" name="buildingNo"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.buildingNo || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Street Name</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.street" name="street"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.street || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Postal Code</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.postal_code" name="postalCode"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.postal_code || "-" }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Information (NESTED: info.jobInfo) -->
+    <div  class="bg-white rounded-lg shadow-sm p-3 mb-3">
+      <h3 class="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">
+        Job Information
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Organization</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.organization" name="organization"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.organization || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Designation</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.designation" name="designation"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.designation || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Department</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.department" name="department"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.department || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Employement Type</p>
+          <select *ngIf="isEditing" [(ngModel)]="info.employementType" name="employementType"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500">
+            <option value="">Select</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Contract">Contract</option>
+            <option value="Intern">Intern</option>
+          </select>
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.employementType|| "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Manager</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.manager" name="manager"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.manager || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">PF Number (UAN)</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.pfNumber" name="pfNumber"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.pfNumber || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Work Location</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.workLocation" name="workLocation"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.workLocation || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Date of Joining</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.dateOfJoining" name="dateOfJoining" type="date"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.dateOfJoining | date : "mediumDate" }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payroll Information (NESTED: info.payrollInfo) -->
+    <div  class="bg-white rounded-lg shadow-sm p-3 mb-3">
+      <h3 class="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">
+        Payroll Information
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Salary</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.salary" name="salary" type="number"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.salary | currency : info.currency || "INR" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Bank Name</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.bankName" name="bankName"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.bankName || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Account Number</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.accountNumber" name="accountNumber"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.accountNumber || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">Account Holder Name</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.accountHolderName" name="accountHolderName"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.accountHolderName || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">IFSC Code</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.ifscCode" name="ifscCode"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.ifscCode || "-" }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-500 text-xs mb-0.5">PAN Number</p>
+          <input *ngIf="isEditing" [(ngModel)]="info.panNumber" name="panNumber"
+            class="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500" />
+          <p *ngIf="!isEditing" class="font-medium text-gray-800 text-xs">
+            {{ info.panNumber || "-" }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documents (NESTED: info.employeeDocs) -->
+    <div  class="bg-white rounded-lg shadow-sm p-3">
+      <h3 class="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">
+        Documents
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- Offer Letter -->
+        <div class="border border-gray-200 rounded p-2">
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+              </path>
+            </svg>
+            <div>
+              <p class="font-medium text-gray-800 text-xs">Offer Letter</p>
+              <p class="text-gray-500 text-[10px]">PDF, DOC, DOCX (Max 5MB)</p>
+            </div>
+          </div>
+
+          <div *ngIf="isEditing">
+            <input type="file" (change)="onOfferLetterUpload($event)" accept=".pdf,.doc,.docx"
+              class="block w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+          </div>
+
+          <div *ngIf="!isEditing">
+            <a *ngIf="info.offerLetter" [href]="info.offerLetter" target="_blank"
+              class="inline-flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs font-medium">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              View
+            </a>
+            <p *ngIf="!info.offerLetter" class="text-gray-500 text-xs">
+              No file
+            </p>
+          </div>
+        </div>
+
+        <!-- ID Proof -->
+        <div class="border border-gray-200 rounded p-2">
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+              </path>
+            </svg>
+            <div>
+              <p class="font-medium text-gray-800 text-xs">ID Proof</p>
+              <p class="text-gray-500 text-[10px]">PDF, JPG, PNG (Max 5MB)</p>
+            </div>
+          </div>
+
+          <div *ngIf="isEditing">
+            <input type="file" (change)="onIdProofUpload($event)" accept=".pdf,.jpg,.jpeg,.png"
+              class="block w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
+          </div>
+
+          <div *ngIf="!isEditing">
+            <a *ngIf="info.idProof" [href]="info.idProof" target="_blank"
+              class="inline-flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-xs font-medium">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              View
+            </a>
+            <p *ngIf="!info.idProof" class="text-gray-500 text-xs">
+              No file
+            </p>
+          </div>
         </div>
       </div>
     </div>
