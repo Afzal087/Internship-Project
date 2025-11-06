@@ -221,7 +221,8 @@ export class EmployeeViewComponent implements OnInit {
 
   selectedState(stateCode: string) {
   if (!stateCode) return;
-  this.selectedStateCode = stateCode;
+  const selectedState = this.states.find((s)=> s.name === stateCode)
+  this.selectedStateCode = selectedState.name;
   
   // Find the state object and get its name
   const stateObj = this.states.find((s) => s.iso2 === stateCode);

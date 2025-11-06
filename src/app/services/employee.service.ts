@@ -99,7 +99,8 @@ export class EmployeeService {
 
     if (info.offerLetter instanceof File)
       formData.append('offerLetter', info.offerLetter);
-    if (info.idProof instanceof File) formData.append('idProof', info.idProof);
+    if (info.idProof instanceof File) 
+      formData.append('idProof', info.idProof);
 
     return this.http.patch<Employee>(
       `${this.apiUrl}/${info.employeeId}`,
