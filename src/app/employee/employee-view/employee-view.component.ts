@@ -6,7 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Employee } from '../../models/employee.model';
 import { CustomerService } from '../../services/customer.service';
 import { Router } from '@angular/router';
-
+import { AssignmentService } from '../../services/assignment.service';
+import { Project } from '../../models/Project.model';
+import { Department } from '../../models/Department.model';
+import { Organization } from '../../models/Organization.model';
+import { Observable } from 'rxjs';
 @Component({
   standalone: true,
   selector: 'app-employee-view',
@@ -18,6 +22,16 @@ export class EmployeeViewComponent implements OnInit {
   users: Employee[] = [];
   isEditing: boolean = false;
 
+  // Loading Hardcoded values
+
+  
+  allProjects$ : Observable<Project[]>;
+  allDepartments$ : Observable<Department[]>;
+  allOrganizations$ : Observable<Organization[]>;
+
+
+
+  maxBirthDate : string;
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
@@ -62,6 +76,10 @@ export class EmployeeViewComponent implements OnInit {
     organization: '',
     workLocation: '',
     employementType: '',
+  
+    DeductionRate:'',
+    deductionAmount:'',
+    netSalary:'',
 
   
 
@@ -83,13 +101,33 @@ export class EmployeeViewComponent implements OnInit {
     private employeeService: EmployeeService,
     private customerService: CustomerService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private service : AssignmentService
+  ) {
+
+    this.allDepartments$ = this.service.department$
+    this.allOrganizations$ = this.service.organization$
+    this.allProjects$ = this.service.project$
+const today = new Date();
+    const eighteenYearsAgo = new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
+    this.maxBirthDate = eighteenYearsAgo.toISOString().split('T')[0];
+  }
 
   ngOnInit(): void {
+    this.service.getAllDepartments().subscribe();
+    this.service.getAllOrganizations().subscribe();
+    this.service.getAllProjects().subscribe();  
     this.getCountries();
     this.getEmployee();
   }
+
+
+
+
 
   getEmployee() {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -325,7 +363,9 @@ export class EmployeeViewComponent implements OnInit {
     workLocation: '',
     employementType: '',
 
-   
+    DeductionRate:'',
+    netSalary:'',
+   deductionAmount:'',
 
     salary: '',
     accountHolderName: '',

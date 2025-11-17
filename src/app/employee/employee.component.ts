@@ -7,6 +7,14 @@ import { CustomerService } from '../services/customer.service';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { count } from 'node:console';
+import { AssignmentService } from '../services/assignment.service';
+import { Observable } from 'rxjs';
+import { Project } from '../models/Project.model'
+import { Department } from '../models/Department.model';
+import { Organization } from '../models/Organization.model';
+
+
+
 
 @Component({
   standalone: true,
@@ -17,11 +25,13 @@ import { count } from 'node:console';
 })
 export class EmployeeComponent implements OnInit {
  
+
+  
   maxBirthDate: string;
   users: Employee[] = [];
   isEditing: boolean = true;
   editingId: number | null = null;
-
+  isEligble: string = '';
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
@@ -66,6 +76,10 @@ export class EmployeeComponent implements OnInit {
       organization: '',
       workLocation: '',
       employementType: '',
+     
+    DeductionRate:'',
+    deductionAmount:'',
+    netSalary:'',
 
 
 
@@ -81,11 +95,25 @@ export class EmployeeComponent implements OnInit {
       idProof: null,
   };
 
+
+  allProjects$ : Observable<Project[]>;
+  allDepartments$ : Observable<Department[]>;
+  allOrganizations$ : Observable<Organization[]>;
+
+
+
+
   constructor(
     private employeeService: EmployeeService,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private service : AssignmentService
   ) {
+
+    this.allDepartments$ = this.service.department$
+   this.allOrganizations$ = this.service.organization$
+    this.allProjects$ = this.service.project$
+//DateBy18
     const today = new Date();
     const eighteenYearsAgo = new Date(
       today.getFullYear() - 18,
@@ -105,6 +133,34 @@ export class EmployeeComponent implements OnInit {
     console.log(this.info);
   }
 
+
+  
+CheckEligble(value : string){
+
+  if(value==="Yes"){
+    this.isEligble = "Yes"
+    this.info.netSalary = this.info.salary;
+  }
+  else{
+    this.isEligble = "No"
+  }
+    
+}
+setNetSalary(value:Event){
+  this.info.netSalary = String(value);
+
+}
+
+calcSalary(value : Event){
+const rate = Number(value)
+const salary = parseInt(this.info.salary);
+const result = (rate/100)* (salary)
+this.info.deductionAmount = String(result);
+this.info.netSalary = String(salary-result);
+}
+
+
+
   previousForm() {
     if (this.currentForm <= 6 && this.currentForm > 1) {
       this.currentForm--;
@@ -112,6 +168,9 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.getAllDepartments().subscribe();
+    this.service.getAllOrganizations().subscribe();
+    this.service.getAllProjects().subscribe();
     this.getCountries();
     this.employeeService.getEmployee().subscribe((data) => {
       this.users  = data;
@@ -254,6 +313,9 @@ export class EmployeeComponent implements OnInit {
       workLocation: '',
       employementType: '',
 
+    DeductionRate:'',
+    deductionAmount:'',
+    netSalary:'',
 
 
       salary: '',

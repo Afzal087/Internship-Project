@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../header/header.component";
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -12,6 +12,9 @@ import { CustomersComponent } from '../../customers/customers.component';
 
 import { ItemComponent } from '../../item/item.component';
 import { EmployeeListComponent } from '../../employee/employee-list/employee-list.component';
+import { FieldsComponent } from '../../fields/fields.component';
+import { AssignmentService } from '../../services/assignment.service';
+import { EmployeeService } from '../../services/employee.service';
 
 
 
@@ -22,19 +25,25 @@ import { EmployeeListComponent } from '../../employee/employee-list/employee-lis
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
-  constructor(private userService: UserService , private router : Router){}
+export class DashboardComponent implements OnInit {
+  constructor(private userService: UserService ,private employeeService : EmployeeService,private service: AssignmentService, private router : Router){}
 
   activeComponents : string  = 'home';
 
   componentMap : Record<string,any> ={
       home: HomeComponent,
       employees: EmployeeListComponent,
-      // item:ItemComponent,
-      // customers: CustomersComponent,
-      employeeProfile: EmployeeComponent
+      employeeProfile: EmployeeComponent,
+      fields : FieldsComponent
   };
 
+
+  ngOnInit(): void {
+    this.service.getAllDepartments().subscribe();
+    this.service.getAllOrganizations().subscribe();
+    this.service.getAllProjects().subscribe();
+    this.employeeService.getEmployee().subscribe();
+  }
   loadComponent(name: string){ 
       this.activeComponents = name;
   }

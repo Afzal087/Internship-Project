@@ -428,11 +428,9 @@
             </label>
             <select class="employeeInput" [(ngModel)]="info.department" name="department" required #department="ngModel"
               [class.border-red-500]="department.invalid && department.touched">
-              <option>Information and Technology</option>
-              <option>Human Resources</option>
-              <option>Sales</option>
-              <option>Marketing</option>
-              <option>Finance</option>
+              @for(dept of allDepartments$ | async; track dept.departmentId){
+              <option >{{ dept.departmentName }}</option> 
+              }
             </select>
           </div>
 
@@ -461,14 +459,27 @@
 
 
           <div class="employeeInputDiv">
-            <label class="employeeLabel" for="organizationName">
-              Organization Name <span class="text-red-600">*</span>
-            </label>
-            <input class="employeeInput" [(ngModel)]="info.organization" name="organizationName" type="text" required
-              #organizationName="ngModel" [class.border-red-500]="
-                organizationName.invalid && organizationName.touched
-              " />
-          </div>
+  <label class="employeeLabel" for="organizationName">
+    Organization Name <span class="text-red-600">*</span>
+  </label>
+  
+  <select 
+    class="employeeInput" 
+    [(ngModel)]="info.organization" 
+    name="organizationName" 
+    required
+    #organizationName="ngModel" 
+    [class.border-red-500]="organizationName.invalid && organizationName.touched"
+  >
+    <option [ngValue]="null" disabled>Select an organization</option>
+
+    @for(org of allOrganizations$ | async; track org.organizationId)  {
+      <option [value]="org.organizationName">
+        {{ org.organizationName }}
+      </option>
+    }
+  </select>
+</div>
 
           <!-- Work Location -->
           <div class="employeeInputDiv">
@@ -489,11 +500,61 @@
           </div>
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="salary">
-              Salary <span class="text-red-600">*</span>
+              Salary <span class="text-red-600">*</span> 
             </label>
-            <input class="employeeInput" [(ngModel)]="info.salary" name="salary" type="text" required #salary="ngModel"
+            <input class="employeeInput" [(ngModel)]="info.salary" (ngModelChange)="setNetSalary($event)" name="salary" type="text" required #salary="ngModel"
               [class.border-red-500]="salary.invalid && salary.touched" />
           </div>
+
+          <!-- EPF Eligible -->
+<div class="employeeInputDiv">
+  <label class="employeeLabel" for="epfEligible">EPF Eligible?</label>
+  <select class="employeeInput"  
+     [(ngModel)]="isEligble" name="epfEligible" 
+     (ngModelChange)="CheckEligble($event)"
+    required #epfEligible="ngModel"
+    [class.border-red-500]="epfEligible.invalid && epfEligible.touched">
+    <option value="Yes">Yes</option>
+    <option value="No">No</option>
+  </select>
+</div>
+
+<!-- EPF Number -->
+<div class="employeeInputDiv">
+  <label class="employeeLabel" for="epfNumber">EPF Number</label>
+  <input  class="employeeInput" 
+     [required]="isEligble==='Yes'" [disabled]="isEligble === 'No'" [(ngModel)]="info.pfNumber" name="epfNumber" 
+    type="text" maxlength="24" minlength="22" required #epfNumber="ngModel"
+    [class.border-red-500]="epfNumber.invalid && epfNumber.touched" />
+</div>
+
+<!-- EPF Deduction Rate -->
+<div class="employeeInputDiv">
+  <label class="employeeLabel" for="deductionRate">EPF Deduction Rate (%)</label>
+  <input class="employeeInput" 
+    [required]="isEligble==='Yes'" [disabled]="isEligble === 'No'"  (ngModelChange)="calcSalary($event)" [(ngModel)]="info.DeductionRate" name="deductionRate" 
+    type="number" minlength="1"  maxlength="3" required #deductionRate="ngModel"
+    [class.border-red-500]="deductionRate.invalid && deductionRate.touched" />
+</div>
+
+<!-- EPF Deduction Amount -->
+<div class="employeeInputDiv">
+  <label class="employeeLabel" for="deductionAmount">Deduction Amount </label>
+  <input class="employeeInput" 
+     [required]="isEligble==='Yes'"  [disabled]="isEligble === 'No'"  [(ngModel)]="info.deductionAmount" name="deductionAmount" 
+    type="number" maxlength="8" required #deductionAmount="ngModel"
+    [class.border-red-500]="deductionAmount.invalid && deductionAmount.touched" />
+</div>
+
+<!-- Net Salary -->
+<div class="employeeInputDiv">
+  <label class="employeeLabel" for="netSalary">Net Salary </label>
+  <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" 
+    disabled [(ngModel)]="info.netSalary" name="netSalary" 
+    type="number" maxlength="10" required #netSalary="ngModel"
+    [class.border-red-500]="netSalary.invalid && netSalary.touched" />
+</div>
+
 
           <!-- Account Holder Name -->
           <div class="employeeInputDiv">
@@ -526,14 +587,7 @@
               #ifscCode="ngModel" [class.border-red-500]="ifscCode.invalid && ifscCode.touched" />
           </div>
 
-          <!-- PF Account Number (UAN) -->
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="pfNumber">
-              PF Account Number (UAN) <span class="text-red-600">*</span>
-            </label>
-            <input class="employeeInput" [(ngModel)]="info.pfNumber" name="pfNumber" type="text" required minlength="8"
-              maxlength="24" #pfNumber="ngModel" [class.border-red-500]="pfNumber.invalid && pfNumber.touched" />
-          </div>
+          
 
           <!-- PAN Number -->
           <div class="employeeInputDiv">
@@ -717,7 +771,24 @@
               <!-- Row 3 -->
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">PF Number (UAN)</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.pfNumber }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">epfNumber</p>
                 <p class="font-medium text-gray-800">{{ info.pfNumber }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Deduction Rate</p>
+                <p class="font-medium text-gray-800">{{ info.DeductionRate }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Deduction Amount</p>
+                <p class="font-medium text-gray-800">{{ info.deductionAmount  | currency : info.currency }}</p>
+              </div>
+              <div class="w-1/2 md:w-1/4 px-2 mb-4">
+                <p class="text-gray-500">Net Salary</p>
+                <p class="font-medium text-gray-800">{{ info.netSalary | currency : info.currency }}</p>
               </div>
             </div>
           </div>

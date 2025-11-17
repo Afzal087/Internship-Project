@@ -11,25 +11,48 @@ import { ItemComponent } from './item/item.component';
 import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
 import { EmployeeViewComponent } from './employee/employee-view/employee-view.component';
 import { EmployeeEditComponent } from './employee/employee-edit/employee-edit.component';
+import { FieldsComponent } from './fields/fields.component';
+import { ProjectsComponent } from './fields/projects/projects.component';
+import { OrganizationComponent } from './fields/organization/organization.component';
+import { DepartmentComponent } from './fields/department/department.component';
 
 export const routes: Routes = [
-
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot', component: ForgotComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], 
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
     children: [
+     
       { path: 'home', component: HomeComponent },
-      { path: 'employees', children: [
+
+      {
+        path: 'employees',
+        children: [
           { path: '', component: EmployeeListComponent }, // default = list
           { path: 'view/:employeeId', component: EmployeeViewComponent },
-          { path: 'add' , component: EmployeeComponent},
+          { path: 'add', component: EmployeeComponent },
           { path: 'edit/:employeeId', component: EmployeeEditComponent },
-        ], },
+        ],
+      },
+      {
+        path: 'fields',
+        component: FieldsComponent,
+        children: [
+          { path: '', redirectTo: 'department', pathMatch: 'full' },
+          { path: 'department', component: DepartmentComponent },
+          { path: 'project', component: ProjectsComponent },
+          { path: 'organization', component: OrganizationComponent },
+        ],
+      },
       { path: 'customers', component: CustomersComponent },
       { path: 'item', component: ItemComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
-    ]
-  }
+
+     
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
+  },
 ];

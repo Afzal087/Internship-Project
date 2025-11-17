@@ -21,6 +21,9 @@ export interface Employee{
   designation: string;
   dateOfJoining: string;
   organization: string;
+  DeductionRate: string;
+  deductionAmount:string;
+  netSalary:string;
   workLocation: string;
   department: string;
   manager: string;

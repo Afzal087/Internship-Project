@@ -1,89 +1,135 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, NgControl,} from '@angular/forms';
+import { Department } from '../models/Department.model';
+import { AssignmentService } from '../services/assignment.service';
+
+import { Observable } from 'rxjs';
+import { Organization } from '../models/Organization.model';
+import { Project } from '../models/Project.model';
+import { Employee } from '../models/employee.model';
 import { EmployeeService } from '../services/employee.service';
-import { CustomerService } from '../services/customer.service';
-import { ItemService } from '../services/item.service';
-import { MasterService } from '../services/master.service';
-import { Assign } from '../models/assignment.model';
-import { AssignmentRequest } from '../models/AssignRequest.model';
-import { error } from 'console';
-import { MatIcon } from '@angular/material/icon';
+import { error } from 'node:console';
+
+
+
+
 
 @Component({
   standalone: true,
-  imports: [FormsModule, MatIcon, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
+
 export class HomeComponent implements OnInit {
-  constructor(
-    private empService: EmployeeService,
-    private custService: CustomerService,
-    private itemService: ItemService,
-    private masterService: MasterService
-  ) {}
 
-  customers: any[] = [];
-  employees: any[] = [];
-  items: any[] = [];
+  allDepartments$ : Observable<Department[]>;
+  allOrganizations$ : Observable<Organization[]>;
+  allProjects$ : Observable<Project[]>;
+  allEmployees$ : Observable<Employee[]>;
+  assignmentList$ : Observable<any[]>;
 
-  assignment: Assign[] = [];
 
-  ngOnInit(): void {
-    this.allServices();
+  ids : any= {
+    empId :  0,
+    deptId : 0 ,
+    proId :  0,
+    orgId : 0
+  }  
+  
+
+  constructor(private service : AssignmentService , private employeeService : EmployeeService) {
+
+   this.allDepartments$ = this.service.department$
+   this.allOrganizations$ = this.service.organization$
+   this.allProjects$ = this.service.project$
+  this.allEmployees$ = this.employeeService.employee$;
+this.assignmentList$ = this.service.assignmentList$;
+
   }
 
+ ngOnInit(): void {
+   this.service.getAllDepartments().subscribe();
+   this.service.getAllOrganizations().subscribe();
+   this.service.getAllProjects().subscribe();
+   this.employeeService.getEmployee().subscribe();
+  this.service.getAllAssignments().subscribe();
+ }
+   
 
-  allServices(){
-this.masterService.getAssignment().subscribe((data: Assign[]) => {
-      this.assignment = data;
-    });
+ deleteAssignment(id: string){
+  const numId = Number(id);
+  console.log("Deleting assignment with ID:", id);
+   return this.service.deleteAssignment(numId).subscribe(() =>{
+    this.service.getAllAssignments().subscribe();
+  })
+ }
 
-    this.custService.get().subscribe((data) => {
-      this.customers = data;
-      console.log('Data received from customer service:', data);
-    });
 
-    this.empService.getEmployee().subscribe((data) => (this.employees = data));
 
-    this.itemService.get().subscribe((data) => (this.items = data));
-  }
+ onSubmit() {
+    console.log("Form submitted with IDs:", this.ids);
 
-  selectedCustomerId!: number;
-  selectedEmployeeId!: number;
-  selectedItemId!: number;
+    const empIdNum = Number(this.ids.empId);
+    const deptIdNum = Number(this.ids.deptId) || 0;
+    const proIdNum = Number(this.ids.proId) || 0;
+    const orgIdNum = Number(this.ids.orgId) || 0;
+    // 1. Basic Validation
+    if (!this.ids.empId || this.ids.empId === 0) {
+      alert('Please select an employee.');
+      return;
+    }
 
-  AssignedData: Assign[] = [];
+    const employee = this.employeeService.currentEmployeesValue.find(e => e.employeeId === empIdNum);
+    
+    
+    // Find the others. Use 'find' or set to null if ID is 0.
+    const department = this.ids.deptId === 0
+      ? null
+      : this.service.currentDepartmentsValue.find(d => d.departmentId === deptIdNum);
+      
+    const project = this.ids.proId === 0
+      ? null
+      : this.service.currentProjectsValue.find(p => p.projectId === proIdNum);
 
-  onAssign() {
-    const masterId = {
-      customerId: this.selectedCustomerId,
-      employeeId: this.selectedEmployeeId,
-      itemId: this.selectedItemId,
+    const organization = this.ids.orgId === 0
+      ? null
+      : this.service.currentOrganizationsValue.find(o => o.organizationId === orgIdNum);
+
+   
+    if (!employee) {
+      alert('Error: Could not find selected employee. Please refresh.');
+      return;
+    }
+      
+    // 4. Build the complex payload that matches your Java Entity
+    const assignmentPayload = {
+      employee: employee,
+      department: department,
+      project: project,
+      organization: organization
     };
 
-    this.masterService.assignService(masterId).subscribe({
-      next: (data: any) => {
-        console.log('Assignment successful');
-        // 3. Re-fetch the assignment list after a successful API call
-        this.masterService.getAssignment();
+ 
+    this.service.createAssignment(assignmentPayload).subscribe({
+      next: (response) => {
+        alert('Assignment saved successfully!');
+        
+       
+        this.ids = { empId: 0, deptId: 0, proId: 0, orgId: 0 };
+  
+        this.service.getAllAssignments().subscribe();
       },
       error: (err) => {
-        console.error('Assignment failed', err);
-      },
+        console.error('Error saving assignment:', err);
+        alert('Failed to save assignment.');
+      }
     });
   }
 
-  removeAssignment(id: number) {
-    this.masterService.deleteAssignment(id);
-    this.allServices();
+
   }
-  updateAssignment(id: number) {}
-}
+ 
+
