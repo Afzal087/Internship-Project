@@ -9,8 +9,5 @@ export const serverRoutes: ServerRoute[] = [
     path: 'dashboard/employees/view/:employeeId',
     renderMode: RenderMode.Client
   },
-  {
-    path: 'dashboard/employees/edit/:employeeId',
-    renderMode: RenderMode.Client
-  }
+  
 ];

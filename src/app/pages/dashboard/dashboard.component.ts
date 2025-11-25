@@ -8,9 +8,9 @@ import { EmployeeComponent } from '../../employee/employee.component';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';  
 import { HomeComponent } from '../../home/home.component';
-import { CustomersComponent } from '../../customers/customers.component';
 
-import { ItemComponent } from '../../item/item.component';
+
+
 import { EmployeeListComponent } from '../../employee/employee-list/employee-list.component';
 import { FieldsComponent } from '../../fields/fields.component';
 import { AssignmentService } from '../../services/assignment.service';

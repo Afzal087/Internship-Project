@@ -3,164 +3,175 @@
   <div class="w-full max-w-5xl">
     <!-- 6-Step Progress Bar -->
     <div class="mb-6 px-4">
-      <div class="w-full px-4 ">
-        <div class="w-full px-4 ">
+      <div class="w-full px-4">
+        <div class="w-full px-4">
           <div class="flex items-center">
             <!-- Step 1 -->
             <div class="flex flex-col items-center">
               <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
-          'bg-blue-900': currentForm >= 1,
-          'bg-gray-200': currentForm < 1
-        }">
-                <span class="font-bold"  [ngClass]="{
-            'text-white': currentForm >= 1,
-            'text-gray-500': currentForm < 1
-
-          }"><button [disabled]="currentForm==1" (click)="currentForm=1">1</button></span>
+                  'bg-blue-900': currentForm >= 1,
+                  'bg-gray-200': currentForm < 1
+                }">
+                <span class="font-bold" [ngClass]="{
+                    'text-white': currentForm >= 1,
+                    'text-gray-500': currentForm < 1
+                  }"><button [disabled]="currentForm == 1" (click)="currentForm = 1">
+                    1
+                  </button></span>
               </div>
               <div class="mt-1 text-xs font-semibold" [ngClass]="{
-          'text-blue-900': currentForm >= 1,
-          'text-gray-500': currentForm < 1
-        }">
+                  'text-blue-900': currentForm >= 1,
+                  'text-gray-500': currentForm < 1
+                }">
                 Personal
               </div>
             </div>
 
             <!-- Connector -->
             <div class="flex-auto border-t-2" [ngClass]="{
-        'border-blue-900': currentForm > 1,
-        'border-gray-300': currentForm <= 1
-      }"></div>
+                'border-blue-900': currentForm > 1,
+                'border-gray-300': currentForm <= 1
+              }"></div>
 
             <!-- Step 2 -->
             <div class="flex flex-col items-center">
               <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
-          'bg-blue-900': currentForm >= 2,
-          'bg-gray-200': currentForm < 2
-        }">
+                  'bg-blue-900': currentForm >= 2,
+                  'bg-gray-200': currentForm < 2
+                }">
                 <span class="font-bold" [ngClass]="{
-            'text-white': currentForm >= 2,
-            'text-gray-500': currentForm < 2
-          }"><button [disabled]="currentForm<2" (click)="currentForm=2">2</button></span>
+                    'text-white': currentForm >= 2,
+                    'text-gray-500': currentForm < 2
+                  }"><button [disabled]="currentForm < 2" (click)="currentForm = 2">
+                    2
+                  </button></span>
               </div>
               <div class="mt-1 text-xs font-semibold" [ngClass]="{
-          'text-blue-900': currentForm >= 2,
-          'text-gray-500': currentForm < 2
-        }">
+                  'text-blue-900': currentForm >= 2,
+                  'text-gray-500': currentForm < 2
+                }">
                 Address
               </div>
             </div>
 
             <!-- Connector -->
             <div class="flex-auto border-t-2" [ngClass]="{
-        'border-blue-900': currentForm > 2,
-        'border-gray-300': currentForm <= 2
-      }"></div>
+                'border-blue-900': currentForm > 2,
+                'border-gray-300': currentForm <= 2
+              }"></div>
 
             <!-- Step 3 -->
             <div class="flex flex-col items-center">
               <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
-          'bg-blue-900': currentForm >= 3,
-          'bg-gray-200': currentForm < 3
-        }">
+                  'bg-blue-900': currentForm >= 3,
+                  'bg-gray-200': currentForm < 3
+                }">
                 <span class="font-bold" [ngClass]="{
-            'text-white': currentForm >= 3,
-            'text-gray-500': currentForm < 3
-          }"><button [disabled]="currentForm<3" (click)="currentForm=3">3</button></span>
+                    'text-white': currentForm >= 3,
+                    'text-gray-500': currentForm < 3
+                  }"><button [disabled]="currentForm < 3" (click)="currentForm = 3">
+                    3
+                  </button></span>
               </div>
               <div class="mt-1 text-xs font-semibold" [ngClass]="{
-          'text-blue-900': currentForm >= 3,
-          'text-gray-500': currentForm < 3
-        }">
+                  'text-blue-900': currentForm >= 3,
+                  'text-gray-500': currentForm < 3
+                }">
                 Job Info
               </div>
             </div>
 
             <!-- Connector -->
             <div class="flex-auto border-t-2" [ngClass]="{
-        'border-blue-900': currentForm > 3,
-        'border-gray-300': currentForm <= 3
-      }"></div>
+                'border-blue-900': currentForm > 3,
+                'border-gray-300': currentForm <= 3
+              }"></div>
 
             <!-- Step 4 -->
             <div class="flex flex-col items-center">
               <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
-          'bg-blue-900': currentForm >= 4,
-          'bg-gray-200': currentForm < 4
-        }">
+                  'bg-blue-900': currentForm >= 4,
+                  'bg-gray-200': currentForm < 4
+                }">
                 <span class="font-bold" [ngClass]="{
-            'text-white': currentForm >= 4,
-            'text-gray-500': currentForm < 4
-          }"><button [disabled]="currentForm<4" (click)="currentForm=4">4</button></span>
+                    'text-white': currentForm >= 4,
+                    'text-gray-500': currentForm < 4
+                  }"><button [disabled]="currentForm < 4" (click)="currentForm = 4">
+                    4
+                  </button></span>
               </div>
               <div class="mt-1 text-xs font-semibold" [ngClass]="{
-          'text-blue-900': currentForm >= 4,
-          'text-gray-500': currentForm < 4
-        }">
+                  'text-blue-900': currentForm >= 4,
+                  'text-gray-500': currentForm < 4
+                }">
                 Payroll
               </div>
             </div>
 
             <!-- Connector -->
             <div class="flex-auto border-t-2" [ngClass]="{
-        'border-blue-900': currentForm > 4,
-        'border-gray-300': currentForm <= 4
-      }"></div>
+                'border-blue-900': currentForm > 4,
+                'border-gray-300': currentForm <= 4
+              }"></div>
 
             <!-- Step 5 -->
             <div class="flex flex-col items-center">
               <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
-          'bg-blue-900': currentForm >= 5,
-          'bg-gray-200': currentForm < 5
-        }">
+                  'bg-blue-900': currentForm >= 5,
+                  'bg-gray-200': currentForm < 5
+                }">
                 <span class="font-bold" [ngClass]="{
-            'text-white': currentForm >= 5,
-            'text-gray-500': currentForm < 5
-          }"><button [disabled]="currentForm<5" (click)="currentForm=5">5</button></span>
+                    'text-white': currentForm >= 5,
+                    'text-gray-500': currentForm < 5
+                  }"><button [disabled]="currentForm < 5" (click)="currentForm = 5">
+                    5
+                  </button></span>
               </div>
               <div class="mt-1 text-xs font-semibold" [ngClass]="{
-          'text-blue-900': currentForm >= 5,
-          'text-gray-500': currentForm < 5
-        }">
+                  'text-blue-900': currentForm >= 5,
+                  'text-gray-500': currentForm < 5
+                }">
                 Documents
               </div>
             </div>
 
             <!-- Connector -->
             <div class="flex-auto border-t-2" [ngClass]="{
-        'border-blue-900': currentForm > 5,
-        'border-gray-300': currentForm <= 5
-      }"></div>
+                'border-blue-900': currentForm > 5,
+                'border-gray-300': currentForm <= 5
+              }"></div>
 
             <!-- Step 6 -->
             <div class="flex flex-col items-center">
               <div class="flex z-10 items-center justify-center shrink-0 rounded-full h-10 w-10" [ngClass]="{
-          'bg-blue-900': currentForm >= 6,
-          'bg-gray-200': currentForm < 6
-        }">
+                  'bg-blue-900': currentForm >= 6,
+                  'bg-gray-200': currentForm < 6
+                }">
                 <span class="font-bold" [ngClass]="{
-            'text-white': currentForm >= 6,
-            'text-gray-500': currentForm < 6
-          }"><button [disabled]="currentForm<6" (click)="currentForm=6">6</button></span>
+                    'text-white': currentForm >= 6,
+                    'text-gray-500': currentForm < 6
+                  }"><button [disabled]="currentForm < 6" (click)="currentForm = 6">
+                    6
+                  </button></span>
               </div>
               <div class="mt-1 text-xs font-semibold" [ngClass]="{
-          'text-blue-900': currentForm >= 6,
-          'text-gray-500': currentForm < 6
-        }">
+                  'text-blue-900': currentForm >= 6,
+                  'text-gray-500': currentForm < 6
+                }">
                 Complete
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- Form Card -->
 
     <div class="flex flex-col bg-white w-full shadow-2xl rounded-xl border-2 border-gray-200">
+
       <!-- Card Header -->
-      <div *ngIf="currentForm ==1" class="flex items-center p-4 border-b-2 border-gray-100">
+      <div *ngIf="currentForm == 1" class="flex items-center p-4 border-b-2 border-gray-100">
         <!-- Container for the icon - layout remains the same -->
         <div class="h-[40px] w-[40px] flex items-center justify-center">
           <mat-icon class="text-blue-900" style="
@@ -178,7 +189,7 @@
           <p class="text-gray-500 text-xs">Step 1: Personal Details</p>
         </div>
       </div>
-      <div *ngIf="currentForm ==2" class="flex items-center p-4 border-b-2 border-gray-100">
+      <div *ngIf="currentForm == 2" class="flex items-center p-4 border-b-2 border-gray-100">
         <!-- Container for the icon - layout remains the same -->
         <div class="h-[40px] w-[40px] flex items-center justify-center">
           <mat-icon class="text-blue-900" style="
@@ -190,13 +201,11 @@
         </div>
 
         <div class="flex flex-col ml-3">
-          <p class="text-blue-900 font-semibold text-md">
-            Address Information
-          </p>
-          <p class="text-gray-500 text-xs">Step 2: Enter Address Information </p>
+          <p class="text-blue-900 font-semibold text-md">Address Information</p>
+          <p class="text-gray-500 text-xs">Step 2: Enter Address Information</p>
         </div>
       </div>
-      <div *ngIf="currentForm ==3" class="flex items-center p-4 border-b-2 border-gray-100">
+      <div *ngIf="currentForm == 3" class="flex items-center p-4 border-b-2 border-gray-100">
         <!-- Container for the icon - layout remains the same -->
         <div class="h-[40px] w-[40px] flex items-center justify-center">
           <mat-icon class="text-blue-900" style="
@@ -208,13 +217,13 @@
         </div>
 
         <div class="flex flex-col ml-3">
-          <p class="text-blue-900 font-semibold text-md">
-            Job Information
+          <p class="text-blue-900 font-semibold text-md">Job Information</p>
+          <p class="text-gray-500 text-xs">
+            Step 3: Enter Job Related Information
           </p>
-          <p class="text-gray-500 text-xs">Step 3: Enter Job Related Information </p>
         </div>
       </div>
-      <div *ngIf="currentForm ==4" class="flex items-center p-4 border-b-2 border-gray-100">
+      <div *ngIf="currentForm == 4" class="flex items-center p-4 border-b-2 border-gray-100">
         <!-- Container for the icon - layout remains the same -->
         <div class="h-[40px] w-[40px] flex items-center justify-center">
           <mat-icon class="text-blue-900" style="
@@ -226,13 +235,11 @@
         </div>
 
         <div class="flex flex-col ml-3">
-          <p class="text-blue-900 font-semibold text-md">
-            Payroll Information
-          </p>
-          <p class="text-gray-500 text-xs">Step 4: Enter Payroll Information </p>
+          <p class="text-blue-900 font-semibold text-md">Payroll Information</p>
+          <p class="text-gray-500 text-xs">Step 4: Enter Payroll Information</p>
         </div>
       </div>
-      <div *ngIf="currentForm ==5" class="flex items-center p-4 border-b-2 border-gray-100">
+      <div *ngIf="currentForm == 5" class="flex items-center p-4 border-b-2 border-gray-100">
         <!-- Container for the icon - layout remains the same -->
         <div class="h-[40px] w-[40px] flex items-center justify-center">
           <mat-icon class="text-blue-900" style="
@@ -244,17 +251,15 @@
         </div>
 
         <div class="flex flex-col ml-3">
-          <p class="text-blue-900 font-semibold text-md">
-            Upload Documents
-          </p>
-          <p class="text-gray-500 text-xs">Step 4: Upload Document </p>
+          <p class="text-blue-900 font-semibold text-md">Upload Documents</p>
+          <p class="text-gray-500 text-xs">Step 4: Upload Document</p>
         </div>
       </div>
-
 
 
       <!-- Form Fields Section -->
       <form #personalInfoForm="ngForm" (ngSubmit)="addEmployee(personalInfoForm)" class="p-6">
+
         <div *ngIf="currentForm === 1" class="flex flex-wrap -mx-3">
           <!-- First Name -->
           <div class="employeeInputDiv">
@@ -273,7 +278,7 @@
           <!-- Spouse Name -->
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="spouseName">Father's Name <span class="text-red-600">*</span></label>
-            <input required class="employeeInput"  [(ngModel)]="info.fatherName" name="spouseName" type="text"
+            <input required class="employeeInput" [(ngModel)]="info.fatherName" name="spouseName" type="text"
               #fathersName="ngModel" [class.border-red-500]="
                 fathersName.invalid && fathersName.touched
               " />
@@ -289,15 +294,16 @@
           <!-- Phone Number -->
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="phoneno">Phone Number <span class="text-red-600">*</span></label>
-            <input class="employeeInput" maxlength="15" [(ngModel)]="info.phone_no" name="phoneno" type="tel" required minlength="10"
-              #phoneNo="ngModel" [class.border-red-500]="phoneNo.invalid && phoneNo.touched" />
+            <input class="employeeInput" maxlength="15" [(ngModel)]="info.phone_no" name="phoneno" type="tel" required
+              minlength="10" #phoneNo="ngModel" [class.border-red-500]="phoneNo.invalid && phoneNo.touched" />
           </div>
 
           <!-- Email Address -->
           <div class="employeeInputDiv">
-            <label class="employeeLabel"      for="email">Email Address <span class="text-red-600">*</span></label>
-            <input class="employeeInput" [(ngModel)]="info.email" name="email" maxlength="50"  oninput="this.value = this.value.toLowerCase()"  pattern="[a-z0-9]+@[a-z0-9]+\.[a-z]{2,5}$" type="email" required email
-              #email="ngModel" [class.border-red-500]="email.invalid && email.touched" />
+            <label class="employeeLabel" for="email">Email Address <span class="text-red-600">*</span></label>
+            <input class="employeeInput" [(ngModel)]="info.email" name="email" maxlength="50"
+              oninput="this.value = this.value.toLowerCase()" pattern="[a-z0-9]+@[a-z0-9]+\.[a-z]{2,5}$" type="email"
+              required email #email="ngModel" [class.border-red-500]="email.invalid && email.touched" />
           </div>
 
           <!-- Aadhar Number -->
@@ -330,73 +336,157 @@
             </select>
           </div>
         </div>
+
         <!-- Addressform -->
         <div *ngIf="currentForm === 2" class="flex flex-wrap -mx-3">
-          <!-- Country -->
+          <fieldset class="flex flex-wrap w-full mb-6">
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="country">Country</label>
+              <select class="employeeInput" name="current_countryName" id="country" [(ngModel)]="info.country" required
+                #currentCountry="ngModel" [class.border-red-500]="
+                  currentCountry.invalid && currentCountry.touched
+                " (ngModelChange)="selectedCountry($event)">
+                @for (country of countries; track country.iso2) {
+                <option [ngValue]="country.name">{{ country.name }}</option>
+                }
+              </select>
+            </div>
 
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="country">Country</label>
-            <select class="employeeInput" name="countryName" id="country" [(ngModel)]="info.country" required
-              #country="ngModel" [class.border-red-500]="country.invalid && country.touched"
-              (ngModelChange)="selectedCountry($event)">
-              @for (country of countries; track country.iso2) {
-              <option [ngValue]="country.name">{{ country.name }}</option>
-              }
-            </select>
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="currentCountryCode">Country-Code</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                disabled name="currentCountryCode" id="currentCountryCode" [ngModel]="info.countryCode"
+                [value]="selectedCountryCode" />
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="currentState">State</label>
+              <select class="employeeInput" [disabled]="!isEditing" [(ngModel)]="info.state" name="currentState"
+                [ngClass]="{ view: !isEditing, input: isEditing }" #currentState="ngModel"
+                [class.invalid]="currentState.invalid && currentState.touched" (ngModelChange)="selectedState($event)">
+                @for (state of states; track state.iso2) {
+                <option [value]="state.iso2">{{ state.name }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="currentCity">City</label>
+              <select class="employeeInput" [disabled]="!isEditing" [ngClass]="{ view: !isEditing, input: isEditing }"
+                [(ngModel)]="info.city" name="currentCity" required #currentCity="ngModel"
+                [class.invalid]="currentCity.invalid && currentCity.touched">
+                @for (city of cities; track city.id) {
+                <option [value]="city.name">{{ city.name }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="currentStreet">Street-Name</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                [(ngModel)]="info.street" name="currentStreet" type="text" required #currentStreet="ngModel"
+                [class.invalid]="currentStreet.invalid && currentStreet.touched" />
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="currentBuildingNo">Building-No.</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                [(ngModel)]="info.buildingNo" name="currentBuildingNo" type="text" required #currentBuilding="ngModel"
+                [class.invalid]="
+                  currentBuilding.invalid && currentBuilding.touched
+                " />
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="currentPostalCode">Postal-Code</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                [(ngModel)]="info.postal_code" name="currentPostalCode" type="text" required #currentPostal="ngModel"
+                [class.invalid]="currentPostal.invalid && currentPostal.touched" />
+            </div>
+          </fieldset>
+
+          <div class="w-full px-3 mb-6">
+            <label class="flex items-center space-x-2">
+              <input type="checkbox"  [(ngModel)]="isPermanentAddressDifferent" (click)="togglePermanentAddress()"  name="isPermanentAddressDifferent" />
+              <span class="employeeLabel">Different from Current</span>
+            </label>
           </div>
 
-          <!-- Country Code -->
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="countryCode">Country-Code</label>
-            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
-              disabled name="countryCode" id="countryCode" [ngModel]="info.countryCode" [value]="selectedCountryCode" />
-          </div>
+          <fieldset *ngIf="isPermanentAddressDifferent" class="w-full flex flex-wrap -mx-3">
+            <legend class="ml-4 text-lg font-semibold mb-4 w-full">
+              Permanent Address
+            </legend>
 
-          <!-- State -->
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="state">State</label>
-            <select class="employeeInput" [disabled]="!isEditing" [(ngModel)]="info.state" name="state"
-              [ngClass]="{ view: !isEditing, input: isEditing }" #state="ngModel"
-              [class.invalid]="state.invalid && state.touched" (ngModelChange)="selectedState($event)">
-              @for (state of states; track state.iso2) {
-              <option [value]="state.iso2">{{ state.name }}</option>
-              }
-            </select>
-          </div>
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanentCountry">Country</label>
+              <select class="employeeInput" name="permanent_countryName" id="permanentCountry"
+                [(ngModel)]="info.permanent_country" required #permanentCountry="ngModel" [class.border-red-500]="
+                  permanentCountry.invalid && permanentCountry.touched
+                " (ngModelChange)="selectedPermanentCountry($event)">
+                @for (country of countries; track country.iso2) {
+                <option [ngValue]="country.name">{{ country.name }}</option>
+                }
+              </select>
+            </div>
 
-          <!-- City -->
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="city">City</label>
-            <select class="employeeInput" [disabled]="!isEditing" [ngClass]="{ view: !isEditing, input: isEditing }"
-              [(ngModel)]="info.city" name="city" required #city="ngModel"
-              [class.invalid]="city.invalid && city.touched">
-              @for (city of cities; track city.id) {
-              <option [value]="city.name">{{ city.name }}</option>
-              }
-            </select>
-          </div>
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanentCountryCode">Country-Code</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                disabled name="permanentCountryCode" id="permanentCountryCode" [ngModel]="info.permanent_countryCode"
+                [value]="selectedPermanentCountryCode" />
+            </div>
 
-          <!-- Street-Name -->
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="street">Street-Name</label>
-            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
-              [(ngModel)]="info.street" name="street" type="text" required #street="ngModel"
-              [class.invalid]="street.invalid && street.touched" />
-          </div>
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanentState">State</label>
+              <select class="employeeInput" [disabled]="!isEditing" [(ngModel)]="info.permanent_state"
+                name="permanent_state" [ngClass]="{ view: !isEditing, input: isEditing }" #permanentState="ngModel"
+                [class.invalid]="
+                  permanentState.invalid && permanentState.touched
+                " (ngModelChange)="selectedPermanentState($event)">
+                @for (state of permanentStates; track state.iso2) {
+                <option [value]="state.iso2">{{ state.name }}</option>
+                }
+              </select>
+            </div>
 
-          <!-- Building-No. -->
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="buildingNo">Building-No.</label>
-            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
-              [(ngModel)]="info.buildingNo" name="buildingNo" type="text" required #building="ngModel"
-              [class.invalid]="building.invalid && building.touched" />
-          </div>
-          <div class="employeeInputDiv">
-            <label class="employeeLabel" for="postal_code">Postal-Code</label>
-            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
-              [(ngModel)]="info.postal_code" name="postal_code" type="text" required #postal="ngModel"
-              [class.invalid]="postal.invalid && postal.touched" />
-          </div>
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanentCity">City</label>
+              <select class="employeeInput" [disabled]="!isEditing" [ngClass]="{ view: !isEditing, input: isEditing }"
+                [(ngModel)]="info.permanent_city" name="permanent_city" required #permanentCity="ngModel"
+                [class.invalid]="permanentCity.invalid && permanentCity.touched">
+                @for (city of permanentCities; track city.id) {
+                <option [value]="city.name">{{ city.name }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanentStreet">Street-Name</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                [(ngModel)]="info.permanent_street" name="permanent_street" type="text" required
+                #permanentStreet="ngModel" [class.invalid]="
+                  permanentStreet.invalid && permanentStreet.touched
+                " />
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanentBuildingNo">Building-No.</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                [(ngModel)]="info.permanent_buildingNo" name="permanent_buildingNo" type="text" required
+                #permanentBuilding="ngModel" [class.invalid]="
+                  permanentBuilding.invalid && permanentBuilding.touched
+                " />
+            </div>
+
+            <div class="employeeInputDiv">
+              <label class="employeeLabel" for="permanent_postal_code">Postal-Code</label>
+              <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
+                [(ngModel)]="info.permanent_postal_code" name="permanent_postal_code" type="text" required
+                #permanentPostal="ngModel" [class.invalid]="
+                  permanentPostal.invalid && permanentPostal.touched
+                " />
+            </div>
+          </fieldset>
         </div>
 
         <!-- JobForm -->
@@ -416,9 +506,7 @@
               Manager <span class="text-red-600">*</span>
             </label>
             <input class="employeeInput" [(ngModel)]="info.manager" name="manager" type="text" required
-              #manager="ngModel" [class.border-red-500]="
-                manager.invalid && manager.touched
-              " />
+              #manager="ngModel" [class.border-red-500]="manager.invalid && manager.touched" />
           </div>
 
           <!-- Department -->
@@ -429,7 +517,7 @@
             <select class="employeeInput" [(ngModel)]="info.department" name="department" required #department="ngModel"
               [class.border-red-500]="department.invalid && department.touched">
               @for(dept of allDepartments$ | async; track dept.departmentId){
-              <option >{{ dept.departmentName }}</option> 
+              <option>{{ dept.departmentName }}</option>
               }
             </select>
           </div>
@@ -457,29 +545,24 @@
             </select>
           </div>
 
-
           <div class="employeeInputDiv">
-  <label class="employeeLabel" for="organizationName">
-    Organization Name <span class="text-red-600">*</span>
-  </label>
-  
-  <select 
-    class="employeeInput" 
-    [(ngModel)]="info.organization" 
-    name="organizationName" 
-    required
-    #organizationName="ngModel" 
-    [class.border-red-500]="organizationName.invalid && organizationName.touched"
-  >
-    <option [ngValue]="null" disabled>Select an organization</option>
+            <label class="employeeLabel" for="organizationName">
+              Organization Name <span class="text-red-600">*</span>
+            </label>
 
-    @for(org of allOrganizations$ | async; track org.organizationId)  {
-      <option [value]="org.organizationName">
-        {{ org.organizationName }}
-      </option>
-    }
-  </select>
-</div>
+            <select class="employeeInput" [(ngModel)]="info.organization" name="organizationName" required
+              #organizationName="ngModel" [class.border-red-500]="
+                organizationName.invalid && organizationName.touched
+              ">
+              <option [ngValue]="null" disabled>Select an organization</option>
+
+              @for(org of allOrganizations$ | async; track org.organizationId) {
+              <option [value]="org.organizationName">
+                {{ org.organizationName }}
+              </option>
+              }
+            </select>
+          </div>
 
           <!-- Work Location -->
           <div class="employeeInputDiv">
@@ -488,73 +571,91 @@
               #workLocation="ngModel" />
           </div>
         </div>
+
+
         <!-- Payroll Form -->
         <div *ngIf="currentForm === 4" class="flex flex-wrap -mx-3">
           <!-- Bank Name -->
           <div class="employeeInputDiv">
-            <label class="employeeLabel" for="bankName">
-              Bank Name <span class="text-red-600">*</span>
-            </label>
+            <label class="employeeLabel" for="bankName">Bank Name <span class="text-red-600">*</span></label>
             <input class="employeeInput" [(ngModel)]="info.bankName" name="bankName" type="text" required
               #bankName="ngModel" [class.border-red-500]="bankName.invalid && bankName.touched" />
           </div>
+          
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="salary">
-              Salary <span class="text-red-600">*</span> 
+              Salary <span class="text-red-600">*</span>
             </label>
-            <input class="employeeInput" [(ngModel)]="info.salary" (ngModelChange)="setNetSalary($event)" name="salary" type="text" required #salary="ngModel"
-              [class.border-red-500]="salary.invalid && salary.touched" />
+            <input class="employeeInput" [(ngModel)]="info.salary"  name="salary"
+              type="text" required #salary="ngModel" [class.border-red-500]="salary.invalid && salary.touched" />
           </div>
 
           <!-- EPF Eligible -->
-<div class="employeeInputDiv">
-  <label class="employeeLabel" for="epfEligible">EPF Eligible?</label>
-  <select class="employeeInput"  
-     [(ngModel)]="isEligble" name="epfEligible" 
-     (ngModelChange)="CheckEligble($event)"
-    required #epfEligible="ngModel"
-    [class.border-red-500]="epfEligible.invalid && epfEligible.touched">
-    <option value="Yes">Yes</option>
-    <option value="No">No</option>
-  </select>
-</div>
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="epfEligible">EPF Eligible?</label>
+            <select class="employeeInput" [(ngModel)]="isEligble" name="epfEligible"
+              (ngModelChange)="CheckEligble($event)" required #epfEligible="ngModel" [class.border-red-500]="
+                epfEligible.invalid && epfEligible.touched
+              ">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
 
-<!-- EPF Number -->
-<div class="employeeInputDiv">
-  <label class="employeeLabel" for="epfNumber">EPF Number</label>
-  <input  class="employeeInput" 
-     [required]="isEligble==='Yes'" [disabled]="isEligble === 'No'" [(ngModel)]="info.pfNumber" name="epfNumber" 
-    type="text" maxlength="24" minlength="22" required #epfNumber="ngModel"
-    [class.border-red-500]="epfNumber.invalid && epfNumber.touched" />
-</div>
+          <!-- EPF Number -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="epfNumber">EPF Number</label>
+            <input class="employeeInput" [required]="isEligble === 'Yes'" [disabled]="isEligble === 'No'"
+              [(ngModel)]="info.pfNumber" name="epfNumber" type="text" maxlength="24" minlength="22" required
+              #epfNumber="ngModel" [class.border-red-500]="epfNumber.invalid && epfNumber.touched" />
+          </div>
 
-<!-- EPF Deduction Rate -->
-<div class="employeeInputDiv">
-  <label class="employeeLabel" for="deductionRate">EPF Deduction Rate (%)</label>
-  <input class="employeeInput" 
-    [required]="isEligble==='Yes'" [disabled]="isEligble === 'No'"  (ngModelChange)="calcSalary($event)" [(ngModel)]="info.DeductionRate" name="deductionRate" 
-    type="number" minlength="1"  maxlength="3" required #deductionRate="ngModel"
-    [class.border-red-500]="deductionRate.invalid && deductionRate.touched" />
-</div>
+          <!-- EPF Deduction Rate -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="deductionRate">EPF Deducted Amount</label>
+            <input class="employeeInput" 
+             disabled [(ngModel)]="info.DeductionRate" name="deductionRate" type="text"
+              minlength="1" maxlength="12" required #deductionRate="ngModel" [class.border-red-500]="
+                deductionRate.invalid && deductionRate.touched
+              " />
+          </div>
 
-<!-- EPF Deduction Amount -->
-<div class="employeeInputDiv">
-  <label class="employeeLabel" for="deductionAmount">Deduction Amount </label>
-  <input class="employeeInput" 
-     [required]="isEligble==='Yes'"  [disabled]="isEligble === 'No'"  [(ngModel)]="info.deductionAmount" name="deductionAmount" 
-    type="number" maxlength="8" required #deductionAmount="ngModel"
-    [class.border-red-500]="deductionAmount.invalid && deductionAmount.touched" />
-</div>
+          
 
-<!-- Net Salary -->
-<div class="employeeInputDiv">
-  <label class="employeeLabel" for="netSalary">Net Salary </label>
-  <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" 
-    disabled [(ngModel)]="info.netSalary" name="netSalary" 
-    type="number" maxlength="10" required #netSalary="ngModel"
-    [class.border-red-500]="netSalary.invalid && netSalary.touched" />
-</div>
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="tds">TDS</label>  
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [(ngModel)]="info.tds"
+               disabled  name="tds" type="number" maxlength="10" required #tds="ngModel"
+              [class.border-red-500]="tds.invalid && tds.touched" />
+          </div>
 
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="ESIContribution">ESI Contribution</label>
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }"
+              disabled  [(ngModel)]="info.ESIContribution" name="ESIContribution" type="number" maxlength="10" required
+              #ESIContribution="ngModel" [class.border-red-500]="
+                ESIContribution.invalid && ESIContribution.touched
+              " />
+          </div>
+
+          <!-- EPF Deduction Amount -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="deductionAmount">Total Deducted Amount
+            </label>
+            <input class="employeeInput"  disabled 
+              [(ngModel)]="info.deductionAmount" name="deductionAmount" type="number" maxlength="8" required
+              #deductionAmount="ngModel" [class.border-red-500]="
+                deductionAmount.invalid && deductionAmount.touched
+              " />
+          </div>
+
+          <!-- Net Salary -->
+          <div class="employeeInputDiv">
+            <label class="employeeLabel" for="netSalary">Net Salary </label>
+            <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" disabled
+              [(ngModel)]="info.netSalary" name="netSalary" type="number" maxlength="10" required #netSalary="ngModel"
+              [class.border-red-500]="netSalary.invalid && netSalary.touched" />
+          </div>
 
           <!-- Account Holder Name -->
           <div class="employeeInputDiv">
@@ -586,8 +687,6 @@
             <input class="employeeInput" [(ngModel)]="info.ifscCode" name="ifscCode" type="text" required
               #ifscCode="ngModel" [class.border-red-500]="ifscCode.invalid && ifscCode.touched" />
           </div>
-
-          
 
           <!-- PAN Number -->
           <div class="employeeInputDiv">
@@ -634,6 +733,7 @@
             </div>
           </div>
         </div>
+
         <!-- Confirmation Page -->
         <div *ngIf="currentForm === 6" class="px-6 bg-white rounded-lg shadow-md">
           <h2 class="text-2xl font-bold text-blue-900 mb-6 border-b pb-2">
@@ -712,7 +812,6 @@
             </div>
           </div>
 
-
           <!-- Employment & Payroll Section (4-Column Layout) -->
           <div>
             <h3 class="text-lg font-semibold text-gray-700 mb-3">
@@ -772,7 +871,8 @@
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">PF Number (UAN)</p>
                 <p class="font-medium text-gray-800">
-                  {{ info.pfNumber }}</p>
+                  {{ info.pfNumber }}
+                </p>
               </div>
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">epfNumber</p>
@@ -780,15 +880,21 @@
               </div>
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">Deduction Rate</p>
-                <p class="font-medium text-gray-800">{{ info.DeductionRate }}</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.DeductionRate }}
+                </p>
               </div>
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">Deduction Amount</p>
-                <p class="font-medium text-gray-800">{{ info.deductionAmount  | currency : info.currency }}</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.deductionAmount | currency : info.currency }}
+                </p>
               </div>
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">Net Salary</p>
-                <p class="font-medium text-gray-800">{{ info.netSalary | currency : info.currency }}</p>
+                <p class="font-medium text-gray-800">
+                  {{ info.netSalary | currency : info.currency }}
+                </p>
               </div>
             </div>
           </div>
@@ -800,14 +906,13 @@
           </button>
 
           <!-- [disabled]="personalInfoForm.invalid" have to add this in button -->
-          <button type="button" (click)="nextForm(personalInfoForm)"
-          [disabled]="personalInfoForm.invalid"
-           [hidden]="currentForm >= 6"
+          <button type="button" (click)="nextForm(personalInfoForm)" [disabled]="personalInfoForm.invalid"
+            [hidden]="currentForm >= 6"
             class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
             Next
           </button>
-          <button type="submit" [hidden]="currentForm <= 5 "
-            [disabled]="personalInfoForm.invalid ||personalInfoForm.untouched"
+          <button type="submit" [hidden]="currentForm <= 5"
+            [disabled]="personalInfoForm.invalid || personalInfoForm.untouched"
             [class.bg-grey-400]="personalInfoForm.invalid"
             class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
             Submit
@@ -816,7 +921,6 @@
       </form>
 
       <!-- Form Footer with Navigation -->
-
     </div>
   </div>
 </div>

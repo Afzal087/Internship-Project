@@ -24,14 +24,14 @@ export class EmployeeViewComponent implements OnInit {
 
   // Loading Hardcoded values
 
-  
-  allProjects$ : Observable<Project[]>;
-  allDepartments$ : Observable<Department[]>;
-  allOrganizations$ : Observable<Organization[]>;
+
+  allProjects$: Observable<Project[]>;
+  allDepartments$: Observable<Department[]>;
+  allOrganizations$: Observable<Organization[]>;
 
 
 
-  maxBirthDate : string;
+  maxBirthDate: string;
   // Country/State/City dropdowns
   countries: any[] = [];
   states: any[] = [];
@@ -55,7 +55,7 @@ export class EmployeeViewComponent implements OnInit {
     employeeCode: '',
 
     // 🔹 Address Info
-   
+
     country: '',
     countryCode: '',
     state: '',
@@ -66,8 +66,15 @@ export class EmployeeViewComponent implements OnInit {
 
     // 🔹 Job Info
 
-    
-
+    isAddressDifferent: false,
+    //Permanent Address
+    permanent_country: '',
+    permanent_countryCode: '',
+    permanent_state: '',
+    permanent_city: '',
+    permanent_street: '',
+    permanent_buildingNo: '',
+    permanent_postal_code: '',
 
     department: '',
     manager: '',
@@ -76,12 +83,14 @@ export class EmployeeViewComponent implements OnInit {
     organization: '',
     workLocation: '',
     employementType: '',
-  
-    DeductionRate:'',
-    deductionAmount:'',
-    netSalary:'',
 
-  
+    DeductionRate: '',
+    deductionAmount: '',
+    netSalary: '',
+ ESIContribution: '',
+
+  tds: '',
+
 
     salary: '',
     accountHolderName: '',
@@ -91,7 +100,7 @@ export class EmployeeViewComponent implements OnInit {
     pfNumber: '',
     panNumber: '',
 
-   
+
 
     offerLetter: null,
     idProof: null,
@@ -102,13 +111,13 @@ export class EmployeeViewComponent implements OnInit {
     private customerService: CustomerService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private service : AssignmentService
+    private service: AssignmentService
   ) {
 
     this.allDepartments$ = this.service.department$
     this.allOrganizations$ = this.service.organization$
     this.allProjects$ = this.service.project$
-const today = new Date();
+    const today = new Date();
     const eighteenYearsAgo = new Date(
       today.getFullYear() - 18,
       today.getMonth(),
@@ -120,7 +129,7 @@ const today = new Date();
   ngOnInit(): void {
     this.service.getAllDepartments().subscribe();
     this.service.getAllOrganizations().subscribe();
-    this.service.getAllProjects().subscribe();  
+    this.service.getAllProjects().subscribe();
     this.getCountries();
     this.getEmployee();
   }
@@ -137,7 +146,7 @@ const today = new Date();
       if (employeeId > 0) {
         this.employeeService.getEmployeeById(employeeId).subscribe({
           next: (emp) => {
-            console.log("This is the Employee Format when get byID : ",emp)
+            console.log("This is the Employee Format when get byID : ", emp)
             this.info = emp;
             // if countryCode exists on the employee, set selection and load dependent lists
             if (this.info.countryCode) {
@@ -190,25 +199,25 @@ const today = new Date();
   }
 
   getStateData(countryCode: string) {
-  if (!countryCode) return;
-  this.customerService.getStateData(countryCode).subscribe({
-    next: (data: any) => {
-      this.states = data || [];
-      
-      // If employee already has a state, find its code
-      if (this.info.state) {
-        const stateObj = this.states.find((s) => s.name === this.info.state);
-        if (stateObj) {
-          this.selectedStateCode = stateObj.iso2;
-          this.getCityData(this.selectedStateCode);
+    if (!countryCode) return;
+    this.customerService.getStateData(countryCode).subscribe({
+      next: (data: any) => {
+        this.states = data || [];
+
+        // If employee already has a state, find its code
+        if (this.info.state) {
+          const stateObj = this.states.find((s) => s.name === this.info.state);
+          if (stateObj) {
+            this.selectedStateCode = stateObj.iso2;
+            this.getCityData(this.selectedStateCode);
+          }
         }
-      }
-    },
-    error: (err) => {
-      console.error('Error loading states for', countryCode, err);
-    },
-  });
-}
+      },
+      error: (err) => {
+        console.error('Error loading states for', countryCode, err);
+      },
+    });
+  }
 
 
   getCityData(stateCode: string) {
@@ -258,18 +267,18 @@ const today = new Date();
   }
 
   selectedState(stateCode: string) {
-  if (!stateCode) return;
-  const selectedState = this.states.find((s)=> s.name === stateCode)
-  this.selectedStateCode = selectedState.name;
-  
-  // Find the state object and get its name
-  const stateObj = this.states.find((s) => s.iso2 === stateCode);
-  if (stateObj) {
-    this.info.state = stateObj.name;  // Save state NAME, not code
+    if (!stateCode) return;
+    const selectedState = this.states.find((s) => s.name === stateCode)
+    this.selectedStateCode = selectedState.name;
+
+    // Find the state object and get its name
+    const stateObj = this.states.find((s) => s.iso2 === stateCode);
+    if (stateObj) {
+      this.info.state = stateObj.name;  // Save state NAME, not code
+    }
+
+    this.getCityData(this.selectedStateCode);
   }
-  
-  this.getCityData(this.selectedStateCode);
-}
 
   onOfferLetterUpload(event: any) {
     const file = event.target.files?.[0];
@@ -328,57 +337,66 @@ const today = new Date();
   resetForm() {
     this.info = {
       // 🔹 Personal Info
-       firstName: '',
-    lastName: '',
-    dob: '',
-    phone_no: '',
-    email: '',
-    aadharNo: '',
-    gender: '',
-    maritalStatus: '',
-    fatherName: '',
-    employeeCode: '',
+      firstName: '',
+      lastName: '',
+      dob: '',
+      phone_no: '',
+      email: '',
+      aadharNo: '',
+      gender: '',
+      maritalStatus: '',
+      fatherName: '',
+      employeeCode: '',
 
-    // 🔹 Address Info
-    
+      // 🔹 Address Info
 
-    country: '',
-    countryCode: '',
-    state: '',
-    city: '',
-    street: '',
-    buildingNo: '',
-    postal_code: '',
+      //Permanent Address
+      permanent_country: '',
+      permanent_countryCode: '',
+      permanent_state: '',
+      permanent_city: '',
+      permanent_street: '',
+      permanent_buildingNo: '',
+      permanent_postal_code: '',
+      country: '',
+      countryCode: '',
+      state: '',
+      city: '',
+      street: '',
+      buildingNo: '',
+      postal_code: '',
 
-    // 🔹 Job Info
-
-    
+      // 🔹 Job Info
 
 
-    department: '',
-    manager: '',
-    designation: '',
-    dateOfJoining: '',
-    organization: '',
-    workLocation: '',
-    employementType: '',
 
-    DeductionRate:'',
-    netSalary:'',
-   deductionAmount:'',
 
-    salary: '',
-    accountHolderName: '',
-    accountNumber: '',
-    bankName: '',
-    ifscCode: '',
-    pfNumber: '',
-    panNumber: '',
+      department: '',
+      manager: '',
+      designation: '',
+      dateOfJoining: '',
+      organization: '',
+      workLocation: '',
+      employementType: '',
 
-   
+      DeductionRate: '',
+      netSalary: '',
+      deductionAmount: '',
+ ESIContribution: '',
 
-    offerLetter: null,
-    idProof: null,
+  tds: '',
+      salary: '',
+      accountHolderName: '',
+      accountNumber: '',
+      bankName: '',
+      ifscCode: '',
+      pfNumber: '',
+      panNumber: '',
+
+      isAddressDifferent: false,
+
+      offerLetter: null,
+      idProof: null,
     };
     this.selectedCountryCode = '';
     this.selectedStateCode = '';

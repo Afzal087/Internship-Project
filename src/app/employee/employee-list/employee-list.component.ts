@@ -47,7 +47,5 @@ export class EmployeeListComponent implements OnInit {
       this.allEmployee = this.allEmployee.filter(emp => emp.employeeId !== employeeId);
     });
   }
-  onEdit(employeeId: number) {
-    this.router.navigate(['/dashboard/employees/edit', employeeId]);
-  }
+
 }
