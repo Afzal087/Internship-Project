@@ -49,18 +49,6 @@ export class CustomerService {
   
 
 
-  // customerServices
-  get(): Observable<any> {
-    return this.https.get<any>(this.apiUrl);
-  }
-  add(customer: Customer): Observable<Customer> {
-   
-    return this.https.post<Customer>(this.apiUrl, customer);
-  }
-  delete(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    console.log(url);
-    return this.https.delete<void>(url);
-  }
+ 
 
 }

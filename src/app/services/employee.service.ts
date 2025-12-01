@@ -17,34 +17,23 @@ export class EmployeeService {
   }
   constructor(private http: HttpClient) {}
 
-  // getEmployee(): Observable<Employee[]> {
-  //   return this.http.get<Employee[]>(this.apiUrl)..pipe(
-  //     tap(data =>{
-  //       this.employeeSubject.next(data);
-  //       this.allEmployee = data;
-  //     })
-  //   )
-  // }
+
+  downloadEmployeeReport(employeeId: number): Observable<Blob> {
+    const url = `${this.apiUrl}/${employeeId}/report`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
 
   getEmployee(): Observable<Employee[]>  {
    return  this.http.get<Employee[]>(this.apiUrl).pipe(
       tap(data =>{
-        
+        console.log('Fetched Employees:', data);
         this.employeeSubject.next(data);
         this.allEmployee = data;
-        console.log("Loaded : "+ this.currentEmployeesValue[1])
+        
       })
     )
-    //   (data) => {
-    //     console.log('Loaded', data, 'employees from backend');
-
-    //     this.allEmployee = data;
-    //     this.employeeSubject.next(data);
-    //   },
-    //   (error) => {
-    //     console.error('Failed to load employees', error);
-    //   }
-    // );
+    
   }
 
   searchEmployees(keyword: string): void {
@@ -66,12 +55,12 @@ export class EmployeeService {
         emp.department?.toLowerCase().includes(searchTerm)
     );
 
-    console.log(`🔍 Found ${filtered.length} results for "${keyword}"`);
+    
     this.employeeSubject.next(filtered); // Broadcast filtered results
   }
 
   clearSearch(): void {
-    console.log('🔄 Showing all employees');
+    
     this.employeeSubject.next(this.allEmployee);
   }
 
@@ -98,11 +87,11 @@ export class EmployeeService {
 
   deleteEmployee(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    console.log('Deleting user with URL:', url);
+   
     return this.http.delete<void>(url);
   }
 
-  updateEmployee(info: Employee): Observable<Employee> {
+  updateEmployee(info: Employee, ): Observable<Employee> {
     const formData = new FormData();
 
     (Object.keys(info) as (keyof Employee)[]).forEach((key) => {

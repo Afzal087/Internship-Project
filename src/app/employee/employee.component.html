@@ -258,7 +258,7 @@
 
 
       <!-- Form Fields Section -->
-      <form #personalInfoForm="ngForm" (ngSubmit)="addEmployee(personalInfoForm)" class="p-6">
+      <form #personalInfoForm="ngForm" (ngSubmit)="onSubmit(personalInfoForm)" class="p-6">
 
         <div *ngIf="currentForm === 1" class="flex flex-wrap -mx-3">
           <!-- First Name -->
@@ -429,6 +429,8 @@
               </select>
             </div>
 
+            
+
             <div class="employeeInputDiv">
               <label class="employeeLabel" for="permanentCountryCode">Country-Code</label>
               <input class="employeeInput" [ngClass]="{ view: !isEditing, input: isEditing }" [readOnly]="!isEditing"
@@ -593,7 +595,7 @@
           <!-- EPF Eligible -->
           <div class="employeeInputDiv">
             <label class="employeeLabel" for="epfEligible">EPF Eligible?</label>
-            <select class="employeeInput" [(ngModel)]="isEligble" name="epfEligible"
+            <select class="employeeInput" [(ngModel)]="info.epfEligible" name="epfEligible"
               (ngModelChange)="CheckEligble($event)" required #epfEligible="ngModel" [class.border-red-500]="
                 epfEligible.invalid && epfEligible.touched
               ">
@@ -801,7 +803,7 @@
               </div>
               <div class="w-1/2 md:w-1/4 px-2 mb-4">
                 <p class="text-gray-500">State</p>
-                <p class="font-medium text-gray-800">{{ info.state }}</p>
+                <p class="font-medium text-gray-800">{{ getStateName(info.state) }}</p>
               </div>
 
               <!-- Row 4 -->
@@ -912,7 +914,7 @@
             Next
           </button>
           <button type="submit" [hidden]="currentForm <= 5"
-            [disabled]="personalInfoForm.invalid || personalInfoForm.untouched"
+            [disabled]="personalInfoForm.invalid "
             [class.bg-grey-400]="personalInfoForm.invalid"
             class="px-8 py-2 text-sm text-white font-semibold bg-blue-900 rounded-md hover:bg-blue-800 disabled:bg-gray-400">
             Submit

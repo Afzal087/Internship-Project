@@ -37,6 +37,28 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
+
+  onEdit(employeeId: number){
+    this.router.navigate(['/employees/view/',employeeId]);
+  }
+
+
+  downloadReport(employeeId: number) {
+    this.employeeService.downloadEmployeeReport(employeeId).subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob); 
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `employee_${employeeId}_report.pdf`; 
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+        
+    });
+  }
+
+
+
   onView(employeeId: number) {
     console.log("Navigating to view employee with ID:", employeeId);
     this.router.navigate(['/dashboard/employees/view', employeeId]);

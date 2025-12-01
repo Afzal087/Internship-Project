@@ -32,7 +32,7 @@ export const routes: Routes = [
         path: 'employees',
         children: [
           { path: '', component: EmployeeListComponent }, // default = list
-          { path: 'view/:employeeId', component: EmployeeViewComponent },
+          { path: 'view/:employeeId', component: EmployeeComponent },
           { path: 'add', component: EmployeeComponent },
          
         ],

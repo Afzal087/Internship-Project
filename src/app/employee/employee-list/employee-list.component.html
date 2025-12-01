@@ -65,15 +65,28 @@
               (click)="onView(emp.employeeId!)">
               <span class="flex items-center">
                 <mat-icon class="flex justify-center items-center mr-1">person</mat-icon>
-                View
+                
               </span>
             </button>
-
+            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
+            (click)="onEdit(emp.employeeId!)">
+            <span class="flex items-center">
+              <mat-icon class="flex justify-center items-center mr-1">edit</mat-icon>
+              
+            </span>
+          </button>
             <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
               (click)="onDelete(emp.employeeId!)">
               <span class="flex items-center">
                 <mat-icon class="flex justify-center items-center mr-1">delete</mat-icon>
-                Delete
+                
+              </span>
+            </button>
+            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
+              (click)="downloadReport(emp.employeeId!)">
+              <span class="flex items-center">
+                <mat-icon class="flex justify-center items-center mr-1">download</mat-icon>
+                
               </span>
             </button>
           </td>

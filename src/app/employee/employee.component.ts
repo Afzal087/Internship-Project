@@ -4,11 +4,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../models/employee.model';
 import { CustomerService } from '../services/customer.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { count } from 'node:console';
 import { AssignmentService } from '../services/assignment.service';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Project } from '../models/Project.model';
 import { Department } from '../models/Department.model';
 import { Organization } from '../models/Organization.model';
@@ -29,12 +30,20 @@ export class EmployeeComponent implements OnInit {
   isEligble: string = '';
   isPermanentAddressDifferent: boolean = true;
   currentForm: number = 1;
+
+  //Edit Mode Variables
+  mode:'create' | 'edit' = 'create';
+  employeeId: number | null = null;
+
+
+
   allProjects$: Observable<Project[]>;
   allDepartments$: Observable<Department[]>;
   allOrganizations$: Observable<Organization[]>;
   
+  
 
-  constructor( private employeeService: EmployeeService, private customerService: CustomerService, private router: Router, private service: AssignmentService) {
+    constructor( private route:  ActivatedRoute, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router, private service: AssignmentService) {
     this.allDepartments$ = this.service.department$;
     this.allOrganizations$ = this.service.organization$;
     this.allProjects$ = this.service.project$;
@@ -55,7 +64,43 @@ export class EmployeeComponent implements OnInit {
     this.info.isAddressDifferent = this.isPermanentAddressDifferent;
   }
 
+onSubmit(form: NgForm) {
+  if (form.invalid) return;
 
+  if (this.mode === 'create') {
+
+    if (!this.isPermanentAddressDifferent) {
+      this.info.permanent_country = '';
+      this.info.permanent_countryCode = '';
+      this.info.permanent_state = '';
+      this.info.permanent_city = '';
+      this.info.permanent_street = '';
+      this.info.permanent_buildingNo = '';
+      this.info.permanent_postal_code = '';
+    }
+
+    this.addEmployee(form);
+
+  } else {
+
+    this.info.employeeId = this.employeeId!; // ensure id is set
+
+    this.employeeService.updateEmployee(this.info).subscribe({
+      next: (res) => {
+        alert("Employee updated successfully!");
+        this.router.navigate(['/employees']);
+      },
+      error: (err) => {
+        console.log("Update Error", err);
+        alert("Failed to update employee");
+      }
+    });
+  }
+}
+
+
+
+  
   nextForm(form: NgForm) {
     if (this.currentForm >= 1 && this.currentForm < 6) {
       if (form.invalid) {
@@ -141,19 +186,91 @@ const annualSalary = salary * 12;
     this.employeeService.getEmployee().subscribe((data) => {
       this.users = data;
     });
+
+    const id = this.route.snapshot.paramMap.get('employeeId'); 
+    
+    if(id){
+      this.mode = 'edit';
+      this.employeeId = +id;
+      this.employeeService.getEmployeeById(this.employeeId).subscribe((data) => {
+        this.info = data;
+        // Load states and cities for edit mode (will be called after countries load)
+        // If countries are already loaded, load address data immediately
+        if (this.countries.length > 0) {
+          this.loadAddressDataForEdit();
+        }
+        // Otherwise, loadAddressDataForEdit will be called from getCountries() subscribe
+      });
+    } 
+  }
+
+  loadAddressDataForEdit() {
+    // Load current address data
+    if (this.info.countryCode) {
+      this.selectedCountryCode = this.info.countryCode;
+      // Find and set the country name for the dropdown
+      const country = this.countries.find((c) => c.iso2 === this.info.countryCode);
+      if (country) {
+        this.info.country = country.name;
+      }
+      
+      // Load states, then cities
+      this.loadStateData(this.info.countryCode).subscribe(() => {
+        if (this.info.state) {
+          this.selectedStateCode = this.info.state;
+          this.loadCityData(this.info.countryCode, this.info.state).subscribe();
+        }
+      });
+    }
+
+    // Load permanent address data
+    if (this.info.permanent_countryCode) {
+      this.selectedPermanentCountryCode = this.info.permanent_countryCode;
+      // Find and set the permanent country name for the dropdown
+      const permanentCountry = this.countries.find((c) => c.iso2 === this.info.permanent_countryCode);
+      if (permanentCountry) {
+        this.info.permanent_country = permanentCountry.name;
+      }
+      
+      // Load permanent states, then cities
+      this.loadPermanentStateData(this.info.permanent_countryCode).subscribe(() => {
+        if (this.info.permanent_state) {
+          this.selectedPermanentStateCode = this.info.permanent_state;
+          this.loadPermanentCityData(this.info.permanent_countryCode, this.info.permanent_state).subscribe();
+        }
+      });
+    }
   }
 
   getCountryName(code: string) {
     const countries = this.countries;
     const country = countries.find((c) => c.iso2 === code);
-    this.info.currency = country.currency;
+    if (country) {
+      this.info.currency = country.currency;
+      return country.name;
+    }
+    return '';
+  }
 
-    return country.name;
+  getStateName(stateCode: string): string {
+    if (!stateCode || !this.states || this.states.length === 0) return stateCode || '';
+    const state = this.states.find((s) => s.iso2 === stateCode);
+    return state ? state.name : stateCode;
+  }
+
+  getPermanentStateName(stateCode: string): string {
+    if (!stateCode || !this.permanentStates || this.permanentStates.length === 0) return stateCode || '';
+    const state = this.permanentStates.find((s) => s.iso2 === stateCode);
+    return state ? state.name : stateCode;
   }
 
   getCountries() {
     this.customerService.getCountryData().subscribe((data: any) => {
       this.countries = data;
+      // If in edit mode and employee data is already loaded, populate address dropdowns
+      if (this.mode === 'edit' && this.info && this.info.countryCode) {
+        this.loadAddressDataForEdit();
+      }
     });
   }
 
@@ -164,9 +281,7 @@ const annualSalary = salary * 12;
   }
 
   getCityData(countryCode: string, stateCode: string) {
-    this.customerService
-      .getCityData(countryCode, stateCode)
-      .subscribe((data: any) => {
+    this.customerService.getCityData(countryCode, stateCode).subscribe((data: any) => {
         this.cities = data;
       });
   }
@@ -183,6 +298,39 @@ const annualSalary = salary * 12;
       .subscribe((data: any) => {
         this.permanentCities = data;
       });
+  }
+
+  // Helper methods that return observables for chaining
+  loadStateData(code: string): Observable<any> {
+    return this.customerService.getStateData(code).pipe(
+      tap((data: any) => {
+        this.states = data;
+      })
+    );
+  }
+
+  loadCityData(countryCode: string, stateCode: string): Observable<any> {
+    return this.customerService.getCityData(countryCode, stateCode).pipe(
+      tap((data: any) => {
+        this.cities = data;
+      })
+    );
+  }
+
+  loadPermanentStateData(code: string): Observable<any> {
+    return this.customerService.getStateData(code).pipe(
+      tap((data: any) => {
+        this.permanentStates = data;
+      })
+    );
+  }
+
+  loadPermanentCityData(countryCode: string, stateCode: string): Observable<any> {
+    return this.customerService.getCityData(countryCode, stateCode).pipe(
+      tap((data: any) => {
+        this.permanentCities = data;
+      })
+    );
   }
 
   selectedCountry(countryName: any) {
@@ -225,6 +373,8 @@ const annualSalary = salary * 12;
   selectedState(state: string) {
     this.selectedStateCode = state;
     this.info.state = state;
+
+    
 
     // Reset city when state changes
     this.info.city = '';
@@ -315,62 +465,60 @@ const annualSalary = salary * 12;
     this.info = {
       // 🔹 Personal Info
       firstName: '',
-      lastName: '',
-      dob: '',
-      phone_no: '',
-      email: '',
-      aadharNo: '',
-      gender: '',
-      maritalStatus: '',
-      fatherName: '',
-      employeeCode: '',
+    lastName: '',
+    dob: '',
+    phone_no: '',
+    email: '',
+    aadharNo: '',
+    gender: '',
+    maritalStatus: '',
+    fatherName: '',
+    employeeCode: '',
 
-      // 🔹 Address Info
-      country: '',
-      countryCode: '',
-      state: '',
-      city: '',
-      street: '',
-      buildingNo: '',
-      postal_code: '',
+    // 🔹 Address Info
+    country: '',
+    countryCode: '',
+    state: '',
+    city: '',
+    street: '',
+    buildingNo: '',
+    postal_code: '',
+    //Permanent Address
+    permanent_country: '',
+    permanent_countryCode: '',
+    permanent_state: '',
+    permanent_city: '',
+    permanent_street: '',
+    permanent_buildingNo: '',
+    permanent_postal_code: '',
+    // 🔹 Job Info
 
-      //Permanent Address
-      permanent_country: '',
-      permanent_countryCode: '',
-      permanent_state: '',
-      permanent_city: '',
-      permanent_street: '',
-      permanent_buildingNo: '',
-      permanent_postal_code: '',
-      epfEligible: '',
-      // 🔹 Job Info
+    department: '',
+    manager: '',
+    designation: '',
+    dateOfJoining: '',
+    organization: '',
+    workLocation: '',
+    employementType: '',
+    epfEligible: '',
+    DeductionRate: '',
+    deductionAmount: '',
+    netSalary: '',
+    ESIContribution: '',
+    
+    tds: '',
 
-      department: '',
-      manager: '',
-      designation: '',
-      dateOfJoining: '',
-      organization: '',
-      workLocation: '',
-      employementType: '',
+    salary: '',
+    accountHolderName: '',
+    accountNumber: '',
+    bankName: '',
+    ifscCode: '',
+    pfNumber: '',
+    panNumber: '',
 
-      DeductionRate: '',
-      deductionAmount: '',
-      netSalary: '',
-      ESIContribution: '',
-
-      tds: '',
-
-      salary: '',
-      accountHolderName: '',
-      accountNumber: '',
-      bankName: '',
-      ifscCode: '',
-      pfNumber: '',
-      panNumber: '',
-
-      offerLetter: null,
-      idProof: null,
-     isAddressDifferent: this.isPermanentAddressDifferent,
+    offerLetter: null,
+    idProof: null,
+    isAddressDifferent: this.isPermanentAddressDifferent,
     };
 
     // Reset dropdowns
@@ -423,7 +571,7 @@ const annualSalary = salary * 12;
     organization: '',
     workLocation: '',
     employementType: '',
-    epfEligible: 'No',
+    epfEligible: '',
     DeductionRate: '',
     deductionAmount: '',
     netSalary: '',
@@ -451,9 +599,12 @@ const annualSalary = salary * 12;
   selectedCountryCode: string = '';
   selectedStateCode: string = '';
   selectedCity: string = '';
+
   countries: any[] = [];
   states: any[] = [];
   cities: any[] = [];
+
+  permanentCountry:any[] = [];
   permanentStates: any[] = [];
   permanentCities: any[] = [];
   
