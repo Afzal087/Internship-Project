@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
 
 
     const birthdays = this.employees.map((employee) => {
-      const dob = new Date(employee.dob);
+      const dob = new Date(employee.dob!);
       const month = dob.getMonth();
       const day = dob.getDate();
 

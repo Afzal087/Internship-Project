@@ -14,26 +14,25 @@ import { FieldsComponent } from './fields/fields.component';
 import { ProjectsComponent } from './fields/projects/projects.component';
 import { OrganizationComponent } from './fields/organization/organization.component';
 import { DepartmentComponent } from './fields/department/department.component';
+import { redirectGuard } from './guard/redirectGuard';
+import { PromotionComponent } from './employee/promotion/promotion.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot', component: ForgotComponent },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard],
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children: [
-     
       { path: 'home', component: HomeComponent },
-
       {
         path: 'employees',
         children: [
           { path: '', component: EmployeeListComponent }, // default = list
           { path: 'view/:employeeId', component: EmployeeComponent },
           { path: 'add', component: EmployeeComponent },
+          { path: 'promotion/:employeeId', component: PromotionComponent}
          
         ],
       },
@@ -51,6 +50,7 @@ export const routes: Routes = [
 
      
       { path: '', redirectTo: 'home', pathMatch: 'full' },
+      {path: '**', component: redirectGuard },
     ],
   },
 ];

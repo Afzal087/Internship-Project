@@ -67,6 +67,7 @@ export class EmployeeComponent implements OnInit {
 onSubmit(form: NgForm) {
   if (form.invalid) return;
 
+
   if (this.mode === 'create') {
 
     if (!this.isPermanentAddressDifferent) {
@@ -116,7 +117,7 @@ onSubmit(form: NgForm) {
   CheckEligble(value: string) {
     if (value === 'Yes') {
       this.isEligble = 'Yes';
-      if(this.info.salary>String(15000)){
+      if(this.info.salary!>String(15000)){
         this.calcSalary();
       }
     } else {
@@ -218,7 +219,7 @@ const annualSalary = salary * 12;
       this.loadStateData(this.info.countryCode).subscribe(() => {
         if (this.info.state) {
           this.selectedStateCode = this.info.state;
-          this.loadCityData(this.info.countryCode, this.info.state).subscribe();
+          this.loadCityData(this.info.countryCode!, this.info.state).subscribe();
         }
       });
     }
@@ -236,7 +237,7 @@ const annualSalary = salary * 12;
       this.loadPermanentStateData(this.info.permanent_countryCode).subscribe(() => {
         if (this.info.permanent_state) {
           this.selectedPermanentStateCode = this.info.permanent_state;
-          this.loadPermanentCityData(this.info.permanent_countryCode, this.info.permanent_state).subscribe();
+          this.loadPermanentCityData(this.info.permanent_countryCode!, this.info.permanent_state).subscribe();
         }
       });
     }

@@ -9,12 +9,17 @@ import { NgForm } from '@angular/forms';
 })
 export class EmployeeService {
   private apiUrl = 'http://localhost:8080/api/employees';
+
   private allEmployee: Employee[] = [];
+
   private employeeSubject = new BehaviorSubject<Employee[]>([]);
+
   public employee$ = this.employeeSubject.asObservable();
+
   public get currentEmployeesValue(): Employee[] {
     return this.employeeSubject.getValue();
   }
+  
   constructor(private http: HttpClient) {}
 
 
