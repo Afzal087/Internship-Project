@@ -1,6 +1,7 @@
 export interface ExtraFields {
-  newRole?: string;
+  newPosition?: string;
   newSalary?: string;
   promotionDate?: string;
   description?: string;
+  date?: string;
 }

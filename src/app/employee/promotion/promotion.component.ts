@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 
 export interface PromotionHistory {
   employeeId?: string;
   designation: string;
   salary: string;
-  newRole: string;
+  newPosition: string;
   newSalary: string;
   promotionDate: string;
   description: string;
@@ -25,8 +27,9 @@ export interface PromotionHistory {
 export class PromotionComponent implements OnInit {
  
   
-  constructor(private fb: FormBuilder, private employeeService : EmployeeService ,private route :ActivatedRoute, private router : Router ) {}
+  constructor(private dialog: DialogService,private fb:  FormBuilder, private employeeService : EmployeeService ,private route :ActivatedRoute, private router : Router ) {}
   routeId : number = 0 ;
+
   allEmployee : Employee[] = []
   isEligble: string = ''; 
   promotionHistory : Employee[] = [];
@@ -34,7 +37,7 @@ export class PromotionComponent implements OnInit {
       employeeId: this.routeId,
       designation: ''  ,
       salary: '',
-      newRole: '' ,
+      newPosition: '' ,
       newSalary: '',
       promotionDate: '',
       description: '',
@@ -43,7 +46,12 @@ export class PromotionComponent implements OnInit {
       tds: '',
       netSalary: '',
       deductionAmount: ''
+
   }
+
+
+
+
 
 
   ngOnInit(): void {
@@ -51,6 +59,19 @@ export class PromotionComponent implements OnInit {
       this.allEmployee = data;
       this.findEmployeeById();
     });
+
+ 
+
+    this.employeeService.getPromotions(this.routeId).subscribe({
+      next: (data)=>{
+        
+        this.allEmployee = data;
+        console.log('All Employee Promotions:', this.allEmployee);
+      },
+      error: (error)=>{
+        console.error('Error fetching promotion history:', error);
+      }
+    })
   }
 
   findEmployeeById(){
@@ -62,10 +83,7 @@ export class PromotionComponent implements OnInit {
     }
   }
 
-  handleSubmit(): void {
-    console.log('Submitting promotion data:', this.updateInfo);
-    // Add your API call or save logic here
-  }
+  
    
    CheckEligble(value: string) {
     if (value === 'Yes') {
@@ -123,6 +141,21 @@ export class PromotionComponent implements OnInit {
     this.updateInfo.deductionAmount = String((tds + esi + epf).toFixed(2));
   }
 
-  
+  handleSubmit(promotionForm : NgForm): void {
+    if(promotionForm.invalid){
+      this.dialog.show('Please fill all required fields correctly before submitting the form.');
+      return;
+    }
+    this.employeeService.promoteEmployee(this.updateInfo).subscribe({
+      next: (response)=>{
+        this.dialog.show('Employee promoted successfully!');
+        this.router.navigate(['/employee/list']);
+      },
+      error: (error)=>{
+       
+       this.dialog.show(error);
+      }
+    })
+  }
 
 }

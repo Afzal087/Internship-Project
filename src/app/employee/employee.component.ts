@@ -14,6 +14,7 @@ import { Project } from '../models/Project.model';
 import { Department } from '../models/Department.model';
 import { Organization } from '../models/Organization.model';
 import e from 'express';
+import { DialogService } from '../dialog-box/dialog-service.service';
 
 @Component({
   standalone: true,
@@ -43,7 +44,8 @@ export class EmployeeComponent implements OnInit {
   
   
 
-    constructor( private route:  ActivatedRoute, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router, private service: AssignmentService) {
+    constructor( private dialog: DialogService,
+       private route:  ActivatedRoute, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router, private service: AssignmentService) {
     this.allDepartments$ = this.service.department$;
     this.allOrganizations$ = this.service.organization$;
     this.allProjects$ = this.service.project$;
@@ -88,12 +90,12 @@ onSubmit(form: NgForm) {
 
     this.employeeService.updateEmployee(this.info).subscribe({
       next: (res) => {
-        alert("Employee updated successfully!");
+        this.dialog.show("Employee updated successfully!");
         this.router.navigate(['/employees']);
       },
       error: (err) => {
         console.log("Update Error", err);
-        alert("Failed to update employee");
+        this.dialog.show("Failed to update employee");
       }
     });
   }
@@ -105,7 +107,7 @@ onSubmit(form: NgForm) {
   nextForm(form: NgForm) {
     if (this.currentForm >= 1 && this.currentForm < 6) {
       if (form.invalid) {
-        alert(
+        this.dialog.show(
           'Invalid Form Details Please Check All Fields to Move to Next Form'
         );
       }
@@ -439,14 +441,14 @@ const annualSalary = salary * 12;
       next: (saved) => {
         this.users.push(saved);
         this.router.navigate(['employees']);
-        alert('Employee added successfully!');
+        this.dialog.show('Employee added successfully!');
         this.resetForm();
       },
       error: (err) => {
         if (err.status === 409) {
-          alert('Employee with this email already exists.');
+          this.dialog.show('Employee with this email already exists.');
         } else {
-          alert('Error adding employee. Please try again.');
+          this.dialog.show('Error adding employee. Please try again.');
         }
       },
     });

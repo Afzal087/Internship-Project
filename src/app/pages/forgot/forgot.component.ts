@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Routes } from '@angular/router';
 import { forgotService } from '../../services/forgot.service';
 import { Router } from '@angular/router';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ForgotComponent {
   message = '';
   step: number = 1; // 1 = Email, 2 = OTP, 3 = Change Password
 
-  constructor(private forgotService: forgotService,private router: Router ) {}
+  constructor(private dialog: DialogService , private forgotService: forgotService,private router: Router ) {}
 
   // Step 1: Send OTP
   sendOtp() {
@@ -66,7 +67,7 @@ export class ForgotComponent {
         this.message = 'Password changed successfully!';
         this.step = 1;
         this.email = this.otp = this.newPassword = this.confirmPassword = '';
-        alert("Password Changed Successfully");
+        this.dialog.show("Password Changed Successfully");
         this.router.navigate(['/login']);
         }
         

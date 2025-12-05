@@ -10,7 +10,5 @@ import { Router } from '@angular/router';
   styleUrl: './test.component.css'
 })
 export class TestComponent {
-testClick() {
-  alert(" Button is working!");
-}
+
 }

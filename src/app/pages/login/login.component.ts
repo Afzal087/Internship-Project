@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { error } from 'console';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private dialog: DialogService,private router: Router, private userService: UserService) {}
 
   email: string = '';
   password: string = '';
@@ -21,14 +22,14 @@ export class LoginComponent {
   onLogin(form: any) {
     if (form.invalid) {
       if (form.controls.email?.errors?.['required']) {
-        alert('Email is required');
+        this.dialog.show('Email is required');
       } else if (form.controls.email?.errors?.['email']) {
-        alert('Invalid email format');
+        this.dialog.show('Invalid email format');
       }
       if (form.controls.password?.errors?.['required']) {
-        alert('Password is required');
+        this.dialog.show('Password is required');
       } else if (form.controls.password?.errors?.['minlength']) {
-        alert('Password must be at least 8 characters long');
+        this.dialog.show('Password must be at least 8 characters long');
       }
     } else {
       this.userService.login(this.email, this.password).subscribe({
@@ -45,9 +46,9 @@ export class LoginComponent {
         },
         error: (err) => {
           if (err.status === 401) {
-            alert(' ' + err.error.message);
+            this.dialog.show(' ' + err.error.message);
           } else {
-            alert('Something went wrong. Try again later.');
+            this.dialog.show('Something went wrong. Try again later.');
           }
         },
       });

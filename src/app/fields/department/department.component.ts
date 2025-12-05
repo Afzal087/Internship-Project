@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { Observable } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { error } from 'console';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 @Component({
   selector: 'app-department',
   imports: [FormsModule , CommonModule],
@@ -15,7 +16,7 @@ export class DepartmentComponent implements OnInit {
 
    allDepartments$ : Observable<Department[]>;
 
-  constructor(private service: AssignmentService ){
+  constructor(private dialog: DialogService,private service: AssignmentService ){
     this.allDepartments$ = this.service.department$;
   }
 
@@ -37,7 +38,7 @@ export class DepartmentComponent implements OnInit {
     console.log(this.department)
     this.service.addDepartment(this.department).subscribe({
       next:(savedDepartment)=>{
-        alert("Department Saved SuccessFull");
+        this.dialog.show("Department Saved SuccessFull");
      
         this.department = {
           departmentName: ''} 
@@ -54,7 +55,7 @@ export class DepartmentComponent implements OnInit {
         this.service.deleteDepartment(id).subscribe({
           next:(responseMessage)=>{
             console.log(responseMessage);
-            alert("Department deleted");
+            this.dialog.show("Department deleted");
             // this.getDepartment();
             this.service.getAllDepartments().subscribe();
           },

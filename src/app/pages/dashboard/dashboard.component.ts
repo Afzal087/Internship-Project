@@ -15,6 +15,7 @@ import { EmployeeListComponent } from '../../employee/employee-list/employee-lis
 import { FieldsComponent } from '../../fields/fields.component';
 import { AssignmentService } from '../../services/assignment.service';
 import { EmployeeService } from '../../services/employee.service';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 
 
 
@@ -26,7 +27,7 @@ import { EmployeeService } from '../../services/employee.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  constructor(private userService: UserService ,private employeeService : EmployeeService,private service: AssignmentService, private router : Router){}
+  constructor(private dialog: DialogService, private userService: UserService ,private employeeService : EmployeeService,private service: AssignmentService, private router : Router){}
 
   activeComponents : string  = 'home';
 
@@ -51,7 +52,7 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.userService.logout();
-    alert('You have been logged out');
+    this.dialog.show('You have been logged out');
     this.router.navigate(['']);
   }
 

@@ -11,6 +11,7 @@ import { Project } from '../../models/Project.model';
 import { Department } from '../../models/Department.model';
 import { Organization } from '../../models/Organization.model';
 import { Observable } from 'rxjs';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 @Component({
   standalone: true,
   selector: 'app-employee-view',
@@ -111,7 +112,8 @@ export class EmployeeViewComponent implements OnInit {
     private customerService: CustomerService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private service: AssignmentService
+    private service: AssignmentService,
+    private dialog: DialogService
   ) {
 
     this.allDepartments$ = this.service.department$
@@ -308,14 +310,14 @@ export class EmployeeViewComponent implements OnInit {
     this.employeeService.updateEmployee(this.info).subscribe({
       next: (saved) => {
         this.users.push(saved);
-        alert('Employee Updated successfully!');
+        this.dialog.show('Employee Updated successfully!');
         this.resetForm();
       },
       error: (err) => {
         if (err.status === 409) {
-          alert(err.message);
+          this.dialog.show(err.message);
         } else {
-          alert(err.message || 'Error updating employee.');
+          this.dialog.show(err.message || 'Error updating employee.');
         }
       },
     });

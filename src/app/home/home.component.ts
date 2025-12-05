@@ -10,6 +10,7 @@ import { Project } from '../models/Project.model';
 import { Employee } from '../models/employee.model';
 import { EmployeeService } from '../services/employee.service';
 import { error } from 'node:console';
+import { DialogService } from '../dialog-box/dialog-service.service';
 
 
 
@@ -40,7 +41,7 @@ export class HomeComponent implements OnInit {
   }  
   
 
-  constructor(private service : AssignmentService , private employeeService : EmployeeService) {
+  constructor(private dialog: DialogService  ,private service : AssignmentService , private employeeService : EmployeeService) {
 
    this.allDepartments$ = this.service.department$
    this.allOrganizations$ = this.service.organization$
@@ -78,7 +79,7 @@ this.assignmentList$ = this.service.assignmentList$;
     const orgIdNum = Number(this.ids.orgId) || 0;
     // 1. Basic Validation
     if (!this.ids.empId || this.ids.empId === 0) {
-      alert('Please select an employee.');
+      this.dialog.show('Please select an employee.');
       return;
     }
 
@@ -100,7 +101,7 @@ this.assignmentList$ = this.service.assignmentList$;
 
    
     if (!employee) {
-      alert('Error: Could not find selected employee. Please refresh.');
+      this.dialog.show('Error: Could not find selected employee. Please refresh.');
       return;
     }
       
@@ -115,7 +116,7 @@ this.assignmentList$ = this.service.assignmentList$;
  
     this.service.createAssignment(assignmentPayload).subscribe({
       next: (response) => {
-        alert('Assignment saved successfully!');
+        this.dialog.show('Assignment saved successfully!');
         
        
         this.ids = { empId: 0, deptId: 0, proId: 0, orgId: 0 };
@@ -124,7 +125,7 @@ this.assignmentList$ = this.service.assignmentList$;
       },
       error: (err) => {
         console.error('Error saving assignment:', err);
-        alert('Failed to save assignment.');
+        this.dialog.show('Failed to save assignment.');
       }
     });
   }

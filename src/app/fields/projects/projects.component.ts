@@ -4,6 +4,7 @@ import { AssignmentService } from '../../services/assignment.service';
 import { FormsModule } from "@angular/forms";
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class ProjectsComponent implements OnInit {
 
   allProjects$ : Observable<Project[]>;
-  constructor(private service: AssignmentService ){
+  constructor(private dialog: DialogService,private service: AssignmentService ){
     this.allProjects$ = this.service.project$;
   }
 
@@ -34,7 +35,7 @@ getProject(){
 addProject(){ 
   this.service.addProject(this.project).subscribe({
     next:(savedProject)=>{
-      alert("Project Saved SuccessFull");
+      this.dialog.show("Project Saved SuccessFull");
       
       this.project = {
         projectName: ''} 
@@ -53,7 +54,7 @@ deleteProject(id:number){
     this.service.deleteProject(id).subscribe({
       next:(responseMessage)=>{
         console.log(responseMessage);
-        alert("Project deleted");
+        this.dialog.show("Project deleted");
         this.service.getAllProjects().subscribe();  
       },
       error:(err)=>{

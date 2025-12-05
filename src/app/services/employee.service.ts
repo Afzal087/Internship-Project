@@ -3,6 +3,7 @@ import { Employee } from '../models/employee.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable , tap } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { ExtraFields } from '../models/extraFields.model';
 
 @Injectable({
   providedIn: 'root',
@@ -115,5 +116,15 @@ export class EmployeeService {
       `${this.apiUrl}/${info.employeeId}`,
       formData
     );
+  }
+
+  promoteEmployee(info : Employee){
+    console.log('Promotion Info:', info);
+    return this.http.post<Employee>(`${this.apiUrl}/promotion/add`, info);
+    
+  }
+
+  getPromotions(employeeId : number): Observable<Employee[]> {
+      return this.http.get<Employee[]>(`${this.apiUrl}/promotion/${employeeId}`);
   }
 }

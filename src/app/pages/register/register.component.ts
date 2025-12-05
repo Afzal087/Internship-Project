@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user.model'
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RegisterComponent {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private dialog: DialogService,private userService: UserService, private router: Router) { }
 
   userValue: User = {
     name: '',
@@ -26,30 +27,30 @@ export class RegisterComponent {
   onSign(form: any) {
     if (form.invalid) {
       if (form.controls.email?.errors?.['required']) {
-        alert("Email is required");
+        this.dialog.show("Email is required");
       }
       else if (form.controls.email?.errors?.['email']) {
-        alert("Invalid email format");
+        this.dialog.show("Invalid email format");
       }
       if (form.controls.password?.errors?.['required']) {
-      alert("Password is required");
+      this.dialog.show("Password is required");
     }
     else if (form.controls.password?.errors?.['minlength']) {
-      alert("Password must be at least 8 characters long");
+      this.dialog.show("Password must be at least 8 characters long");
     }
     }
     else {
       this.userService.register(this.userValue).subscribe({
         next: (registered) => {
-          alert('User Registration successful Please Login',);
+          this.dialog.show('User Registration successful Please Login',);
           this.router.navigate(['']);
         },
         error: (err:HttpErrorResponse) =>{
           
           if (err.status === 409) {
-            alert('🚫' + err.error.message);
+            this.dialog.show('🚫' + err.error.message);
           } else {
-            alert('❌ Something went wrong. Try again later.');
+            this.dialog.show('❌ Something went wrong. Try again later.');
           }
         } 
       })

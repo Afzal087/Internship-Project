@@ -8,6 +8,7 @@ import { error } from 'console';
 import e from 'express';
 import { CommonEngine } from '@angular/ssr/node';
 import { CommonModule } from '@angular/common';
+import { DialogService } from '../../dialog-box/dialog-service.service';
 @Component({
   selector: 'app-organization',
   imports: [FormsModule,CommonModule],
@@ -18,7 +19,7 @@ export class OrganizationComponent implements OnInit {
 
   allOrganizations$ : Observable<Organization[]>;
 
-constructor(private service: AssignmentService ){
+constructor(private dialog: DialogService, private service: AssignmentService ){
       this.allOrganizations$ = service.organization$
 }
 
@@ -41,7 +42,7 @@ organization : Organization = {
     console.log(this.organization) 
     this.service.addOrganization(this.organization).subscribe({
       next:(savedOrganization)=>{
-        alert("Organization Saved SuccessFull");
+        this.dialog.show("Organization Saved SuccessFull");
         
         this.organization = {
           organizationName: ''} 
@@ -58,7 +59,7 @@ organization : Organization = {
     this.service.deleteOrganization(id).subscribe({
       next:(responseMessage)=>{
         console.log(responseMessage);
-        alert("Organization deleted");
+        this.dialog.show("Organization deleted");
         this.service.getAllOrganizations().subscribe();
         
       },
