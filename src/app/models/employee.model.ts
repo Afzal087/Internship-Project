@@ -50,3 +50,37 @@ export interface Employee extends ExtraFields {
   currency?: string;
   isAddressDifferent?: boolean;
 }
+
+export interface EmployeeWithLeaves {
+  employee: Employee;
+  leaves: LeaveRequest[];
+}
+export interface FamilyMember {
+  relation: string;
+  memberName: string;
+}
+
+export interface LeaveRequest {
+  employeeId: number;
+  leaveId: number;
+  requestType: string;
+  fromDate: string;
+  toDate: string;
+  backupPerson: string;
+  emergencyContact: string;
+  requestReason: string;
+  destination?: string;
+  transportMode?: string;
+  familyMembers?: FamilyMember[];
+}
+
+export interface UnifiedAllLeaves{
+      leaveId :number;
+      employeeId: number;
+      requestType: string;
+      fromDate: string;
+      toDate: string;
+      backupPerson: string;
+      emergencyContact: string;
+      requestReason: string;
+}

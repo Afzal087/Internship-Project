@@ -16,35 +16,32 @@ export class AssignmentService {
 
   private apiUrl = 'http://localhost:8080/api'
 
-  // --- Department ---
+  
   private departmentSource = new BehaviorSubject<Department[]>([])
   department$ = this.departmentSource.asObservable()
-  // ADDED: This "getter" is needed by your component
+  
   public get currentDepartmentsValue(): Department[] {
     return this.departmentSource.getValue();
   }
 
-  // --- Project ---
   private projectSource = new BehaviorSubject<Project[]>([])
   project$ = this.projectSource.asObservable();
-  // ADDED: This "getter" is needed by your component
   public get currentProjectsValue(): Project[] {
     return this.projectSource.getValue();
   }
 
   
-  // --- Organization ---
+  
   private organziationSource = new BehaviorSubject<Organization[]>([])
   organization$ = this.organziationSource.asObservable();
-  // ADDED: This "getter" is needed by your component
+  
   public get currentOrganizationsValue(): Organization[] {
     return this.organziationSource.getValue();
   }
 
-  // --- ADDED: Assignment State ---
-  // This is needed to update your table in real-time
-  private assignmentListSource = new BehaviorSubject<Assignment[]>([]);
-  public assignmentList$ = this.assignmentListSource.asObservable();
+
+  private assignmentList = new BehaviorSubject<Assignment[]>([]);
+  public assignmentList$ = this.assignmentList.asObservable();
 
 
   getAllDepartments(): Observable<Department[]> {
@@ -100,15 +97,15 @@ export class AssignmentService {
 
   // Renamed from 'saveAssignment' to 'createAssignment' to match your component's call
   createAssignment(assignment: any): Observable<Assignment> { // Use 'any' for the payload
+    console.log('Creating assignment:', assignment);
     return this.http.post<Assignment>(`${this.apiUrl}/assignments`, assignment)
   }
 
-  // Renamed from 'getAssignment' and added .tap()
+ 
   getAllAssignments(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(`${this.apiUrl}/assignments`).pipe(
       tap(data => {
-        // This broadcasts the new list to your table
-        this.assignmentListSource.next(data);
+        this.assignmentList.next(data);
       })
     );
   }

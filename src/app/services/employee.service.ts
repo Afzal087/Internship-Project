@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable , tap } from 'rxjs';
@@ -8,7 +8,7 @@ import { ExtraFields } from '../models/extraFields.model';
 @Injectable({
   providedIn: 'root',
 })
-export class EmployeeService {
+export class EmployeeService implements OnInit {
   private apiUrl = 'http://localhost:8080/api/employees';
 
   private allEmployee: Employee[] = [];
@@ -29,11 +29,33 @@ export class EmployeeService {
     return this.http.get(url, { responseType: 'blob' });
   }
 
+  ngOnInit(): void {
+    this.getEmployee().subscribe();
+  }
+
+  getJoiningDate(employeeId: number): boolean {
+    const employee = this.allEmployee.find(
+      (emp) => emp.employeeId === employeeId
+    );
+    console.log('Employee found for LTA check:', employee);
+    if (employee) {
+      const currentDate = new Date();
+      const joiningDateObj = new Date(employee.dateOfJoining!);
+      if (
+        currentDate.getFullYear() - joiningDateObj.getFullYear() >= 3 &&
+        currentDate.getMonth() >= joiningDateObj.getMonth() &&
+        currentDate.getDate() >= joiningDateObj.getDate()
+      ) { return true} 
+      else {return false}
+    } 
+    else return false;
+    
+  }
 
   getEmployee(): Observable<Employee[]>  {
    return  this.http.get<Employee[]>(this.apiUrl).pipe(
       tap(data =>{
-        console.log('Fetched Employees:', data);
+       
         this.employeeSubject.next(data);
         this.allEmployee = data;
         
@@ -119,7 +141,7 @@ export class EmployeeService {
   }
 
   promoteEmployee(info : Employee){
-    console.log('Promotion Info:', info);
+   
     return this.http.post<Employee>(`${this.apiUrl}/promotion/add`, info);
     
   }

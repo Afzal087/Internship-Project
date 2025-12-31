@@ -30,10 +30,12 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeService.getEmployee();
+    
 
     this.employeeService.employee$.subscribe((data) => {
       this.allEmployee = data;
      this.totalEmployee = data.length;
+     console.log(data);
     });
   }
 
@@ -61,6 +63,9 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
+  LeaveApplication(employeeId: number) {
+    this.router.navigate(['/dashboard/employees/leave/',employeeId]);
+  }
 
 
   onView(employeeId: number) {

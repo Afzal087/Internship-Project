@@ -16,24 +16,31 @@ import { OrganizationComponent } from './fields/organization/organization.compon
 import { DepartmentComponent } from './fields/department/department.component';
 import { redirectGuard } from './guard/redirectGuard';
 import { PromotionComponent } from './employee/promotion/promotion.component';
+import { LeaveComponent } from './LTA/leave.component';
+import { ManageLeaveComponent } from './manage-leave/manage-leave.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+// canActivate: [AuthGuard], paste in dashboard route
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot', component: ForgotComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    
     children: [
       { path: 'home', component: HomeComponent },
+      {path: 'leaves', component: ManageLeaveComponent},
       {
         path: 'employees',
         children: [
           { path: '', component: EmployeeListComponent }, // default = list
           { path: 'view/:employeeId', component: EmployeeComponent },
           { path: 'add', component: EmployeeComponent },
-          { path: 'promotion/:employeeId', component: PromotionComponent}
-         
+          { path: 'promotion/:employeeId', component: PromotionComponent },
+          { path: 'leave/:employeeId', component: LeaveComponent},
         ],
       },
       {
@@ -46,11 +53,10 @@ export const routes: Routes = [
           { path: 'organization', component: OrganizationComponent },
         ],
       },
-     
+      
 
-     
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      {path: '**', component: redirectGuard },
+      { path: '**', component: redirectGuard },
     ],
   },
 ];

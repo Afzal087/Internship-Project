@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.employeeService.getEmployee().subscribe((data: Employee[]) => {
       this.employees = data;
-      console.log('Employees in Header:', this.employees);
       this.getDOB();
     });
   }
@@ -63,7 +62,6 @@ export class HeaderComponent implements OnInit {
     this.upcomingBirthdays = birthdays.slice(0, 5);
     this.birthdayCount = this.upcomingBirthdays.length;
 
-    console.log('Upcoming Birthdays:', this.upcomingBirthdays);
   }
 
   toggleMenu() {

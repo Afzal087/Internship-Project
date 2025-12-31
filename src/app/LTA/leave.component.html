@@ -1,0 +1,119 @@
+<div class="min-h-screen bg-gray-100 p-4 md:p-8 font-sans antialiased text-slate-900">
+  <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
+    
+    <div class="bg-slate-800 px-7 py-5 text-white flex justify-between items-center">
+      <div>
+        <h2 class="text-xl font-bold tracking-tight">Leave & LTA Management</h2>
+        <p class="text-[11px] text-slate-400 uppercase tracking-widest font-bold mt-0.5">Employee Self-Service Portal</p>
+      </div>
+    </div>
+
+    <form #leaveForm="ngForm" (ngSubmit)="submit()" class="p-6 space-y-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        
+        <div class="md:col-span-1">
+          <label class="block text-[11px] font-black text-slate-500 mb-1.5 uppercase tracking-wide">Leave Type</label>
+          <select name="requestType" [(ngModel)]="leaveData.requestType" class="w-full text-sm p-2.5 rounded border border-gray-300 bg-gray-50 focus:border-indigo-500 outline-none transition-all">
+            <option value="ANNUAL">Annual Leave</option>
+            <option value="SICK">Sick Leave</option>
+            <option value="CASUAL">Casual Leave</option>
+            <option *ngIf="userTenureYears" value="LTA">LTA Claim</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-[11px] font-black text-slate-500 mb-1.5 uppercase tracking-wide">From Date</label>
+          <input type="date" name="fromDate" [(ngModel)]="leaveData.fromDate" required #fromDate="ngModel"
+            [class.border-red-500]="fromDate.invalid && fromDate.touched"
+            class="w-full text-sm p-2.5 rounded border border-gray-300 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-black text-slate-500 mb-1.5 uppercase tracking-wide">To Date</label>
+          <input type="date" name="toDate" [(ngModel)]="leaveData.toDate" required #toDate="ngModel"
+            [class.border-red-500]="toDate.invalid && toDate.touched"
+            class="w-full text-sm p-2.5 rounded border border-gray-300 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-black text-slate-500 mb-1.5 uppercase tracking-wide">Backup Staff</label>
+          <input type="text" name="backupPerson" [(ngModel)]="leaveData.backupPerson" placeholder="Colleague Name" required #backup="ngModel"
+            [class.border-red-500]="backup.invalid && backup.touched"
+            class="w-full text-sm p-2.5 rounded border border-gray-300 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="md:col-span-1">
+          <label class="block text-[11px] font-black text-slate-500 mb-1.5 uppercase tracking-wide">Emergency Mobile</label>
+          <input type="tel" name="emergencyContact" [(ngModel)]="leaveData.emergencyContact" placeholder="10 Digits" required pattern="[0-9]{10}" #tel="ngModel"
+            [class.border-red-500]="tel.invalid && tel.touched"
+            class="w-full text-sm p-2.5 rounded border border-gray-300 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-[11px] font-black text-slate-500 mb-1.5 uppercase tracking-wide">Brief Reason</label>
+          <input type="text" name="requestReason" [(ngModel)]="leaveData.requestReason" placeholder="Purpose of leave" required #reason="ngModel"
+            [class.border-red-500]="reason.invalid && reason.touched"
+            class="w-full text-sm p-2.5 rounded border border-gray-300 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+        </div>
+      </div>
+
+      <div *ngIf="leaveData.requestType === 'LTA'" class="p-5 bg-indigo-50/40 rounded-lg border border-indigo-100 space-y-4">
+        <h3 class="text-[12px] font-black text-indigo-700 uppercase flex items-center gap-2">
+          LTA Statutory Requirements (Section 10(5))
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-bold text-indigo-600 mb-1 uppercase">Journey Route</label>
+            <input type="text" name="destination" [(ngModel)]="leaveData.destination" placeholder="Origin to Destination" required
+              class="w-full text-sm p-2.5 rounded border border-indigo-200 bg-white focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-indigo-600 mb-1 uppercase">Mode of Transport</label>
+            <select name="transportMode" [(ngModel)]="leaveData.transportMode" class="w-full text-sm p-2.5 rounded border border-indigo-200 bg-white outline-none">
+              <option value="AIR">Air (Economy)</option>
+              <option value="RAIL">Rail (AC First Class)</option>
+              <option value="ROAD">Road (State/Public Bus)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <div class="flex justify-between items-center mb-3">
+            <p class="text-[10px] font-black text-indigo-600 uppercase">Traveling Dependents</p>
+            <div class="flex gap-2">
+              <button type="button" (click)="addMember('Spouse')" [disabled]="!canAdd('Spouse')" class="text-[10px] font-bold bg-white border border-indigo-200 px-3 py-1 rounded hover:bg-indigo-500 hover:text-white transition-all disabled:opacity-30">Add Spouse</button>
+              <button type="button" (click)="addMember('Child')" class="text-[10px] font-bold bg-white border border-indigo-200 px-3 py-1 rounded hover:bg-indigo-500 hover:text-white transition-all">Add Child</button>
+              <button type="button" (click)="addMember('Parent')" [disabled]="!canAdd('Parent')" class="text-[10px] font-bold bg-white border border-indigo-200 px-3 py-1 rounded hover:bg-indigo-500 hover:text-white transition-all disabled:opacity-30">Add Parent</button>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div *ngFor="let member of leaveData.familyMembers; let i = index" class="flex gap-3 items-center bg-white p-2.5 rounded border border-indigo-100 shadow-sm transition-all hover:border-indigo-300">
+              <span class="w-16 text-[10px] font-black text-indigo-400 uppercase italic">{{ member.relation }}</span>
+              <input type="text" [name]="'memName' + i" [(ngModel)]="member.memberName" placeholder="Full Legal Name" required #mName="ngModel"
+                [class.border-red-400]="mName.invalid && mName.touched"
+                class="flex-1 text-[13px] p-1.5 border border-gray-100 rounded outline-none focus:border-indigo-400">
+              <button type="button" (click)="removeMember(i)" class="text-red-400 hover:text-red-600 font-bold px-2">×</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-6 border-t border-gray-100">
+        <div class="text-[11px] text-gray-400 font-medium italic">
+          * Validation required for final submission.
+        </div>
+        <div class="flex gap-3">
+          <button type="button" class="px-5 py-2 text-sm font-bold text-slate-500 hover:text-slate-700 transition-all">Discard</button>
+          <button type="submit" [disabled]="leaveForm.invalid" 
+            class="px-8 py-2 text-sm font-black uppercase tracking-widest text-white bg-slate-800 rounded-lg hover:bg-slate-900 disabled:opacity-40 shadow-lg transition-all active:scale-95">
+            Submit Application
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

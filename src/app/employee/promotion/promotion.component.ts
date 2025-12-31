@@ -33,6 +33,7 @@ export class PromotionComponent implements OnInit {
   allEmployee : Employee[] = []
   isEligble: string = ''; 
   promotionHistory : Employee[] = [];
+  
   updateInfo : Employee= {
       employeeId: this.routeId,
       designation: ''  ,

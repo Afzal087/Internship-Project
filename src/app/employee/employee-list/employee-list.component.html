@@ -52,52 +52,51 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let emp of allEmployee" class="  hover:bg-blue-100 hover:text-blue-950">
-          <td class="p-2 border">{{ emp.employeeCode }}</td>
-          <td class="p-2 border">
-            {{ emp.firstName }}{{ " " }}{{ emp.lastName }}
-          </td>
-          <td class="p-2 border">{{ emp.designation }}</td>
-          <td class="p-2 border">{{ emp.department }}</td>
-          <td class="m-2 border  flex justify-center items-center bg-green-300 rounded-md  text-green-900">Active</td>
-          <td class="p-2 border  text-center space-x-2">
-            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
-              (click)="onView(emp.employeeId!)">
-              <span class="flex items-center">
-                <mat-icon class="flex justify-center items-center mr-1">person</mat-icon>
-                
-              </span>
-            </button>
-            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
-            (click)="onEdit(emp.employeeId!)">
-            <span class="flex items-center">
-              <mat-icon class="flex justify-center items-center mr-1">edit</mat-icon>
-              
-            </span>
-          </button>
-            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
-              (click)="onDelete(emp.employeeId!)">
-              <span class="flex items-center">
-                <mat-icon class="flex justify-center items-center mr-1">delete</mat-icon>
-                
-              </span>
-            </button>
-            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
-              (click)="downloadReport(emp.employeeId!)">
-              <span class="flex items-center">
-                <mat-icon class="flex justify-center items-center mr-1">download</mat-icon>
-                
-              </span>
-            </button>
-            <button class="text-white bg-blue-900 text-sm px-3 py-1 rounded **flex items-center justify-center**"
-              (click)="promote(emp.employeeId!)">
-              <span class="flex items-center">
-                <mat-icon class="flex justify-center items-center mr-1">star</mat-icon>
-                Promote
-              </span>
-            </button>
-          </td>
-        </tr>
+        <tr *ngFor="let emp of allEmployee" class="border-b border-gray-200 hover:bg-blue-50/50 transition-all group">
+  <td class="p-4 text-sm font-semibold text-slate-700">{{ emp.employeeCode }}</td>
+  <td class="p-4 text-sm font-bold text-slate-900">
+    {{ emp.firstName }} {{ emp.lastName }}
+  </td>
+  <td class="p-4 text-sm text-slate-600">{{ emp.designation }}</td>
+  <td class="p-4 text-sm text-slate-600">{{ emp.department }}</td>
+  
+  <td class="p-4 text-center">
+    <span class="px-3 py-1 text-xs font-bold uppercase tracking-wide bg-green-100 text-green-700 rounded-full border border-green-200">
+      Active
+    </span>
+  </td>
+
+  <td class="p-4">
+    <div class="flex items-center justify-center border border-slate-200 rounded-lg overflow-hidden w-fit mx-auto shadow-sm bg-white">
+      
+      <button (click)="onView(emp.employeeId!)" title="Edit"
+        class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button (click)="downloadReport(emp.employeeId!)" title="Download Report"
+        class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
+        <mat-icon>download</mat-icon>
+      </button>
+
+      <button (click)="promote(emp.employeeId!)" title="Promote"
+        class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
+        <mat-icon>stars</mat-icon>
+      </button>
+
+      <button (click)="LeaveApplication(emp.employeeId!)" title="Leave Application"
+        class="flex items-center justify-center w-10 h-10 text-indigo-600 hover:bg-indigo-50 border-r border-slate-200 transition-colors">
+        <mat-icon>airplane_ticket</mat-icon>
+      </button>
+
+      <button (click)="onDelete(emp.employeeId!)" title="Delete"
+        class="flex items-center justify-center w-10 h-10 text-red-500 hover:bg-red-50 transition-colors">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+
+    </div>
+  </td>
+</tr>
       </tbody>
     </table>
   </div>

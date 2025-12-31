@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
    this.allOrganizations$ = this.service.organization$
    this.allProjects$ = this.service.project$
   this.allEmployees$ = this.employeeService.employee$;
-this.assignmentList$ = this.service.assignmentList$;
+  this.assignmentList$ = this.service.assignmentList$;
 
   }
 

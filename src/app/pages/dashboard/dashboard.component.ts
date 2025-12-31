@@ -16,6 +16,8 @@ import { FieldsComponent } from '../../fields/fields.component';
 import { AssignmentService } from '../../services/assignment.service';
 import { EmployeeService } from '../../services/employee.service';
 import { DialogService } from '../../dialog-box/dialog-service.service';
+import { LeaveComponent } from '../../LTA/leave.component';
+import { ManageLeaveComponent } from '../../manage-leave/manage-leave.component';
 
 
 
@@ -35,7 +37,9 @@ export class DashboardComponent implements OnInit {
       home: HomeComponent,
       employees: EmployeeListComponent,
       employeeProfile: EmployeeComponent,
-      fields : FieldsComponent
+      fields : FieldsComponent,
+      leave : LeaveComponent,
+      leaves: ManageLeaveComponent,
   };
 
 
