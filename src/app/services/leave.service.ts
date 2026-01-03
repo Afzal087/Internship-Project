@@ -29,7 +29,7 @@ export class LeaveService {
   }
 
   setStatus(leaveId: number, status: string): Observable<LeaveRequest>{
-    return this.http.patch<LeaveRequest>(`${this.apiUrl}/status/${leaveId}`, {status});
+    return this.http.patch<LeaveRequest>(`${this.apiUrl}/status/${leaveId}/${status}`, {});
   }
 
 

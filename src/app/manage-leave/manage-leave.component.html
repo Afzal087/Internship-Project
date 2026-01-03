@@ -3,46 +3,49 @@
     
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Pending Approvals</h1>
+        <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Leave Management</h1>
         <p class="text-sm font-medium text-slate-500">Review and manage team leave applications</p>
       </div>
     </div>
 
     <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
       <div class="grid grid-cols-12 bg-slate-800 px-6 py-3.5 text-[11px] font-black uppercase tracking-widest text-slate-300">
-        <div class="col-span-3">Name & Designation</div> <div class="col-span-2">ID</div>                <div class="col-span-1">Type</div>              <div class="col-span-4">Duration & Timeline</div>
-        <div class="col-span-2  pr-14 text-right">Actions</div>
+        <div class="col-span-3">Name & Designation</div>
+        <div class="col-span-2">Type</div>
+        <div class="col-span-4">Duration & Timeline</div>
+        <div class="col-span-1">Status</div>
+        <div class="col-span-2 text-right">Actions</div>
       </div>
 
       <div class="divide-y divide-slate-100">
-        <ng-container *ngFor="let record of employeeWithLeaves">
-          <div *ngFor="let leave of record.leaves" 
-               class="grid grid-cols-12 items-center px-6 py-5 hover:bg-blue-50/40 transition-colors group">
+        <ng-container *ngFor="let leave of allLeavesDisplay">
+          
+          <div class="grid grid-cols-12 items-center px-6 py-5 transition-all group"
+               [ngClass]="{
+                 'opacity-60 bg-slate-50': leave.status !== 'PENDING', 
+                 'hover:bg-blue-50/40 hover:opacity-100': true,
+                 'border-l-4 border-l-purple-600 bg-purple-50/30': leave.requestType === 'LTA'
+               }">
             
             <div class="col-span-3 pr-2">
               <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-700">
-                  {{ record.employee.firstName?.[0] }}{{ record.employee.lastName?.[0] }}
+                  {{ leave.employeeDetails?.firstName?.[0] }}{{ leave.employeeDetails?.lastName?.[0] }}
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-[15px] font-bold text-slate-900 group-hover:text-blue-700 transition-colors truncate">
-                    {{ record.employee.firstName }} {{ record.employee.lastName }}
+                  <span class="text-[15px] font-bold text-slate-900 truncate">
+                    {{ leave.employeeDetails?.firstName }} {{ leave.employeeDetails?.lastName }}
                   </span>
                   <span class="text-xs text-slate-500 line-clamp-1 italic">
-                    "{{ record.employee.designation }}"
+                    "{{ leave.employeeDetails?.designation }}"
                   </span>
                 </div>
               </div>
             </div>
 
             <div class="col-span-2">
-               <span class="font-mono text-md font-bold  text-blue-800 bg-slate-100 px-2 py-1 rounded border border-slate-200">
-                #{{ record.employee.employeeCode }}
-              </span>
-            </div>
-
-            <div class="col-span-1">
-              <div class="inline-flex items-center justify-center px-2 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-700">
+               <div class="inline-flex items-center justify-center px-2 py-1 rounded-md border text-slate-700"
+                    [ngClass]="leave.requestType === 'LTA' ? 'bg-purple-100 border-purple-200 text-purple-700' : 'bg-slate-100 border-slate-200'">
                 <span class="text-xs font-bold uppercase tracking-tight">{{ leave.requestType }}</span>
               </div>
             </div>
@@ -52,29 +55,63 @@
                 {{ leave.fromDate | date:'mediumDate' }} — {{ leave.toDate | date:'mediumDate' }}
               </div>
               <div class="flex items-center gap-2 mt-0.5">
-                <span class="text-[12px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded uppercase">
-                  Contact: {{ leave.emergencyContact }}
+                <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded uppercase">
+                  Contact: {{ leave.emergencyContact || 'N/A' }}
+                </span>
+                <span *ngIf="leave.requestType === 'LTA'" class="text-[10px] font-bold text-purple-600 uppercase">
+                  <i class="fa fa-plane"></i> LTA Claim
                 </span>
               </div>
             </div>
 
+             <div class="col-span-1">
+                <span class="text-xs font-black uppercase"
+                      [ngClass]="{
+                        'text-yellow-600': leave.status === 'PENDING',
+                        'text-emerald-600': leave.status === 'APPROVED',
+                        'text-rose-600': leave.status === 'REJECTED'
+                      }">
+                  {{ leave.status }}
+                </span>
+             </div>
+
             <div class="col-span-2 flex justify-end items-center gap-1">
-              <button (click)="updateLeaveStatus(leave.leaveId, $event)" 
-                      class="px-3 py-1.5 text-xs font-black text-emerald-700 hover:bg-emerald-50 rounded transition-all uppercase tracking-wider">
-                APPROVE
-              </button>
-              <div class="h-4 w-[1px] bg-slate-200 mx-1"></div>
-              <button (click)="updateLeaveStatus(leave.leaveId , $event)" 
-                      class="px-3 py-1.5 text-xs font-black text-rose-600 hover:bg-rose-50 rounded transition-all uppercase tracking-wider">
-                REJECT
-              </button>
+              
+              <ng-container *ngIf="leave.status === 'PENDING'; else viewOnly">
+                
+                <button *ngIf="leave.requestType === 'LTA' && leave.isLtaEligible" 
+                        (click)="openLTADetails(leave.leaveId!)"
+                        class="px-2 py-1.5 text-xs font-black text-purple-700 hover:bg-purple-100 rounded uppercase mr-1">
+                   VIEW LTA
+                </button>
+
+                <button (click)="updateLeaveStatus(leave.leaveId!, $event)" 
+                        class="px-2 py-1.5 text-xs font-black text-emerald-700 hover:bg-emerald-50 rounded uppercase">
+                  APPROVE
+                </button>
+                <div class="h-4 w-[1px] bg-slate-200 mx-1"></div>
+                <button (click)="updateLeaveStatus(leave.leaveId!, $event)" 
+                        class="px-2 py-1.5 text-xs font-black text-rose-600 hover:bg-rose-50 rounded uppercase">
+                  REJECT
+                </button>
+              </ng-container>
+
+              <ng-template #viewOnly>
+                 <span class="text-xs text-slate-400 font-medium italic">Completed</span>
+                 <button *ngIf="leave.requestType === 'LTA' && leave.isLtaEligible" 
+                        (click)="openLTADetails(leave.leaveId!)"
+                        class="ml-2 px-2 py-1 text-[10px] border border-slate-200 text-slate-500 rounded hover:bg-slate-50">
+                   Details
+                </button>
+              </ng-template>
+
             </div>
 
           </div>
         </ng-container>
 
-        <div *ngIf="employeeWithLeaves.length === 0" class="p-10 text-center text-slate-400">
-          No pending leave requests found.
+        <div *ngIf="allLeavesDisplay.length === 0" class="p-10 text-center text-slate-400">
+          No leave requests found.
         </div>
       </div>
     </div>

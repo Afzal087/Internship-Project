@@ -67,6 +67,7 @@ export interface LeaveRequest {
   fromDate: string;
   toDate: string;
   backupPerson: string;
+  status: string;
   emergencyContact: string;
   requestReason: string;
   destination?: string;
@@ -79,6 +80,7 @@ export interface UnifiedAllLeaves{
       employeeId: number;
       requestType: string;
       fromDate: string;
+      status: string;
       toDate: string;
       backupPerson: string;
       emergencyContact: string;

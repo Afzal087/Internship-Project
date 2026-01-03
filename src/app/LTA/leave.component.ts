@@ -36,6 +36,7 @@ constructor(private leaveService: LeaveService, private dialog: DialogService,pr
     backupPerson: '',
     emergencyContact: '',
     requestReason: '',
+    status: 'PENDING',
     familyMembers: []
   };
   userTenureYears : boolean = false;

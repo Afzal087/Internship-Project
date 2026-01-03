@@ -19,6 +19,8 @@ export class UserService {
   }
 
   login(email: string, password: string): Observable<boolean> {
+    console.log('Attempting login with email:', email);
+    console.log('Attempting login with password:', password);
     return this.http.post<boolean>(`${this.apiUrl}/login`, { email , password });
   }
 
