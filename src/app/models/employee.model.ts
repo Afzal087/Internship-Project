@@ -86,3 +86,12 @@ export interface UnifiedAllLeaves{
       emergencyContact: string;
       requestReason: string;
 }
+
+export interface LeaveBalance {
+  leavesYearly: string;
+  leavesMonthly: string;
+  usedMonthly: string;
+  usedYearly: string;
+  remainingMonthly: string;
+  remainingYearly: string;
+}

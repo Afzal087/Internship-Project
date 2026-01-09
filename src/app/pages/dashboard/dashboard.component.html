@@ -22,12 +22,12 @@
       <mat-icon class="ml-6 text-[20px]">work</mat-icon>Employees
     </a>
 
-    <a routerLink="leaves" routerLinkActive="bg-blue-700"
+    <a *ngIf="userService.isAdmin()"    routerLink="leaves" routerLinkActive="bg-blue-700"
       class="dashboard-btn flex items-center gap-2">
       <mat-icon class="ml-6 text-[20px]">airplane_ticket</mat-icon>Leave Allowance
     </a>
 
-    <a routerLink="fields" routerLinkActive="bg-blue-700"
+    <a *ngIf="userService.isAdmin()" routerLink="fields" routerLinkActive="bg-blue-700"
       class="dashboard-btn flex items-center gap-2">
       <mat-icon class="ml-6 text-[20px]">add</mat-icon>Add Fields
     </a>

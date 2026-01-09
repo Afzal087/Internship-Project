@@ -36,6 +36,24 @@ export class UserService {
     sessionStorage.setItem('loggedIn', status ? 'true' : 'false');
   }
 
+  setSessionData(role: string, userId: string) {
+    console.log('Setting session data:', { role, userId }); 
+    sessionStorage.setItem('role', role);
+    sessionStorage.setItem('userId', userId);
+  }
+
+
+
+  getRole(): string | null {  
+    return sessionStorage.getItem('role')
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'ADMIN';
+  }
+
+  
+
   logout() {
     this.setLoginStatus(false);
   } 

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { error } from 'console';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogService } from '../../dialog-box/dialog-service.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -32,10 +33,12 @@ export class LoginComponent {
         this.dialog.show('Password must be at least 8 characters long');
       }
     } else {
+
       this.userService.login(this.email, this.password).subscribe({
-        next: (success) => {
+        next: (success:any) => {
           if (success) {
-            console.log(' Login successful');
+            this.userService.setSessionData(success.role, success.userId);
+            console.log(success);
             this.userService.setLoginStatus(true);
             this.router.navigate(['dashboard']);
             
@@ -44,6 +47,7 @@ export class LoginComponent {
             this.userService.setLoginStatus(false);
           }
         },
+        
         error: (err) => {
           if (err.status === 401) {
             this.dialog.show(' ' + err.error.message);

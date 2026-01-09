@@ -7,6 +7,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
 import { OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -17,7 +18,8 @@ import { MatIcon } from '@angular/material/icon';
 export class EmployeeListComponent implements OnInit {
   constructor(
     private router: Router,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    public userService: UserService
   ) {}
 
   allEmployee: Employee[] = []

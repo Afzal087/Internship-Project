@@ -29,7 +29,7 @@ import { ManageLeaveComponent } from '../../manage-leave/manage-leave.component'
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  constructor(private dialog: DialogService, private userService: UserService ,private employeeService : EmployeeService,private service: AssignmentService, private router : Router){}
+  constructor(private dialog: DialogService, public userService: UserService ,private employeeService : EmployeeService,private service: AssignmentService, private router : Router){}
 
   activeComponents : string  = 'home';
 

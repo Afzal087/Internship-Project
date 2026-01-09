@@ -136,10 +136,6 @@ export class EmployeeViewComponent implements OnInit {
     this.getEmployee();
   }
 
-
-
-
-
   getEmployee() {
     this.activatedRoute.paramMap.subscribe((params) => {
       const idString = params.get('employeeId');

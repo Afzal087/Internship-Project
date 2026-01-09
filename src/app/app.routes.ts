@@ -29,7 +29,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    
+    canActivate: [AuthGuard], 
     children: [
       { path: 'home', component: HomeComponent },
       {path: 'leaves', component: ManageLeaveComponent},

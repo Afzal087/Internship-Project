@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LeaveRequest, UnifiedAllLeaves } from '../models/employee.model';
+import { LeaveBalance, LeaveRequest, UnifiedAllLeaves } from '../models/employee.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,18 +11,11 @@ export class LeaveService {
   constructor(private http:HttpClient) { }
 
   submitLTARequest(LeaveData:LeaveRequest, employeeId: number): Observable<LeaveRequest>{
-    alert("This is LTA Submission");
-    console.log(LeaveData);
     return this.http.post<LeaveRequest>(`${this.apiUrl}/lta/${employeeId}`, LeaveData);
   }
   submitLeaveRequest(LeaveData:LeaveRequest, employeeId: number): Observable<LeaveRequest>{
-    alert("This is Leave Submission");
-    console.log(LeaveData);
     return this.http.post<LeaveRequest>(`${this.apiUrl}/${employeeId}`, LeaveData);
   }
-
-
-
 
   getAll(): Observable<UnifiedAllLeaves[]>{
     return this.http.get<UnifiedAllLeaves[]>(`${this.apiUrl}/all`);
@@ -30,6 +23,9 @@ export class LeaveService {
 
   setStatus(leaveId: number, status: string): Observable<LeaveRequest>{
     return this.http.patch<LeaveRequest>(`${this.apiUrl}/status/${leaveId}/${status}`, {});
+  }
+  getLeaveBalance(employeeId: number): Observable<LeaveBalance>{
+    return this.http.get<LeaveBalance>(`${this.apiUrl}/balance/${employeeId}`);
   }
 
 
