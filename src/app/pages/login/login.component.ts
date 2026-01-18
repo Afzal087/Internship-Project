@@ -35,17 +35,10 @@ export class LoginComponent {
     } else {
 
       this.userService.login(this.email, this.password).subscribe({
-        next: (success:any) => {
-          if (success) {
-            this.userService.setSessionData(success.role, success.userId);
-            console.log(success);
-            this.userService.setLoginStatus(true);
-            this.router.navigate(['dashboard']);
-            
-          } else {
-            console.log('Invalid credentials');
-            this.userService.setLoginStatus(false);
-          }
+        next: (res:any) => {
+          this.userService.saveAuth(res.token, res.role);
+          console.log(res.role, res.token);
+          this.router.navigate(['/dashboard']);
         },
         
         error: (err) => {

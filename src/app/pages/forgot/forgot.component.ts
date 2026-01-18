@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Routes } from '@angular/router';
-import { forgotService } from '../../services/forgot.service';
+import { ForgotService } from '../../services/forgot.service';
 import { Router } from '@angular/router';
 import { DialogService } from '../../dialog-box/dialog-service.service';
 
@@ -22,7 +22,7 @@ export class ForgotComponent {
   message = '';
   step: number = 1; // 1 = Email, 2 = OTP, 3 = Change Password
 
-  constructor(private dialog: DialogService , private forgotService: forgotService,private router: Router ) {}
+  constructor(private dialog: DialogService , private forgotService: ForgotService ,private router: Router ) {}
 
   // Step 1: Send OTP
   sendOtp() {

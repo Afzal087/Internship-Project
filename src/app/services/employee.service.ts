@@ -34,23 +34,29 @@ export class EmployeeService implements OnInit {
   }
 
   getJoiningDate(employeeId: number): boolean {
-    const employee = this.allEmployee.find(
-      (emp) => emp.employeeId === employeeId
-    );
-    console.log('Employee found for LTA check:', employee);
-    if (employee) {
-      const currentDate = new Date();
-      const joiningDateObj = new Date(employee.dateOfJoining!);
-      if (
-        currentDate.getFullYear() - joiningDateObj.getFullYear() >= 3 &&
-        currentDate.getMonth() >= joiningDateObj.getMonth() &&
-        currentDate.getDate() >= joiningDateObj.getDate()
-      ) { return true} 
-      else {return false}
-    } 
-    else return false;
-    
+  const employee = this.allEmployee.find(
+    emp => emp.employeeId === employeeId
+  );
+
+  if (!employee || !employee.dateOfJoining) {
+    return false;
   }
+
+  const currentDate = new Date();
+  const joiningDateObj = new Date(employee.dateOfJoining);
+
+  const yearsDiff = currentDate.getFullYear() - joiningDateObj.getFullYear();
+
+  return (
+    yearsDiff > 3 ||
+    (
+      yearsDiff === 3 &&
+      currentDate.getMonth() >= joiningDateObj.getMonth() &&
+      currentDate.getDate() >= joiningDateObj.getDate()
+    )
+  );
+}
+
 
   getEmployee(): Observable<Employee[]>  {
    return  this.http.get<Employee[]>(this.apiUrl).pipe(

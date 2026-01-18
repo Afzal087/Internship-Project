@@ -11,12 +11,13 @@ export class AuthGuard implements CanActivate {
   constructor(private dialog: DialogService, private userService: UserService, private router: Router) {}
 
   canActivate(): boolean {
-  if (this.userService.isLoggedIn()) {
-    return true;
+  const loggedIn = this.userService.isLoggedIn();
+  console.log('AuthGuard - isLoggedIn:', loggedIn);
+  if (loggedIn) {
+      return true;
   }
-
   this.dialog.show('Access denied. Please login first.');
-  this.router.navigate(['/login']);
-  return false;
+    this.router.navigate(['/login']);
+    return false;
 }
 }

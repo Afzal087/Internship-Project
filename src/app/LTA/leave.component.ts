@@ -49,12 +49,11 @@ export class LeaveComponent {
     status: 'PENDING',
     familyMembers: [],
   };
+
   userTenureYears: boolean = false;
 
   getLTAEligibilityYears() {
-    const isEligible = this.employeeService.getJoiningDate(
-      this.leaveData.employeeId
-    );
+    const isEligible = this.employeeService.getJoiningDate(this.leaveData.employeeId);
     if (isEligible) {
       this.userTenureYears = true;
     } else {
