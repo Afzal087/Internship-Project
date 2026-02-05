@@ -8,9 +8,6 @@ import { EmployeeComponent } from '../../employee/employee.component';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';  
 import { HomeComponent } from '../../home/home.component';
-
-
-
 import { EmployeeListComponent } from '../../employee/employee-list/employee-list.component';
 import { FieldsComponent } from '../../fields/fields.component';
 import { AssignmentService } from '../../services/assignment.service';
@@ -18,6 +15,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { DialogService } from '../../dialog-box/dialog-service.service';
 import { LeaveComponent } from '../../LTA/leave.component';
 import { ManageLeaveComponent } from '../../manage-leave/manage-leave.component';
+import { AdminComponent } from '../../features/rbac/admin/admin.component';
 
 
 
@@ -40,6 +38,7 @@ export class DashboardComponent implements OnInit {
       fields : FieldsComponent,
       leave : LeaveComponent,
       leaves: ManageLeaveComponent,
+      admin : AdminComponent
   };
 
 

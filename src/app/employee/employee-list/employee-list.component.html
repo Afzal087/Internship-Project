@@ -20,7 +20,7 @@
         Today- <span>{{0}}</span>
       </p>
     </div>
-    <div *ngIf="userService.isAdmin()"  (click)="addEmployee()" class="showcards flex justify-center items-start bg-green-100 text text-green-700 border-l-[0px] border-b-[6px] border-green-500 hover:bg-white hover:text-green-700 hover:border-green-300 hover:border-[2px] ">
+    <div   (click)="addEmployee()" class="showcards flex justify-center items-start bg-green-100 text text-green-700 border-l-[0px] border-b-[6px] border-green-500 hover:bg-white hover:text-green-700 hover:border-green-300 hover:border-[2px] ">
       <p>
         Add a new<br>Employee 
       </p>
@@ -79,7 +79,7 @@
         <mat-icon>download</mat-icon>
       </button>
 
-      <button *ngIf="userService.isAdmin()" (click)="promote(emp.employeeId!)" title="Promote"
+      <button  (click)="promote(emp.employeeId!)" title="Promote"
         class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
         <mat-icon>stars</mat-icon>
       </button>
@@ -89,7 +89,7 @@
         <mat-icon>airplane_ticket</mat-icon>
       </button>
 
-      <button *ngIf="userService.isAdmin()" (click)="onDelete(emp.employeeId!)" title="Delete"
+      <button  (click)="onDelete(emp.employeeId!)" title="Delete"
         class="flex items-center justify-center w-10 h-10 text-red-500 hover:bg-red-50 transition-colors">
         <mat-icon>delete_outline</mat-icon>
       </button>

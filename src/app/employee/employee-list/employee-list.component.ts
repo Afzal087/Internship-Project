@@ -43,12 +43,12 @@ export class EmployeeListComponent implements OnInit {
 
 
   promote(employeeId: number){
-    this.router.navigate(['/dashboard/employees/promotion/',employeeId]);
+    this.router.navigate(['/dashboard/employees/promotion',employeeId]);
   }
 
-  onEdit(employeeId: number){
-    this.router.navigate(['/employees/view/',employeeId]);
-  }
+  // onEdit(employeeId: number){
+  //   this.router.navigate(['/employees/view/',employeeId]);
+  // }
 
 
   downloadReport(employeeId: number) {

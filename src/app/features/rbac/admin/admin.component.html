@@ -1,0 +1,146 @@
+<div class="flex h-screen bg-gray-100 font-sans overflow-hidden">
+
+  <aside class="w-72 bg-slate-900 text-gray-300 flex flex-col shadow-2xl z-20 shrink-0 transition-all duration-300">
+    <div class="h-16 flex items-center px-6 bg-slate-950 font-bold text-xl text-white tracking-wider">
+      <span class="text-blue-500 mr-2">🛡️</span> RBAC Admin
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+      <a href="javascript:void(0)" class="flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg shadow-md transition-colors relative group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" /></svg>
+        <span class="font-medium">Permission Matrix</span>
+      </a>
+      </nav>
+
+    <div class="p-4 bg-slate-950 flex items-center">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">
+        {{ userEmail ? userEmail.substring(0,2).toUpperCase() : 'U' }}
+      </div>
+      <div class="ml-3">
+        <p class="text-sm font-medium text-white">Logged In User</p>
+        <p class="text-xs text-gray-500">{{ userEmail }}</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+    <header class="h-16 bg-white shadow-sm border-b border-gray-200 flex items-center justify-between px-8 shrink-0 z-10">
+      <h1 class="text-xl font-bold text-gray-800">Access Control Dashboard</h1>
+      <div class="flex items-center space-x-2">
+        @for (role of currentRoles; track $index) {
+          <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-bold">{{ role }}</span>
+        }
+      </div>
+    </header>
+
+    <div class="flex-1 overflow-y-auto p-8 space-y-12">
+      <section class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+        <div class="p-6 border-b border-gray-200 bg-gray-50">
+          <h2 class="text-lg font-bold text-gray-900">Role-Permission Mapping Matrix</h2>
+        </div>
+        
+        <div class="overflow-x-auto max-h-[600px]">
+          <table class="w-full text-left border-collapse relative">
+            <thead>
+              <tr>
+                <th class="sticky left-0 top-0 z-20 bg-gray-100 p-4 border-b border-r border-gray-300 text-xs font-bold text-gray-700 uppercase">
+                  Permissions \ Roles
+                </th>
+                @for (role of allRoles; track role.roleId) {
+                  <th class="sticky top-0 z-10 bg-gray-100 p-4 border-b border-gray-300 text-center text-xs font-bold text-gray-700 uppercase min-w-[120px]">
+                    <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-full">{{ role.role }}</span>
+                  </th>
+                }
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              @for (perm of allPermission; track perm.permissionId) {
+                <tr class="hover:bg-blue-50 transition-colors group">
+                  <td class="sticky left-0 z-10 bg-white group-hover:bg-blue-50 p-4 border-r border-gray-200 font-medium text-gray-800 text-sm">
+                    {{ perm.permission }}
+                  </td>
+                  @for (role of allRoles; track role.roleId) {
+                    <td class="p-4 text-center">
+                      <label class="inline-flex items-center justify-center cursor-pointer">
+                        <input type="checkbox" class="peer sr-only">
+                        <div class="h-6 w-6 border-2 border-gray-300 rounded-md peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all flex items-center justify-center">
+                          <svg class="w-4 h-4 text-white scale-0 peer-checked:scale-100 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        </div>
+                      </label>
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-1">User Role Assignments</h2>
+<div class="mb-8 pb-6 border-b border-gray-100">
+  <label class="block text-sm font-medium text-gray-700 mb-2">Select Employee to Manage</label>
+  <select 
+    (change)="onUserSelected($any($event.target).value)"
+    class="block w-full pl-4 pr-10 py-3 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    
+    <option value="" disabled selected>Choose an employee...</option>
+    
+    @for (user of allUsers; track user.userId) {
+      <option [value]="user.userId">
+        {{ user.name }}
+      </option>
+    }
+  </select>
+</div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          
+          <div class="flex flex-col h-[400px] border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-inner">
+            <div class="p-4 bg-gray-100 border-b border-gray-200 flex justify-between items-center">
+               <h3 class="font-bold text-gray-700">Available Roles</h3>
+               <span class="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">{{ allRoles.length }} items</span>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-3">
+              @for (role of allRoles; track role.roleId) {
+                <div class="flex justify-between items-center p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:border-blue-400 cursor-pointer transition-all">
+                  <div>
+                    <span class="font-medium text-gray-800">{{ role.role }}</span>
+                  </div>
+                  <button  (click)="assignRole(role.roleId)" class="p-2 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="flex flex-col h-[400px] border border-blue-200 rounded-xl overflow-hidden bg-blue-50/50 shadow-inner">
+             <div class="p-4 bg-blue-100 border-b border-blue-200 flex justify-between items-center">
+               <h3 class="font-bold text-blue-800">Your Assigned Roles</h3>
+               <span class="text-xs bg-blue-200 text-blue-700 px-2 py-1 rounded-full">{{ currentRoles.length }} items</span>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-3">
+              @for (role of assignedRoles; track $index) {
+                <div class="flex justify-between items-center p-4 bg-white rounded-lg border border-blue-200 shadow-sm hover:border-red-400 transition-all">
+                  <div>
+                    <span class="font-medium text-blue-900">{{role.role}}</span>
+                  </div>
+                  <button (change)="assignRole(role.roleId)" class="p-2 bg-red-50 text-red-500 rounded-full hover:bg-red-600 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                </div>
+              }
+              @if (currentRoles.length === 0) {
+                <p class="p-8 text-center text-gray-400 italic">No roles assigned yet.</p>
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+      
+       <footer class="text-center text-sm text-gray-500 pb-8">
+         © 2026 Agray Infosolutions. Employee Management System Admin Panel.
+      </footer>
+    </div> 
+  </main>
+</div>

@@ -6,10 +6,12 @@ import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../models/employee.model';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { RouterModule , Router } from '@angular/router';
+
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [MatIconModule, FormsModule, CommonModule,MatMenuModule],
+  imports: [MatIconModule, FormsModule, CommonModule,MatMenuModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -22,13 +24,18 @@ export class HeaderComponent implements OnInit {
 
   searchKeyword: string = '';
   
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService , private router : Router) {}
+
 
   ngOnInit(): void {
     this.employeeService.getEmployee().subscribe((data: Employee[]) => {
       this.employees = data;
       this.getDOB();
     });
+  } 
+
+  isAdmin(){
+    this.router.navigate(['/admin']);
   }
 
   getDOB() {

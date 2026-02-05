@@ -7,6 +7,7 @@ import { error } from 'console';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogService } from '../../dialog-box/dialog-service.service';
 import { response } from 'express';
+import { LoginResponse } from '../../models/loginResponse';
 
 @Component({
   selector: 'app-login',
@@ -35,9 +36,8 @@ export class LoginComponent {
     } else {
 
       this.userService.login(this.email, this.password).subscribe({
-        next: (res:any) => {
-          this.userService.saveAuth(res.token, res.role);
-          console.log(res.role, res.token);
+        next: (res:LoginResponse) => {
+          this.userService.saveAuth(res);
           this.router.navigate(['/dashboard']);
         },
         
