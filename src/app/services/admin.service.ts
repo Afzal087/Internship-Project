@@ -38,9 +38,7 @@ export class AdminService {
     }
 
     assignRole(userRole : UserRole){
-      return this.http.post(`${this.apiUrl}/auth/user-role/assign-role`,userRole).subscribe((res)=>{
-        console.log(res);
-      });
+      return this.http.post(`${this.apiUrl}/auth/user-role/assign-role`,userRole)
     }
 
     getRolesByUserId(userId : any):Observable<Role[]>{
@@ -49,6 +47,11 @@ export class AdminService {
 
     getAllPermissions():Observable<Permission[]>{
       return this.http.get<Permission[]>(`${this.apiUrl}/auth/permission/all-permission`);
+    }
+
+    deleteUserRole(userRole : UserRole){
+      console.log("These are the ids for Deleteion", userRole)
+      return this.http.delete(`${this.apiUrl}/auth/user-role/delete-assignment/userid/${userRole.userId}/roleid/${userRole.roleId}`)
     }
     
 
