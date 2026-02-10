@@ -5,4 +5,5 @@ export interface LoginResponse {
   userId: number;
   email: string;
   roles: Role[];
+  authorities : string[]
 }

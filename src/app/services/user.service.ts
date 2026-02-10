@@ -6,15 +6,22 @@ import { environment } from '../../environment/environment';
 import { LoginResponse } from '../models/loginResponse';
 import { Role } from '../models/role.model';
 import { Permission } from '../models/permission.model';
+import { json } from 'node:stream/consumers';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    
+    const saveAuth = localStorage.getItem('authorities')
+    if(saveAuth){
+      this.authorities = JSON.parse(saveAuth)
+      const saved = JSON.parse(saveAuth)
+      this.authoritiesSubject.next(saved)
+    }
     const savedUserId = localStorage.getItem('userId');
     const savedUserRole = localStorage.getItem('userRoles');
+
   if (savedUserId) {
     console.log("Re-syncing permissions for existing session...");
     this.getAllPermissionByUserId(savedUserId);
@@ -27,7 +34,12 @@ export class UserService {
 
   }
    }
+   
 
+  hasAuthority(perm:string):boolean{
+    return this.authorities.includes(perm)
+  }
+   
 
   //Fetched Roles for DOM Control
   private allRoles: Role[] = [];
@@ -36,13 +48,16 @@ export class UserService {
 
   //Fetched Permissions for DOM Control
   private allPermissions: Permission[] = [];
-
-  
   private permissionSubject = new BehaviorSubject<Permission[]>([])
   public permission$ = this.permissionSubject.asObservable();
 
   
+  private authorities: string[] = [];
+  private authoritiesSubject = new BehaviorSubject<string[]>([]);
+  public authorities$ = this.authoritiesSubject.asObservable();
 
+  
+ 
 
   register(userDetails: User) {
     return this.http.post<User>(`${this.apiUrl}/register`, userDetails);
@@ -57,6 +72,10 @@ export class UserService {
     localStorage.setItem('userId', String(res.userId));
     localStorage.setItem('email',res.email)
     localStorage.setItem('userRoles', JSON.stringify(res.roles));
+    const perms = res.authorities || []
+    localStorage.setItem('authorities',JSON.stringify(res.authorities))
+    console.log("authorities", res.authorities )
+    this.authoritiesSubject.next(perms)
     this.setRoles(res.roles);
   }
 
@@ -80,10 +99,6 @@ export class UserService {
       error: (err) => console.error('Failed to fetch permissions', err)
     });
   }
-
-  
-
-
 
   getToken(): string | null {
     return localStorage.getItem('token');

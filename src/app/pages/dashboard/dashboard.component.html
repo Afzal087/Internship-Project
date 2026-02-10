@@ -17,17 +17,17 @@
       <mat-icon class="ml-6 text-[20px]">home</mat-icon>Home
     </a>
 
-    <a routerLink="employees" routerLinkActive="bg-blue-700"
+    <a *appHasPermission="'READ'" routerLink="employees" routerLinkActive="bg-blue-700"
       class="dashboard-btn flex items-center gap-2">
       <mat-icon class="ml-6 text-[20px]">work</mat-icon>Employees
     </a>
 
-    <a     routerLink="leaves" routerLinkActive="bg-blue-700"
+    <a  *appHasPermission="'Leave_Approve'"    routerLink="leaves" routerLinkActive="bg-blue-700"
       class="dashboard-btn flex items-center gap-2">
       <mat-icon class="ml-6 text-[20px]">airplane_ticket</mat-icon>Leave Allowance
     </a>
 
-    <a  routerLink="fields" routerLinkActive="bg-blue-700"
+    <a *appHasPermission="'Admin_Access'"  routerLink="fields" routerLinkActive="bg-blue-700"
       class="dashboard-btn flex items-center gap-2">
       <mat-icon class="ml-6 text-[20px]">add</mat-icon>Add Fields
     </a>

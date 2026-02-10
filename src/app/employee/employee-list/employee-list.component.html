@@ -69,17 +69,17 @@
   <td class="p-4">
     <div class="flex items-center justify-center border border-slate-200 rounded-lg overflow-hidden w-fit mx-auto shadow-sm bg-white">
       
-      <button  (click)="onView(emp.employeeId!)" title="Edit"
+      <button   (click)="onView(emp.employeeId!)" title="Edit"
         class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button  (click)="downloadReport(emp.employeeId!)" title="Download Report"
+      <button *appHasPermission="'READ'" (click)="downloadReport(emp.employeeId!)" title="Download Report"
         class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
         <mat-icon>download</mat-icon>
       </button>
 
-      <button  (click)="promote(emp.employeeId!)" title="Promote"
+      <button *appHasPermission="'Admin_Access'"  (click)="promote(emp.employeeId!)" title="Promote"
         class="flex items-center justify-center w-10 h-10 text-slate-600 hover:bg-slate-100 border-r border-slate-200 transition-colors">
         <mat-icon>stars</mat-icon>
       </button>
@@ -89,7 +89,7 @@
         <mat-icon>airplane_ticket</mat-icon>
       </button>
 
-      <button  (click)="onDelete(emp.employeeId!)" title="Delete"
+      <button  *appHasPermission="'Admin_Access'"  (click)="onDelete(emp.employeeId!)" title="Delete"
         class="flex items-center justify-center w-10 h-10 text-red-500 hover:bg-red-50 transition-colors">
         <mat-icon>delete_outline</mat-icon>
       </button>

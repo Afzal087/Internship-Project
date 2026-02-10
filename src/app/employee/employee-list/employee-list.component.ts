@@ -8,10 +8,11 @@ import { Employee } from '../../models/employee.model';
 import { OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { UserService } from '../../services/user.service';
+import { HasPermissionDirective } from '../../has-permission.directive';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [FormsModule, CommonModule, MatIcon],
+  imports: [FormsModule, CommonModule, MatIcon, HasPermissionDirective],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })

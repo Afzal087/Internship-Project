@@ -16,13 +16,15 @@ import { DialogService } from '../../dialog-box/dialog-service.service';
 import { LeaveComponent } from '../../LTA/leave.component';
 import { ManageLeaveComponent } from '../../manage-leave/manage-leave.component';
 import { AdminComponent } from '../../features/rbac/admin/admin.component';
+import { HasPermissionDirective } from '../../has-permission.directive';
+
 
 
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule , MatIconModule, RouterLink, RouterOutlet, HeaderComponent],
+  imports: [CommonModule , MatIconModule, RouterLink, RouterOutlet, HeaderComponent, HasPermissionDirective ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

@@ -1,0 +1,110 @@
+<div class="flex h-[calc(100vh-64px)] bg-[#F1F3F6] overflow-hidden" style="font-family: 'Roboto', sans-serif;">
+  
+  <aside class="w-96 bg-white border-r border-slate-200 flex flex-col shadow-sm z-20">
+    <div class="p-6 border-b border-slate-100 bg-white">
+      <div class="flex items-center justify-between mb-1.5">
+        <div class="flex items-center gap-2.5">
+          <div [class]="isEditing ? 'w-1.5 h-5 bg-indigo-600 rounded-full' : 'w-1.5 h-5 bg-amber-500 rounded-full'"></div>
+          <h2 class="text-base font-bold text-slate-800 tracking-tight">
+            {{ isEditing ? 'Update Authority' : 'Role Authority' }}
+          </h2>
+        </div>
+        <button *ngIf="isEditing" (click)="resetForm()" class="text-[10px] font-bold text-red-500 hover:underline uppercase">Cancel Edit</button>
+      </div>
+      <p class="text-xs text-slate-500 leading-normal">
+        {{ isEditing ? 'Modifying permissions for ' + editRoleName : 'Define and configure system-wide roles.' }}
+      </p>
+    </div>
+
+    <div class="flex-1 overflow-y-auto bg-slate-50/30 p-6 space-y-7">
+      <div class="space-y-2">
+        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-0.5">Role Designation</label>
+        <input 
+          [(ngModel)]="newRoleName" 
+          name="roleName" 
+          type="text" 
+          class="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-[15px] font-mono font-bold text-indigo-700 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none uppercase transition-all shadow-sm">
+      </div>
+
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-0.5">Permissions (Add/Remove)</label>
+          <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
+            {{ selectedPermIds.length }} Active
+          </span>
+        </div>
+        
+        <div class="space-y-2 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+          @for (perm of allPermissions; track perm.permissionId) {
+            <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:border-indigo-300 hover:bg-indigo-50/50 transition-all group">
+              <input type="checkbox" 
+                     (change)="togglePermission(perm.permissionId)"
+                     [checked]="selectedPermIds.includes(perm.permissionId)"
+                     class="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+              <span class="ml-3 text-xs font-bold text-slate-600 uppercase group-hover:text-indigo-700 transition-colors">
+                {{ perm.permission }}
+              </span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <button 
+        (click)="isEditing ? updateRole() : saveRole()" 
+        [disabled]="!newRoleName || selectedPermIds.length === 0"
+        [class]="isEditing ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-[#FF9800] hover:bg-[#F57C00]'"
+        class="w-full py-3.5 text-white rounded-lg text-sm font-bold tracking-wider transition-all shadow-md active:scale-[0.98] disabled:opacity-40 disabled:grayscale uppercase">
+        {{ isEditing ? 'Update Role Authority' : 'Commit New Role' }}
+      </button>
+    </div>
+  </aside>
+
+  <main class="flex-1 flex flex-col min-w-0 bg-[#F8FAFC]">
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-10">
+      <h1 class="text-lg font-bold text-slate-800 tracking-tight">Role Registry</h1>
+      <div class="relative">
+        <input type="text" placeholder="Search roles..." class="pl-9 pr-4 py-2 bg-slate-100 border border-transparent focus:bg-white focus:border-indigo-500 rounded-lg text-xs w-64 outline-none transition-all">
+        <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      </div>
+    </header>
+
+    <div class="p-8 overflow-y-auto">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200">
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">ID</th>
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Role Name</th>
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            @for (role of allRoles; track role.roleId) {
+              <tr [class.bg-indigo-50]="editRoleId === role.roleId" class="hover:bg-slate-50 transition-all group">
+                <td class="px-8 py-5 text-sm font-medium text-slate-400">#{{ role.roleId }}</td>
+                <td class="px-8 py-5">
+                  <span class="text-sm font-mono font-bold text-indigo-700 bg-indigo-50/40 px-2 py-1 rounded border border-indigo-100">
+                    {{ role.role }}
+                  </span>
+                </td>
+                <td class="px-8 py-5 text-right space-x-2">
+                  <button (click)="onPrepareUpdate(role)" 
+                    class="text-indigo-400 hover:text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </button>
+                  <button class="text-slate-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>

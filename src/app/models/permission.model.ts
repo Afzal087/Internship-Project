@@ -1,4 +1,4 @@
 export interface Permission {
-    permissionId: number,
+    permissionId: string,
     permission: string
 }

@@ -1,0 +1,104 @@
+<div class="flex h-[calc(100vh-64px)] bg-[#F1F3F6] overflow-hidden" style="font-family: 'Roboto', sans-serif;">
+  
+  <aside class="w-80 bg-white border-r border-slate-200 flex flex-col shadow-sm z-20">
+    <div class="p-6 border-b border-slate-100 bg-white">
+      <div class="flex items-center gap-2.5 mb-1.5">
+        <div class="w-1.5 h-5 bg-amber-500 rounded-full"></div>
+        <h2 class="text-base font-bold text-slate-800 tracking-tight">System Security</h2>
+      </div>
+      <p class="text-xs text-slate-500 leading-normal">Register granular access keys for the RBAC engine.</p>
+    </div>
+
+    <div class="p-6 space-y-6 flex-1 bg-slate-50/30">
+      <div class="space-y-2">
+        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-0.5">Permission Key</label>
+        <div class="relative">
+          <input 
+            [(ngModel)]="perm.permission" 
+            name="permissionName" 
+            type="text" 
+            placeholder="E.G. USER_WRITE" 
+            class="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-[15px] font-mono font-bold text-indigo-700 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all shadow-sm placeholder:font-sans placeholder:font-normal uppercase">
+        </div>
+      </div>
+
+      <button 
+        (click)="savePermission()" 
+        [disabled]="!perm.permission"
+        class="w-full py-3 bg-[#FF9800] hover:bg-[#F57C00] text-white rounded-lg text-sm font-bold tracking-wider transition-all shadow-md shadow-amber-100 active:scale-[0.98] disabled:opacity-40 disabled:grayscale uppercase">
+        Create Permission
+      </button>
+    </div>
+
+    <div class="p-6 border-t border-slate-100 bg-white">
+      <div class="p-4 bg-indigo-50/50 rounded-xl border border-indigo-100/50">
+        <p class="text-xs text-indigo-600/80 leading-relaxed font-medium">
+          Keys added here are automatically indexed and available for Role Mapping.
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 flex flex-col min-w-0 bg-[#F8FAFC]">
+    
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-10">
+      <div class="flex items-center gap-3">
+        <h1 class="text-lg font-bold text-slate-800 tracking-tight">Access Registry</h1>
+        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded border border-indigo-100 uppercase">
+          {{ permissionsList.length }} Keys
+        </span>
+      </div>
+      
+      <div class="relative">
+        <input type="text" placeholder="Quick filter..." 
+          class="pl-9 pr-4 py-2 bg-slate-100 border border-transparent focus:bg-white focus:border-amber-500 rounded-lg text-xs w-72 outline-none transition-all">
+        <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+    </header>
+
+    <div class="p-8 overflow-y-auto">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200">
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">ID</th>
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Permission Key</th>
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Security Status</th>
+              <th class="px-8 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr *ngFor="let p of permissionsList" class="hover:bg-amber-50/20 transition-all group">
+              <td class="px-8 py-5 text-sm font-medium text-slate-400">#{{ p.permissionId }}</td>
+              <td class="px-8 py-5">
+                <span class="text-sm font-mono font-bold text-indigo-700 bg-indigo-50/40 px-2 py-1 rounded border border-indigo-100">
+                  {{ p.permission }}
+                </span>
+              </td>
+              <td class="px-8 py-5">
+                <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-100">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-sm"></span>
+                  <span class="text-[10px] font-bold text-emerald-700 uppercase">Live</span>
+                </div>
+              </td>
+              <td class="px-8 py-5 text-right">
+                <button (click)="onDelete(p.permissionId)" 
+                  class="text-slate-300 hover:text-red-500 p-2 rounded-lg transition-all">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="permissionsList.length === 0" class="p-20 text-center">
+          <p class="text-sm text-slate-400 font-medium italic">Database entry not found. Create a permission to begin.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

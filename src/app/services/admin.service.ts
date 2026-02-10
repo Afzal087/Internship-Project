@@ -10,6 +10,7 @@ import { User } from '../models/user.model';
 import { UserRequest } from '../models/userRequest.model';
 import { ObjectEncodingOptions } from 'fs';
 import { UserRole } from '../models/UserRole.model';
+import { RoleMapping } from '../models/Role.Mapping';
 
 @Injectable({
   providedIn: 'root',
@@ -28,13 +29,29 @@ export class AdminService {
     }
 
 
+    mapRoleAndPermission(payload:RoleMapping):Observable<RoleMapping>{
+      return this.http.post<RoleMapping>(`${this.apiUrl}/auth/role/assign/permission/new`,payload)
+    }
 
-    addPermission(){}
+    addPermission(payload:Permission):Observable<string>{
+      return this.http.post(`${this.apiUrl}/auth/permission/add-permission`,payload,{
+          responseType : 'text'
+      })
+    }
+
+     deletePermission(id:string):Observable<any>{
+        return this.http.delete(`${this.apiUrl}/auth/permission/delete-permission/${id}`)
+    }
     addRole(){}
 
     getAllRoles():Observable<Role[]>{
       return this.http.get<Role[]>(`${this.apiUrl}/auth/role/all-role`);
                                                       
+    }
+
+    updateRole(payload: RoleMapping){
+      console.log("this is the structure ", payload)
+        return this.http.patch(`${this.apiUrl}/auth/role-permission/update-role-permissions`,payload)
     }
 
     assignRole(userRole : UserRole){
@@ -50,7 +67,6 @@ export class AdminService {
     }
 
     deleteUserRole(userRole : UserRole){
-      console.log("These are the ids for Deleteion", userRole)
       return this.http.delete(`${this.apiUrl}/auth/user-role/delete-assignment/userid/${userRole.userId}/roleid/${userRole.roleId}`)
     }
     
@@ -58,7 +74,7 @@ export class AdminService {
     assignPermissions(){}
     assignRoles(){}
 
-    deletePermission(){}
+   
     deleteRole(){}
 
     

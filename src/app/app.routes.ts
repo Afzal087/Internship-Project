@@ -17,6 +17,9 @@ import { PromotionComponent } from './employee/promotion/promotion.component';
 import { LeaveComponent } from './LTA/leave.component';
 import { ManageLeaveComponent } from './manage-leave/manage-leave.component';
 import { AdminComponent } from './features/rbac/admin/admin.component';
+import { AddRoleComponent } from './features/rbac/add-role/add-role.component';
+import { AddPermissionComponent } from './features/rbac/add-permission/add-permission.component';
+import { UserRoleComponent } from './features/rbac/user-role/user-role.component';
 
 
 export const routes: Routes = [
@@ -59,5 +62,17 @@ export const routes: Routes = [
       { path: '**', component: redirectGuard },
     ],
   },
-  { path : 'admin', component: AdminComponent},
+  { path : 'admin', 
+    component: UserRoleComponent,
+    children : [
+      { path: '', 
+        component: AdminComponent
+      },
+      {path : 'add-role', component: AddRoleComponent},
+      {path : 'add-permission', component : AddPermissionComponent},
+     
+    ]
+  },
 ];
+
+

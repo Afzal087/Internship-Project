@@ -7,11 +7,12 @@ import { Employee } from '../models/employee.model';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { RouterModule , Router } from '@angular/router';
+import { HasPermissionDirective } from '../has-permission.directive';
 
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [MatIconModule, FormsModule, CommonModule,MatMenuModule, RouterModule],
+  imports: [MatIconModule, FormsModule, CommonModule,MatMenuModule, RouterModule,HasPermissionDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

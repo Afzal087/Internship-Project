@@ -7,7 +7,7 @@ import { UserService } from '../../../services/user.service';
 import { Permission } from '../../../models/permission.model';
 import { Role } from '../../../models/role.model';
 import { AdminService } from '../../../services/admin.service';
-import { ResolveStart } from '@angular/router';
+import { ResolveStart, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { UserRequest } from '../../../models/userRequest.model';
 import { UserRole } from '../../../models/UserRole.model';
@@ -43,6 +43,7 @@ export class AdminComponent implements OnInit {
     roleId: '',
   };
 
+  // Define the view state
   ngOnInit(): void {
     this.loadAllPermissions();
     this.loadAllRoles();

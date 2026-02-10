@@ -57,7 +57,7 @@
     
 
     <!-- Users -->
-    <button class="p-2 rounded-full hover:bg-gray-100" (click)="isAdmin()">
+    <button *appHasPermission="'Admin_Access'" class="p-2 rounded-full hover:bg-gray-100" (click)="isAdmin()">
       <mat-icon>person</mat-icon>
     </button>
 
