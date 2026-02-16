@@ -77,6 +77,17 @@ updateRole() {
 }
 
 
+deleteRole(id:string){
+  this.adminService.deleteRole(id).subscribe({
+    next : (res)=>{
+        this.dialog.show(res)
+        this.loadAllRoles();
+    },
+    error :(err:HttpErrorResponse)=>{
+      this.dialog.show(err.message);
+    }
+  })
+}
   ngOnInit(): void {
     this.loadAllPermissions()
     this.loadAllRoles()
@@ -122,7 +133,8 @@ togglePermission(id: string) {
 
     this.adminService.mapRoleAndPermission(payload).subscribe({
       next : (res:any)=>{
-        console.log(res);
+        this.dialog.show(res)
+        this.loadAllRoles()
       },
       error : (err:HttpErrorResponse)=>{
         this.dialog.show(err.message)

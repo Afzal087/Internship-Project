@@ -49,10 +49,11 @@ export class AdminService {
                                                       
     }
 
-    updateRole(payload: RoleMapping){
-      console.log("this is the structure ", payload)
-        return this.http.patch(`${this.apiUrl}/auth/role-permission/update-role-permissions`,payload)
-    }
+   updateRole(payload: RoleMapping): Observable<string> {
+    return this.http.patch(`${this.apiUrl}/auth/role-permission/update-role-permissions`, payload, {
+        responseType: 'text' 
+    });
+}
 
     assignRole(userRole : UserRole){
       return this.http.post(`${this.apiUrl}/auth/user-role/assign-role`,userRole)
@@ -75,7 +76,12 @@ export class AdminService {
     assignRoles(){}
 
    
-    deleteRole(){}
+    deleteRole(id:string):Observable<string>{
+      console.log("recivevd", id)
+      return this.http.delete(`${this.apiUrl}/auth/role/delete-role/${id}`,{
+        responseType : 'text'
+      })
+    }
 
     
 }
